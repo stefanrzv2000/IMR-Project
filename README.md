@@ -15,4 +15,4 @@ VR Card Game with Hand Tracking from Google mediapipe
 7. In Configurations - Internet Access select Required
 8. Minimum API level - select at least level 20
 9. From player settings - Resolution and Presentation select Default Orientation = Landscape Left
-10. Download files from [HERE](https://drive.google.com/drive/folders/1VxySip6oIbc8r-wKr0a1e-31ek9ycdF7?usp=sharing)
+10. Download files from [HERE](https://drive.google.com/drive/folders/1VxySip6oIbc8r-wKr0a1e-31ek9ycdF7?usp=sharing) and put them in Assets/Plugins/Android
