@@ -5,6 +5,8 @@ VR Card Game with Hand Tracking from Google mediapipe
 
 [Diagrams](https://docs.google.com/document/d/1F_qM_PD-cV0l2FH6opfK4cXf99TEX4qFkmQRG7E9zBQ/edit?usp=sharing)
 
+[Demo Videos](https://drive.google.com/drive/folders/1oG69jceuNKmv3z9TqtxY999Bte_gYzq0?usp=sharing)
+
 ### Instructions
 1. Download or clone
 2. Switch platform to Andorid
