@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +10,9 @@ public class OnBoardMageTower : OnBoardBuilding
 
     public const int MAX_HP = 50;
 
-    public OnBoardMageTower(int owner)
+    public OnBoardMageTower(int owner, Board board)
     {
+        Board = board;
         DestructibleType = MAGE_TOWER;
 
         Tier = 0;
@@ -37,6 +38,12 @@ public class OnBoardMageTower : OnBoardBuilding
             ProjectY = +1.5f;
             ProjectX = -0.5f;
         }
+    
+        if (owner==1)
+            PhysicInstance = GameObject.Find("AllyMageTower");
+        else
+            PhysicInstance = GameObject.Find("EnemyMageTower");
+
     }
 
     public void Upgrade()

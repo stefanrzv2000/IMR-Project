@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ public class GameReferee : MonoBehaviour
 {
     public Board Board;
 
-    public Player[] Players;
+    private Player[] Players;
 
     public int GoldBonus;
     public int MaxManaBonus;
@@ -22,6 +22,7 @@ public class GameReferee : MonoBehaviour
     void Start()
     {
         Board = new Board();
+        Debug.Log("Direct mesajul");
 
         GoldBonus = 5;
         MaxManaBonus = 1;
@@ -30,18 +31,21 @@ public class GameReferee : MonoBehaviour
         Players = new Player[2];
         Players[0] = new Player(1, FIRE,  Board, true);
         Players[1] = new Player(2, WATER, Board, false);
+        Debug.Log("Direct mesajul");
 
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
         {
             GiveCardDragon(0);
             GiveCardDragon(1);
         }
+        Debug.Log("Direct mesajul");
 
         for (int i = 0; i < NR_CARD_SPELLS_START; i++)
         {
             GiveCardSpell(0);
             GiveCardSpell(1);
         }
+        Debug.Log("Direct mesajul");
     }
 
     void GiveCardDragon(int index)

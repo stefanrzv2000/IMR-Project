@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -21,6 +21,7 @@ public class OnBoardDragon : OnBoardDestructible
 
     public OnBoardDragon(Vector2Int targetPosition, Board board, CardDragon cardDragon)
     {
+        Board = board;
         DestructibleType = DRAGON;
 
         BoardY = targetPosition.y;
@@ -28,7 +29,6 @@ public class OnBoardDragon : OnBoardDestructible
         ProjectY = BoardY;
         ProjectX = BoardX;
 
-        Board = board;
 
         Health    = cardDragon.MaxHealth;
         MaxHealth = cardDragon.MaxHealth;

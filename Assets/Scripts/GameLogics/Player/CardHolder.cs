@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardHolder : MonoBehaviour
+public class CardHolder 
 {
     private const int MAX_CARDS = 10;
 

@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnBoardDestructible : MonoBehaviour
+public class OnBoardDestructible 
 {
     protected const int DESTRUCTIBLE = 0;
     protected const int DRAGON       = 1;
@@ -31,6 +31,8 @@ public class OnBoardDestructible : MonoBehaviour
 
     public string Name;
 
+    public GameObject PhysicInstance;
+
     public void ReceiveDamage(int attack)
     {
         Health -= attack;
@@ -39,7 +41,8 @@ public class OnBoardDestructible : MonoBehaviour
 
         Board.Destructables[BoardY, BoardX] = null;
         Alive = false;
-        Destroy(this);
+        GameObject.Destroy(PhysicInstance);
+        //Destroy(this);
     }
 
     public Vector2 GetProjection2D()

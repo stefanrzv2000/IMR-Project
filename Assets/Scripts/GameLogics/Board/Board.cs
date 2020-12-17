@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board 
 {
     public int Width = 6;
     public int Height = 6;
@@ -10,9 +10,13 @@ public class Board : MonoBehaviour
     public OnBoardDestructible[,] Destructables;
     public OnBoardBuilding[] Buildings;
 
+    public GameObject PhysicBoard;
+
     public Board()
     {
-        var onBoardOccupied = new OnBoardOccupied();
+        PhysicBoard = GameObject.Find("PhysicBoard");
+
+        var onBoardOccupied = new OnBoardOccupied(this);
 
         Destructables = new OnBoardDestructible[Height, Width];
         for (int y = 0; y < Height; y++)
@@ -26,14 +30,14 @@ public class Board : MonoBehaviour
             }
         }
 
-        var playerOneNest = new OnBoardNest(1);
-        var playerTwoNest = new OnBoardNest(2);
+        var playerOneNest = new OnBoardNest(1,this);
+        var playerTwoNest = new OnBoardNest(2, this);
 
-        var playerOneMageTower = new OnBoardMageTower(1);
-        var playerTwoMageTower = new OnBoardMageTower(2);
+        var playerOneMageTower = new OnBoardMageTower(1, this);
+        var playerTwoMageTower = new OnBoardMageTower(2, this);
 
-        var playerOneBarrack = new OnBoardBarrack(1);
-        var playerTwoBarrack = new OnBoardBarrack(2);
+        var playerOneBarrack = new OnBoardBarrack(1, this);
+        var playerTwoBarrack = new OnBoardBarrack(2, this);
 
         Destructables[0, 3] = playerTwoNest;
         Destructables[0, 4] = playerTwoNest;

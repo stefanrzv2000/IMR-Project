@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -6,8 +6,9 @@ using UnityEngine;
 public class OnBoardNest : OnBoardBuilding
 {
     private const int MAX_HP = 100;
-    public OnBoardNest(int owner)
+    public OnBoardNest(int owner, Board board)
     {
+        Board = board;
         DestructibleType = NEST;
 
         Owner = owner;
@@ -24,5 +25,12 @@ public class OnBoardNest : OnBoardBuilding
         {
             ProjectY = -0.5f;
         }
+        if (owner==1)
+            PhysicInstance = GameObject.Find("AllyNest");
+        else
+            PhysicInstance = GameObject.Find("EnemyNest");
+
+
+
     }
 }

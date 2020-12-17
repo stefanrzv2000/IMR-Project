@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -92,6 +92,8 @@ public class CardDragon : Card
                 ManaCost = 0;
                 break;
         }
+
+        //PhysicInstance = CardsGenerator.CreateCard(1, 0.1f, 270, FIRE, TANK);
     }
 
     public override void GoPlay(Vector2Int targetPosition)

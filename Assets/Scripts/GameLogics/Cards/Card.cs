@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Card : MonoBehaviour
+public abstract class Card  
 {
     public Board Board;
 
@@ -20,12 +20,13 @@ public abstract class Card : MonoBehaviour
     public const int EARTH = 2;
     public const int AIR = 3;
 
-    public const int TANK = 0;
-    public const int MELEE = 1;
-    public const int RANGER = 2;
-    public const int QUEEN = 3;
-    public const int PAWN = 4;
+    public const int PAWN = 0;
+    public const int TANK = 1;
+    public const int MELEE = 2;
+    public const int RANGER = 3;
+    public const int QUEEN = 4;
 
+    public GameObject PhysicInstance;
     public abstract void GoPlay(Vector2Int targetPosition);
 
     public bool CanBePlayed(int gold, int food, int mana)

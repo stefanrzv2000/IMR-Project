@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardSpellCreator : MonoBehaviour
+public class CardSpellCreator 
 {
     protected const int FIREBOLT_ID = 0;
     public static CardSpell GenerateCardSpell(int id, int owner)

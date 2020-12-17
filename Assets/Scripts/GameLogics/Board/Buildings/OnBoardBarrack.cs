@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +9,9 @@ public class OnBoardBarrack : OnBoardBuilding
 
     public const int MAX_HP = 50;
 
-    public OnBoardBarrack(int owner)
+    public OnBoardBarrack(int owner, Board board)
     {
+        Board = board;
         DestructibleType = BARRACK;
 
         Owner = owner;
@@ -31,6 +32,12 @@ public class OnBoardBarrack : OnBoardBuilding
             ProjectY = +1.5f;
             ProjectX = Board.Width - 1 + 0.5f;
         }
+        if (owner == 1)
+            PhysicInstance = GameObject.Find("AllyBarrack");
+        else
+            PhysicInstance = GameObject.Find("EnemyBarrack");
+    
+        
     }
     public void Upgrade()
     {
