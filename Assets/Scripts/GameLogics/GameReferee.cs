@@ -66,6 +66,7 @@ public class GameReferee : MonoBehaviour
 
         GiveCardDragon(index);
         GiveCardSpell(index);
+        Board.ResetTurn(Players[index].ID);
     }
     // Update is called once per frame
     void Update()
