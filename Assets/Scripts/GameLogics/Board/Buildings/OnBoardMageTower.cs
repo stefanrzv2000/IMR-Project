@@ -12,6 +12,8 @@ public class OnBoardMageTower : OnBoardBuilding
 
     public OnBoardMageTower(int owner)
     {
+        DestructibleType = MAGE_TOWER;
+
         Tier = 0;
         Owner = owner;
 

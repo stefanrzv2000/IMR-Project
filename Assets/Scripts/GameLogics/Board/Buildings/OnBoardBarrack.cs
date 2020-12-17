@@ -11,6 +11,8 @@ public class OnBoardBarrack : OnBoardBuilding
 
     public OnBoardBarrack(int owner)
     {
+        DestructibleType = BARRACK;
+
         Owner = owner;
 
         Tier = 0;

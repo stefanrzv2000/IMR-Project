@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class OnBoardDestructible : MonoBehaviour
 {
+    protected const int DESTRUCTIBLE = 0;
+    protected const int DRAGON       = 1;
+    protected const int OCCUPIED     = 2;
+    protected const int BUILDING     = 3;
+    protected const int NEST         = 4;
+    protected const int BARRACK      = 5;
+    protected const int MAGE_TOWER   = 6;
+
+    public int DestructibleType = DESTRUCTIBLE;
+
     public int BoardX;
     public int BoardY;
 

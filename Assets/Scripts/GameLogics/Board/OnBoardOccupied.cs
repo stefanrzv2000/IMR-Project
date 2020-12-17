@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class OnBoardOccupied : OnBoardDestructible
 {
-
+    public OnBoardOccupied()
+    {
+        DestructibleType = OCCUPIED;
+    }
 }

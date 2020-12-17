@@ -14,7 +14,7 @@ public class Board : MonoBehaviour
     {
         var onBoardOccupied = new OnBoardOccupied();
 
-        Destructables = new OnBoardDestructible[Width, Height];
+        Destructables = new OnBoardDestructible[Height, Width];
         for (int y = 0; y < Height; y++)
         {
             for (int x = 0; x < Width; x++)
@@ -63,5 +63,24 @@ public class Board : MonoBehaviour
         Buildings[3] = playerTwoNest;
         Buildings[4] = playerTwoBarrack;
         Buildings[5] = playerTwoMageTower;
+    }
+
+    public void ResetTurn(int owner)
+    {
+        for (int y = 1; y < Height-1; y++)
+        {
+            for (int x = 1; x < Width-1; x++)
+            {
+                if (Destructables[y, x] == null)
+                    continue;
+
+                if (Destructables[y, x].Owner == owner)
+                {
+                    OnBoardDragon dragon = (OnBoardDragon) Destructables[y, x];
+                    dragon.ResetTurn();
+                }
+
+            }
+        }
     }
 }

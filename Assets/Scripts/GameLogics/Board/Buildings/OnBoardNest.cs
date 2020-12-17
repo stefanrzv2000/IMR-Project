@@ -8,6 +8,8 @@ public class OnBoardNest : OnBoardBuilding
     private const int MAX_HP = 100;
     public OnBoardNest(int owner)
     {
+        DestructibleType = NEST;
+
         Owner = owner;
         Alive = true;
         MaxHealth = MAX_HP;
