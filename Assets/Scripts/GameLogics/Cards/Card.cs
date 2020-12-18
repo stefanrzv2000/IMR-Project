@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardType
+{
+    NONE,
+    DRAGON,
+    SPELL,
+}
+
 public abstract class Card  
 {
     public Board Board;
@@ -10,6 +17,8 @@ public abstract class Card
     public int GoldCost;
     public int FoodCost;
     public int ManaCost;
+
+    public CardType CardType = CardType.NONE;
 
     public int Owner;
     public string Name;

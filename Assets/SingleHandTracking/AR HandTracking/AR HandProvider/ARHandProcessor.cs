@@ -34,7 +34,7 @@ public class ARHandProcessor : MonoBehaviour
         //Debug.Log("Chiar ruleaza");
         if (GetComponent<ARFrameProcessor>().HandProcessor == null)
         {
-            Debug.Log("I'm outta here");
+            //Debug.Log("I'm outta here");
             //var x = (0, 0.1);
             if (TriHand.activeInHierarchy)
             {

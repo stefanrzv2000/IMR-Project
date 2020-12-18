@@ -23,10 +23,13 @@ public class ARFrameProcessor : MonoBehaviour {
     void Start() {
         Debug.Log("SOMETHING STARTED MOVING");
         BETA = (float)Screen.width / Screen.height;
-        handProcessor = new HandProcessor();
-
         webCamTexture = new WebCamTexture();
+        Debug.Log($"WEBCAMTXT {webCamTexture}");
         webCamTexture.Play();
+
+        handProcessor = new HandProcessor();
+        Debug.Log("SOMETHING STARTED MOVING");
+
     }
 
     unsafe void convertCPUImage() {
@@ -40,10 +43,10 @@ public class ARFrameProcessor : MonoBehaviour {
         //var image = (Texture2D)source.texture;
         var image = GetImage();
         //handProcessor.addFrameTexture(image);
-        Debug.Log(image);
-        Debug.Log(image.GetPixel(10, 10));
+        //Debug.Log(image);
+        //Debug.Log(image.GetPixel(10, 10));
 
-        Debug.Log($"Something else {image.width} {image.height}");
+        //Debug.Log($"Something else {image.width} {image.height}");
 
         if (float.IsNegativeInfinity(ALPHA))
         {
@@ -55,8 +58,8 @@ public class ARFrameProcessor : MonoBehaviour {
         if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft) imageRatio = -ALPHA * BETA;
         else imageRatio = (float)(BETA / ALPHA);
 
-        Debug.Log("screen");
-        Debug.Log(Screen.height.ToString() + " x " + Screen.width.ToString());
+        //Debug.Log("screen");
+        //Debug.Log(Screen.height.ToString() + " x " + Screen.width.ToString());
         /*
          * if landscape: 720 x 1439
          *           or  1080 x 2159
@@ -67,15 +70,15 @@ public class ARFrameProcessor : MonoBehaviour {
          */
 
 
-        Debug.Log("image");
-        Debug.Log(image.height.ToString() + " x " + image.width.ToString());
+        //Debug.Log("image");
+        //Debug.Log(image.height.ToString() + " x " + image.width.ToString());
         /*
          * if landscape: 480 x 640
          * else: 480 x 640
          */
 
-        Debug.Log("ratio");
-        Debug.Log(ALPHA.ToString() + " - " + BETA.ToString() + " - " + imageRatio.ToString());
+        //Debug.Log("ratio");
+        //Debug.Log(ALPHA.ToString() + " - " + BETA.ToString() + " - " + imageRatio.ToString());
         /*
          * 0.75 - 0.48  - 0.64  -- original
          * 0.75 - 2.074 - 2.765 -- swapped beta
@@ -107,8 +110,8 @@ public class ARFrameProcessor : MonoBehaviour {
         //m_Texture.LoadRawTextureData(buffer);
         //m_Texture.Apply();
         //buffer.Dispose();
-        Debug.Log("image");
-        Debug.Log(image);
+        //Debug.Log("image");
+        //Debug.Log(image);
 
         
 

@@ -20,13 +20,13 @@ public class Player
     public int MaxFood;
     public int MaxMana;
 
-    public Player(int id, int race, Board board, bool hisTurn)
+    public Player(int id, int race, Board board, bool hisTurn, CardsGenerator cardGen)
     {
         Race = race;
         ID = id;
         Board = board;
         HisTurn = hisTurn;
-        CardHolder = new CardHolder(id);
+        CardHolder = new CardHolder(id, cardGen);
 
         Gold = 0;
         Food = 2;

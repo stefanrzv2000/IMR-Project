@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardsGenerator : MonoBehaviour
+public class CardsGenerator
 {
-    public static GameObject cards;
-    public static Material[][] cards_material = new Material[4][];
+    private GameObject cards;
+    public Material[][] cards_material = new Material[4][];
+    public float width = 0.11f;
+    public float height = 0.07f;
+
+    public Transform cardHolder;
 
     private int FIRE = 0;
     private int WATER = 1;
@@ -17,17 +21,22 @@ public class CardsGenerator : MonoBehaviour
     private int RANGER = 2;
     private int QUEEN = 3;
     private int PAWN = 4;
-    void Start()
+
+    private bool done = false;
+
+    public CardsGenerator(GameObject cardPrefab)
     {
+        cards = cardPrefab;
+        cardHolder = GameObject.Find("CardHolder").transform;
+
         string element = "";
         for (int i = 0; i < 4; i++)
         {
             cards_material[i] = new Material[4];
-
         }
-
-
+        
         for (int i = 0; i < 4; i++)
+        {
             for (int j = 0; j < 4; j++)
             {
                 if (i == 0)
@@ -49,23 +58,39 @@ public class CardsGenerator : MonoBehaviour
 
                 cards_material[i][j] = material;
             }
+        }
 
-        //    CreateCard(1, 0.1f, 270, FIRE, TANK);
-      //  CreateCard(2, 0.1f, 270, AIR, TANK);
+        //for(int i = 0; i < 10; i++)
+        //{
+        //    CreateCard(i, 0.1f, 270, Random.Range(0, 4), Random.Range(0, 4));
+        //}
+
+        //CreateCard(1, 0.1f, 270, FIRE, TANK);
+        //CreateCard(0, 0.1f, 270, AIR, TANK);
+
         //CreateCard(new Vector3(0.8f, 2.6f, 0), 0.1f, 270, FIRE, TANK);
 
 
-
+        done = true;
     }
-     public static GameObject CreateCard(int index, float scale, float angle, int element, int type, bool flame = false, Transform parent = null)
+
+    public GameObject CreateCard(int index, int element, int type, bool flame = false, float scale = 0.1f, float angle = 270)
     {
+        if (!done)
+        {
+            Debug.Log("Am apelat inainte de done");
+            return null;
+        }
+        var hh = 1;
+        if (index >= 5)
+        {
+            index -= 5;
+            hh = -1;
+        }
+        var pos = new Vector3(0 + (index - 2) * width, hh * height, -0.1f);
 
-        var width = 0.2f;
-        var gap = 0.05f;
-        var pos = new Vector3(0.8f , 2.6f, 0 + index * (width + gap));
-
-        GameObject virtual_card = Instantiate(cards) as GameObject;
-        //virtual_card.transform.parent = this.transform;
+        GameObject virtual_card = GameObject.Instantiate(cards) as GameObject;
+        virtual_card.transform.parent = cardHolder;
         virtual_card.transform.localPosition = pos;
         virtual_card.transform.localScale = new Vector3(scale, scale, scale);
         virtual_card.transform.Rotate(Vector3.up, angle);
@@ -74,9 +99,5 @@ public class CardsGenerator : MonoBehaviour
 
         return virtual_card;
 
-    }
-    void Update()
-    {
-        
     }
 }

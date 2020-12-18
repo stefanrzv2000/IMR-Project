@@ -19,24 +19,31 @@ public class GameReferee : MonoBehaviour
 
     private const int NR_CARD_DRAGONS_START = 3;
     private const int NR_CARD_SPELLS_START = 2;
+
+    public GameObject CardPrefab;
+    private CardsGenerator physicalCardGenerator;
+
     void Start()
     {
         Board = new Board();
         Debug.Log("Direct mesajul");
+
+        physicalCardGenerator = new CardsGenerator(CardPrefab);
 
         GoldBonus = 5;
         MaxManaBonus = 1;
         MaxFoodBonus = 1;
 
         Players = new Player[2];
-        Players[0] = new Player(1, FIRE,  Board, true);
-        Players[1] = new Player(2, WATER, Board, false);
+        Players[0] = new Player(1, FIRE,  Board, true, physicalCardGenerator);
+        Players[1] = new Player(2, WATER, Board, false, physicalCardGenerator);
         Debug.Log("Direct mesajul");
 
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
         {
             GiveCardDragon(0);
             GiveCardDragon(1);
+            Debug.Log($"Given {i+1} card");
         }
         Debug.Log("Direct mesajul");
 

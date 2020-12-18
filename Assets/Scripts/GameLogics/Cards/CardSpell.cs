@@ -8,6 +8,11 @@ public class CardSpell : Card
 
     protected const int FIREBOLT_ID = 0;
 
+    public CardSpell()
+    {
+        CardType = CardType.SPELL;
+    }
+
     public override void GoPlay(Vector2Int targetPosition)
     {
 

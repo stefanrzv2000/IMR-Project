@@ -14,6 +14,8 @@ public class CardDragon : Card
 
     public CardDragon(int type, int race, int owner)
     {
+        CardType = CardType.DRAGON;
+
         Type = type;
         Race = race;
         Owner = owner;
