@@ -57,15 +57,17 @@ public class GameReferee : MonoBehaviour
 
     void GiveCardDragon(int index)
     {
-        var Barrack = (OnBoardBarrack)Board.Buildings[3 * index + 1];
-        Card card = Barrack.ResetTurn(Players[index].Race);
+        var barrack = (OnBoardBarrack)Board.Buildings[3 * index + 1];
+        Card card = barrack.ResetTurn(Players[index].Race);
+        card.Board = Board;
         Players[index].ReceiveCard(card);
     }
 
     void GiveCardSpell(int index)
     {
-        var MageTower = (OnBoardMageTower)Board.Buildings[3 * index + 2];
-        Card card = MageTower.ResetTurn();
+        var mageTower = (OnBoardMageTower)Board.Buildings[3 * index + 2];
+        Card card = mageTower.ResetTurn(Players[index].Race);
+        card.Board = Board;
         Players[index].ReceiveCard(card);
     }
 

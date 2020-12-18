@@ -20,9 +20,9 @@ public class OnBoardMageTower : OnBoardBuilding
 
         MaxSpellsIndex = new int[MAX_UPGRADES+1];
 
-        MaxSpellsIndex[0] = 1;
-        MaxSpellsIndex[1] = 1;
-        MaxSpellsIndex[2] = 1;
+        MaxSpellsIndex[0] = 2;
+        MaxSpellsIndex[1] = 4;
+        MaxSpellsIndex[2] = 5;
 
         Alive = true;
         MaxHealth = MAX_HP;
@@ -52,9 +52,9 @@ public class OnBoardMageTower : OnBoardBuilding
             Tier += 1;
     }
 
-    public CardSpell ResetTurn()
+    public CardSpell ResetTurn(int race)
     {
         int index = Random.Range(0, MaxSpellsIndex[Tier]);
-        return CardSpellCreator.GenerateCardSpell(index, Owner);
+        return CardSpellCreator.GenerateCardSpell(index, Owner, race);
     }
 }

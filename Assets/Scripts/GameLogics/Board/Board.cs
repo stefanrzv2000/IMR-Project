@@ -12,6 +12,47 @@ public class Board
 
     public GameObject PhysicBoard;
 
+    protected const int DESTRUCTIBLE = 0;
+    protected const int DRAGON = 1;
+    protected const int OCCUPIED = 2;
+    protected const int BUILDING = 3;
+    protected const int NEST = 4;
+    protected const int BARRACK = 5;
+    protected const int MAGE_TOWER = 6;
+
+    public List<OnBoardDragon> GetAllDragons()
+    {
+        List<OnBoardDragon> result = new List<OnBoardDragon>();
+
+        for (int y = 1; y < Height - 1; y++)
+        {
+            for (int x = 1; x < Width - 1; x++)
+            {
+                if (Destructables[y, x] == null)
+                    continue;
+                if (Destructables[y, x].DestructibleType != DRAGON)
+                    continue;
+                result.Add((OnBoardDragon)Destructables[y, x]);
+            }
+        }
+
+        return result;
+    }
+
+    public List<OnBoardDragon> GetAllDragonsOfOwner(int owner)
+    {
+        List<OnBoardDragon> result = new List<OnBoardDragon>();
+
+        var allDragons = GetAllDragons();
+        foreach (var dragon in allDragons)
+        {
+            if (dragon.Owner == owner)
+                result.Add(dragon);
+        }
+
+        return result;
+    }
+
     public Board()
     {
         PhysicBoard = GameObject.Find("PhysicBoard");
