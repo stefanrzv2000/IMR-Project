@@ -1,5 +1,7 @@
 using MediapipeHandTracking;
+using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class ARHandProcessor : MonoBehaviour
 {
@@ -11,7 +13,12 @@ public class ARHandProcessor : MonoBehaviour
     private ARHand currentHand = default;
     private bool isHandRectChange = default;
     private Geometry geo;
+    private VRTK_InteractGrab grabber;
+    private VRHandController controller;
+    private Queue<float> angles = new Queue<float>();
+    private bool Grabbing = false;
 
+    public float grabTreshold = 60;
     public float z_factor = 1;
     public bool display_points = false;
 
@@ -20,6 +27,7 @@ public class ARHandProcessor : MonoBehaviour
         Hand = HTManager.instance.HandOnSpace;
         TriHand = HTManager.instance.TriHand;
         Triangle = HTManager.instance.Triangle;
+        controller = Triangle.transform.Find("Controller").GetComponent<VRHandController>();
         geo = HTManager.instance.Geometry;
         currentHand = new ARHand();
         currentHandRect = new HandRect();
@@ -84,6 +92,45 @@ public class ARHandProcessor : MonoBehaviour
         //Hand.transform.GetChild(Hand.transform.childCount - 1).transform.position = (currentHand.GetLandmark(0) + currentHand.GetLandmark(5) + currentHand.GetLandmark(17)) / 3.0f;
         //var dist = (currentHand.GetLandmark(0) - currentHand.GetLandmark(12)).magnitude;
         //Debug.Log("size = " + dist);
+
+        Vector3[] bigFinger = new Vector3[5];
+        for (int i = 1; i < 5; i++)
+        {
+            bigFinger[i].x = handLandmarksData[i * 3];
+            bigFinger[i].y = handLandmarksData[i * 3 + 1];
+            bigFinger[i].z = handLandmarksData[i * 3 + 2] / 80;
+            Debug.Log($"FingerCoord{i} {bigFinger[i]}");
+        }
+        float fingerAngle = Vector3.Angle(bigFinger[1] - bigFinger[2], bigFinger[3] - bigFinger[4]);
+        Debug.Log($"FingerAngle {fingerAngle}");
+        angles.Enqueue(fingerAngle);
+        if (angles.Count > 5)
+        {
+            angles.Dequeue();
+            float mean = 0;
+            foreach (var x in angles)
+            {
+                mean += x;
+            }
+            mean /= angles.Count;
+            Debug.Log($"grabb mean {mean}");
+            if (mean > grabTreshold ^ Grabbing)
+            {
+                Grabbing = mean > grabTreshold;
+                if (Grabbing)
+                {
+                    Debug.Log("GRABB");
+                    //grabber.OnGrabButtonPressed(new ControllerInteractionEventArgs());
+                    controller.GripPressed();
+                }
+                else
+                {
+                    Debug.Log("UNGRABB");
+                    //grabber.OnGrabButtonReleased(new ControllerInteractionEventArgs());
+                    controller.GripReleased();
+                }
+            }
+        }
 
         if (Hand.activeInHierarchy && display_points)
         {

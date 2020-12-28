@@ -11,7 +11,7 @@
     /// <remarks>
     /// Use the mouse and keyboard to move around both play area and hands and interacting with objects without the need of a hmd or VR controls.
     /// </remarks>
-    public class SDK_InputSimulator : MonoBehaviour
+    public class SDK_InputSimulatorBackup : MonoBehaviour
     {
         /// <summary>
         /// Mouse input mode types
@@ -79,21 +79,10 @@
         public KeyCode changeHands = KeyCode.Tab;
         [Tooltip("Key used to switch hands On/Off.")]
         public KeyCode handsOnOff = KeyCode.LeftAlt;
-        [Tooltip("Key used to switch joystick On/Off.")]
-        public KeyCode joystickOnOff = KeyCode.RightAlt;
-
         [Tooltip("Key used to switch between positional and rotational movement.")]
         public KeyCode rotationPosition = KeyCode.LeftShift;
-        [Tooltip("Joystick key used to switch between positional and rotational movement.")]
-        public KeyCode rotationPositionJoy = KeyCode.Joystick1Button9;
-
         [Tooltip("Key used to switch between X/Y and X/Z axis.")]
         public KeyCode changeAxis = KeyCode.LeftControl;
-        [Tooltip("Joystick key used to switch between X/Y and X/Z axis.")]
-        public KeyCode changeAxisJoy = KeyCode.Joystick1Button5;
-        [Tooltip("BLablabla")]
-        public KeyCode blablabla = KeyCode.P;
-
         [Tooltip("Key used to distance pickup with left hand.")]
         public KeyCode distancePickupLeft = KeyCode.Mouse0;
         [Tooltip("Key used to distance pickup with right hand.")]
@@ -118,34 +107,16 @@
 
         [Tooltip("Key used to simulate trigger button.")]
         public KeyCode triggerAlias = KeyCode.Mouse1;
-        [Tooltip("Joystick key used to simulate trigger button.")]
-        public KeyCode triggerAliasJoy = KeyCode.Joystick1Button5;
-
         [Tooltip("Key used to simulate grip button.")]
         public KeyCode gripAlias = KeyCode.Mouse0;
-        [Tooltip("Joystick key used to simulate grip button.")]
-        public KeyCode gripAliasJoy = KeyCode.Joystick1Button3;
-
         [Tooltip("Key used to simulate touchpad button.")]
         public KeyCode touchpadAlias = KeyCode.Q;
-        [Tooltip("Joystick key used to simulate touchpad button.")]
-        public KeyCode touchpadAliasJoy = KeyCode.Joystick1Button3;
-
         [Tooltip("Key used to simulate button one.")]
         public KeyCode buttonOneAlias = KeyCode.E;
-        [Tooltip("Joystick key used to simulate button one.")]
-        public KeyCode buttonOneAliasJoy = KeyCode.Joystick1Button0;
-
         [Tooltip("Key used to simulate button two.")]
         public KeyCode buttonTwoAlias = KeyCode.R;
-        [Tooltip("Joystick key used to simulate button two.")]
-        public KeyCode buttonTwoAliasJoy = KeyCode.Joystick1Button1;
-
         [Tooltip("Key used to simulate start menu button.")]
         public KeyCode startMenuAlias = KeyCode.F;
-        [Tooltip("Joystick key used to simulate start menu button.")]
-        public KeyCode startMenuAliasJoy = KeyCode.Joystick1Button7;
-
         [Tooltip("Key used to switch between button touch and button press mode.")]
         public KeyCode touchModifier = KeyCode.T;
         [Tooltip("Key used to switch between hair touch mode.")]
@@ -154,14 +125,12 @@
         #endregion
         #region Protected fields
 
-        protected bool useJoystick = false;
         protected bool isHand = false;
         protected GameObject hintCanvas;
         protected Text hintText;
         protected Transform rightHand;
         protected Transform leftHand;
         protected Transform currentHand;
-        protected Transform otherHand;
         protected Vector3 oldPos;
         protected Transform neck;
         protected SDK_ControllerSim rightController;
@@ -214,7 +183,6 @@
             rightHandHorizontalAxisGuide = rightHand.Find("Guides/HorizontalPlane");
             rightHandVerticalAxisGuide = rightHand.Find("Guides/VerticalPlane");
             currentHand = rightHand;
-            otherHand = leftHand;
             oldPos = Input.mousePosition;
             neck = transform.Find("Neck");
             SetHandColor(leftHand, leftHandColor);
@@ -265,11 +233,6 @@
                 lockMouseToView = !lockMouseToView;
             }
 
-            if (Input.GetKeyDown(joystickOnOff))
-            {
-                SwitchJoystick();
-            }
-
             if (mouseMovementInput == MouseInputMode.RequiresButtonPress)
             {
                 if (lockMouseToView)
@@ -304,260 +267,55 @@
                 if (currentHand.name == "LeftHand")
                 {
                     currentHand = rightHand;
-                    otherHand = leftHand;
                     rightController.selected = true;
                     leftController.selected = false;
                 }
                 else
                 {
                     currentHand = leftHand;
-                    otherHand = rightHand;
                     rightController.selected = false;
                     leftController.selected = true;
                 }
             }
 
-            if (useJoystick)
+            if (isHand)
             {
-                UpdateHandsJoy();
-                UpdateRotaionJoy();
-                //UpdatePositionJoy();
+                UpdateHands();
             }
             else
             {
-
-                if (isHand)
+                UpdateRotation();
+                if (Input.GetKeyDown(distancePickupRight) && Input.GetKey(distancePickupModifier))
                 {
-                    UpdateHands();
+                    TryPickup(true);
+                }
+                else if (Input.GetKeyDown(distancePickupLeft) && Input.GetKey(distancePickupModifier))
+                {
+                    TryPickup(false);
+                }
+                if (Input.GetKey(sprint))
+                {
+                    sprintMultiplier = playerSprintMultiplier;
                 }
                 else
                 {
-                    UpdateRotation();
-                    if (Input.GetKeyDown(distancePickupRight) && Input.GetKey(distancePickupModifier))
-                    {
-                        TryPickup(true);
-                    }
-                    else if (Input.GetKeyDown(distancePickupLeft) && Input.GetKey(distancePickupModifier))
-                    {
-                        TryPickup(false);
-                    }
-                    if (Input.GetKey(sprint))
-                    {
-                        sprintMultiplier = playerSprintMultiplier;
-                    }
-                    else
-                    {
-                        sprintMultiplier = 1;
-                    }
-                    if (Input.GetKeyDown(distancePickupModifier))
-                    {
-                        crossHairPanel.SetActive(true);
-                    }
-                    else if (Input.GetKeyUp(distancePickupModifier))
-                    {
-                        crossHairPanel.SetActive(false);
-                    }
+                    sprintMultiplier = 1;
                 }
-
-                UpdatePosition();
-
+                if (Input.GetKeyDown(distancePickupModifier))
+                {
+                    crossHairPanel.SetActive(true);
+                }
+                else if (Input.GetKeyUp(distancePickupModifier))
+                {
+                    crossHairPanel.SetActive(false);
+                }
             }
+
+            UpdatePosition();
 
             if (showControlHints)
             {
                 UpdateHints();
-            }
-
-            if (useJoystick)
-            {
-                DebugJoystick();
-            }
-        }
-
-        private void SwitchJoystick()
-        {
-            useJoystick = !useJoystick;
-
-            if (useJoystick)
-            {
-                SDK_SimController controllerSDK = VRTK_SDK_Bridge.GetControllerSDK() as SDK_SimController;
-                if (controllerSDK != null)
-                {
-                    Dictionary<string, KeyCode> keyMappings = new Dictionary<string, KeyCode>()
-                {
-                    {"Trigger", triggerAliasJoy },
-                    {"Grip", gripAliasJoy },
-                    {"TouchpadPress", touchpadAliasJoy },
-                    {"ButtonOne", buttonOneAliasJoy },
-                    {"ButtonTwo", buttonTwoAliasJoy },
-                    {"StartMenu", startMenuAliasJoy },
-                    {"TouchModifier", touchModifier },
-                    {"HairTouchModifier", hairTouchModifier }
-                };
-                    controllerSDK.SetKeyMappings(keyMappings);
-                }
-            }
-            else
-            {
-                SDK_SimController controllerSDK = VRTK_SDK_Bridge.GetControllerSDK() as SDK_SimController;
-                if (controllerSDK != null)
-                {
-                    Dictionary<string, KeyCode> keyMappings = new Dictionary<string, KeyCode>()
-                {
-                    {"Trigger", triggerAlias },
-                    {"Grip", gripAlias },
-                    {"TouchpadPress", touchpadAlias },
-                    {"ButtonOne", buttonOneAlias },
-                    {"ButtonTwo", buttonTwoAlias },
-                    {"StartMenu", startMenuAlias },
-                    {"TouchModifier", touchModifier },
-                    {"HairTouchModifier", hairTouchModifier }
-                };
-                    controllerSDK.SetKeyMappings(keyMappings);
-                }
-            }
-        }
-
-        private void DebugJoystick()
-        {
-            for (int i = 0; i < 16; i++)
-            {
-                KeyCode jk = (KeyCode)(350 + i);
-                if (Input.GetKey(jk))
-                {
-                    Debug.Log("Button " + i);
-                }
-            }
-        }
-
-        private void UpdatePositionJoy()
-        {
-            if (Input.GetKey(rotationPositionJoy)) return;
-            Vector3 move = GetJoyDelta();
-            move.z = move.y;
-            move.y = 0;
-            //if (Input.GetKey("space"))
-            //{
-            //    Debug.Log(move);
-            //}
-            float moveMod = Time.deltaTime * playerMoveMultiplier * sprintMultiplier;
-            transform.Translate(move * moveMod);
-        }
-
-        private void UpdateRotaionJoy()
-        {
-            //if (!Input.GetKey(rotationPositionJoy)) return;
-            Vector3 joyDiff = GetJoyLeftDelta();
-            Vector3 rot = transform.localRotation.eulerAngles;
-            rot.y += (joyDiff * playerRotationMultiplier).x;
-            transform.localRotation = Quaternion.Euler(rot);
-
-            rot = neck.rotation.eulerAngles;
-
-            if (rot.x > 180)
-            {
-                rot.x -= 360;
-            }
-
-            if (rot.x < 80 && rot.x > -80)
-            {
-                rot.x += (joyDiff * playerRotationMultiplier).y * -1;
-                rot.x = Mathf.Clamp(rot.x, -79, 79);
-                neck.rotation = Quaternion.Euler(rot);
-            }
-        }
-
-        private void UpdateHandsJoy()
-        {
-            //UpdateLeftJoy();
-            UpdateRightJoy();
-        }
-
-        private void UpdateRightJoy()
-        {
-            Vector3 rightDiff = GetJoyRightDelta();
-
-            if (Input.GetKey("space"))
-            {
-                Debug.Log("Right: " + rightDiff);
-            }
-
-            if (Input.GetKey(changeAxisJoy))
-            {
-                //Debug.Log("change axis joy");
-                ToggleGuidePlanes(false, true);
-                if (Input.GetKey(rotationPositionJoy) && false)
-                {
-                    Vector3 rot = Vector3.zero;
-                    rot.x += (rightDiff * handRotationMultiplier).y;
-                    rot.y += (rightDiff * handRotationMultiplier).x;
-                    rightHand.transform.Rotate(rot * Time.deltaTime);
-                }
-                else
-                {
-                    Vector3 pos = Vector3.zero;
-                    pos += rightDiff * handMoveMultiplier;
-                    rightHand.transform.Translate(pos * Time.deltaTime);
-                }
-            }
-            else
-            {
-                //Debug.Log("not change axis joy");
-                ToggleGuidePlanes(true, false);
-                if (Input.GetKey(rotationPositionJoy) && false)
-                {
-                    Vector3 rot = Vector3.zero;
-                    rot.z += (rightDiff * handRotationMultiplier).x;
-                    rot.x += (rightDiff * handRotationMultiplier).y;
-                    rightHand.transform.Rotate(rot * Time.deltaTime);
-                }
-                else
-                {
-                    Vector3 pos = Vector3.zero;
-                    pos.x += (rightDiff * handMoveMultiplier).x;
-                    pos.z += (rightDiff * handMoveMultiplier).y;
-                    rightHand.transform.Translate(pos * Time.deltaTime);
-                }
-            }
-        }
-
-        private void UpdateLeftJoy()
-        {
-            Vector3 leftDiff = GetJoyLeftDelta();
-            if (Input.GetKey(changeAxisJoy))
-            {
-                ToggleGuidePlanes(false, true);
-                if (Input.GetKey(rotationPositionJoy))
-                {
-                    Vector3 rot = Vector3.zero;
-                    rot.x += (leftDiff * handRotationMultiplier).y;
-                    rot.y += (leftDiff * handRotationMultiplier).x;
-                    leftHand.transform.Rotate(rot * Time.deltaTime);
-                }
-                else
-                {
-                    Vector3 pos = Vector3.zero;
-                    pos += leftDiff * handMoveMultiplier;
-                    leftHand.transform.Translate(pos * Time.deltaTime);
-                }
-            }
-            else
-            {
-                ToggleGuidePlanes(true, false);
-                if (Input.GetKey(rotationPositionJoy))
-                {
-                    Vector3 rot = Vector3.zero;
-                    rot.z += (leftDiff * handRotationMultiplier).x;
-                    rot.x += (leftDiff * handRotationMultiplier).y;
-                    leftHand.transform.Rotate(rot * Time.deltaTime);
-                }
-                else
-                {
-                    Vector3 pos = Vector3.zero;
-                    pos.x += (leftDiff * handMoveMultiplier).x;
-                    pos.z += (leftDiff * handMoveMultiplier).y;
-                    leftHand.transform.Translate(pos * Time.deltaTime);
-                }
             }
         }
 
@@ -605,12 +363,6 @@
         protected virtual void UpdateHands()
         {
             Vector3 mouseDiff = GetMouseDelta();
-
-
-            if (Input.GetKey("space"))
-            {
-                Debug.Log(mouseDiff);
-            }
 
             if (IsAcceptingMouseInput())
             {
@@ -815,30 +567,6 @@
                 oldPos = Input.mousePosition;
                 return mouseDiff;
             }
-        }
-
-        protected virtual Vector3 GetJoyRightDelta()
-        {
-            return new Vector3(
-                Input.GetAxisRaw("Horizontal_Right"),
-                Input.GetAxisRaw("Vertical_Right")
-                );
-        }
-
-        protected virtual Vector3 GetJoyLeftDelta()
-        {
-            return new Vector3(
-                Input.GetAxisRaw("Horizontal_Left"),
-                Input.GetAxisRaw("Vertical_Left")
-                );
-        }
-
-        protected virtual Vector3 GetJoyDelta()
-        {
-            return new Vector3(
-                Input.GetAxisRaw("Horizontal_Joy"),
-                Input.GetAxisRaw("Vertical_Joy")
-                );
         }
 
         protected virtual void ToggleGuidePlanes(bool horizontalState, bool verticalState)

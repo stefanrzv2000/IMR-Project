@@ -96,7 +96,7 @@ public class DragonGenerator : MonoBehaviour
         {
             for(int type = 0; type < 5; type++)
             {
-                Debug.Log($"blabla {elem} {type}");
+                //Debug.Log($"blabla {elem} {type}");
                 CreateDragon(new Vector3((type-2)*0.2f, 1.11f, 0.4f + 0.2f*elem), 0.01f, 90, elem, type,parent:island);
             }
         }

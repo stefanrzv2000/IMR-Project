@@ -26,7 +26,7 @@ public class GameReferee : MonoBehaviour
     void Start()
     {
         Board = new Board();
-        Debug.Log("Direct mesajul");
+        //Debug.Log("Direct mesajul");
 
         physicalCardGenerator = new CardsGenerator(CardPrefab);
 
@@ -37,7 +37,7 @@ public class GameReferee : MonoBehaviour
         Players = new Player[2];
         Players[0] = new Player(1, FIRE,  Board, true, physicalCardGenerator);
         Players[1] = new Player(2, WATER, Board, false, physicalCardGenerator);
-        Debug.Log("Direct mesajul");
+        //Debug.Log("Direct mesajul");
 
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
         {
@@ -45,14 +45,14 @@ public class GameReferee : MonoBehaviour
             GiveCardDragon(1);
             Debug.Log($"Given {i+1} card");
         }
-        Debug.Log("Direct mesajul");
+        //Debug.Log("Direct mesajul");
 
         for (int i = 0; i < NR_CARD_SPELLS_START; i++)
         {
             GiveCardSpell(0);
             GiveCardSpell(1);
         }
-        Debug.Log("Direct mesajul");
+        //Debug.Log("Direct mesajul");
     }
 
     void GiveCardDragon(int index)
