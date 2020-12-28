@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateBoard : MonoBehaviour
+public class FixedPosition : MonoBehaviour
 {
-    public float speed = 1f;
+    public float posx = 0, posy = 1.6f, posz = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,6 @@ public class RotateBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up, speed*Time.deltaTime);
+        transform.position = new Vector3(posx, posy, posz);
     }
 }

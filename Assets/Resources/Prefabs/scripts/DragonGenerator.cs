@@ -84,7 +84,7 @@ public class DragonGenerator : MonoBehaviour
         //CreateDragon(new Vector3(0, 1.11f, 1.1f), 0.01f, 90, AIR, RANGER);
 
         GenerateAll();
-        CreateDragon(new Vector3(0,4,0), 0.1f, 90,AIR,PAWN);
+        //CreateDragon(new Vector3(0,4,0), 0.1f, 90,AIR,PAWN);
 
     }
 
