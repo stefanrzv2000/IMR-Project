@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
+public enum ActionType
+{
+    GRAB,
+    TRIGGER,
+}
+
 public class ARHandProcessor : MonoBehaviour
 {
     private GameObject Hand = default;
@@ -18,6 +24,7 @@ public class ARHandProcessor : MonoBehaviour
     private Queue<float> angles = new Queue<float>();
     private bool Grabbing = false;
 
+    public ActionType action = ActionType.GRAB;
     public float grabTreshold = 60;
     public float z_factor = 1;
     public bool display_points = false;
@@ -121,13 +128,27 @@ public class ARHandProcessor : MonoBehaviour
                 {
                     Debug.Log("GRABB");
                     //grabber.OnGrabButtonPressed(new ControllerInteractionEventArgs());
-                    controller.GripPressed();
+                    if (action == ActionType.GRAB)
+                    {
+                        controller.GripPressed();
+                    }
+                    else
+                    {
+                        controller.TriggerPressed();
+                    }
                 }
                 else
                 {
                     Debug.Log("UNGRABB");
                     //grabber.OnGrabButtonReleased(new ControllerInteractionEventArgs());
-                    controller.GripReleased();
+                    if (action == ActionType.GRAB)
+                    {
+                        controller.GripReleased();
+                    }
+                    else
+                    {
+                        controller.TriggerReleased();
+                    }
                 }
             }
         }

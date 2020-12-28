@@ -23,13 +23,15 @@ public class ARFrameProcessor : MonoBehaviour {
     void Start() {
         Debug.Log("SOMETHING STARTED MOVING");
         BETA = (float)Screen.width / Screen.height;
+#if UNITY_EDITOR_WIN
+#else
         webCamTexture = new WebCamTexture();
         Debug.Log($"WEBCAMTXT {webCamTexture}");
         webCamTexture.Play();
 
         handProcessor = new HandProcessor();
         Debug.Log("SOMETHING STARTED MOVING");
-
+#endif
     }
 
     unsafe void convertCPUImage() {
@@ -123,8 +125,10 @@ public class ARFrameProcessor : MonoBehaviour {
 
     public void Update()
     {
-        //getIMG();
+#if UNITY_EDITOR_WIN
+#else
         convertCPUImage();
+#endif
     }
 
     public IEnumerator getIMG()
