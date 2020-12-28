@@ -6,7 +6,7 @@ public class GameReferee : MonoBehaviour
 {
     public Board Board;
 
-    private Player[] Players;
+    private GamePlayer[] Players;
 
     public int GoldBonus;
     public int MaxManaBonus;
@@ -34,9 +34,9 @@ public class GameReferee : MonoBehaviour
         MaxManaBonus = 1;
         MaxFoodBonus = 1;
 
-        Players = new Player[2];
-        Players[0] = new Player(1, FIRE,  Board, true, physicalCardGenerator);
-        Players[1] = new Player(2, WATER, Board, false, physicalCardGenerator);
+        Players = new GamePlayer[2];
+        Players[0] = new GamePlayer(1, FIRE,  Board, true, physicalCardGenerator);
+        Players[1] = new GamePlayer(2, WATER, Board, false, physicalCardGenerator);
         //Debug.Log("Direct mesajul");
 
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
