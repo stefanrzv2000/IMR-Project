@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614429116342334423}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1742875083393946420}
   - component: {fileID: 5109121035923411281}
   - component: {fileID: 3136015759456379136}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ BoxCollider:
   m_GameObject: {fileID: 2439386922205496052}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 6930553596097760744}
   - component: {fileID: 1548370812061925182}
   - component: {fileID: 6564792212450659578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ BoxCollider:
   m_GameObject: {fileID: 3800590686939905199}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 2436705295479844920}
   - component: {fileID: 914475035314523072}
   - component: {fileID: 3837233632475874120}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 5806963068054924143}
   - component: {fileID: 397392218563470746}
   - component: {fileID: 5202579991915428671}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7903695782916670467}
   - component: {fileID: 1492049807180514696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
