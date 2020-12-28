@@ -40,7 +40,7 @@ public class VRHandController : MonoBehaviour
             }
             Debug.Log($"ControllerEvents {controllerEvents}");
             handController.transform.position = transform.position;
-            handController.transform.rotation = transform.rotation;
+            //handController.transform.rotation = transform.rotation;
         }
 #endif
     }
