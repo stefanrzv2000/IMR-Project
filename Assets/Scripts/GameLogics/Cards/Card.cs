@@ -38,8 +38,17 @@ public abstract class Card
     public GameObject PhysicInstance;
     public abstract void GoPlay(Vector2Int targetPosition);
 
-    public bool CanBePlayed(int gold, int food, int mana)
+    public bool CanBePlayed()
     {
+        int gold, food, mana;
+        gold = Board.GameReferee.Players[Owner].Gold;
+        food = Board.GameReferee.Players[Owner].Food;
+        mana = Board.GameReferee.Players[Owner].Mana;
         return gold >= GoldCost && food >= FoodCost && mana >= ManaCost;
+    }
+
+    public virtual List<Vector2Int> GetAvailableTagets()
+    {
+        return new List<Vector2Int>();
     }
 }

@@ -29,7 +29,7 @@ public class CardDragon : Card
                 Range = 1;
                 Name = "Tank";
 
-                GoldCost = 0;
+                GoldCost = 1;
                 FoodCost = 1;
                 ManaCost = 0;
                 break;
@@ -41,7 +41,7 @@ public class CardDragon : Card
                 Range = 1;
                 Name = "Melee";
 
-                GoldCost = 0;
+                GoldCost = 2;
                 FoodCost = 1;
                 ManaCost = 0;
                 break;
@@ -53,7 +53,7 @@ public class CardDragon : Card
                 Range = 5;
                 Name = "Ranger";
 
-                GoldCost = 0;
+                GoldCost = 3;
                 FoodCost = 1;
                 ManaCost = 0;
                 break;
@@ -65,7 +65,7 @@ public class CardDragon : Card
                 Range = 1;
                 Name = "Queen";
 
-                GoldCost = 0;
+                GoldCost = 5;
                 FoodCost = 1;
                 ManaCost = 0;
                 break;
@@ -77,7 +77,7 @@ public class CardDragon : Card
                 Range = 1;
                 Name = "Pawn";
 
-                GoldCost = 0;
+                GoldCost = 4;
                 FoodCost = 1;
                 ManaCost = 0;
                 break;
@@ -101,5 +101,32 @@ public class CardDragon : Card
     public override void GoPlay(Vector2Int targetPosition)
     {
         OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, this); 
+    }
+
+    public override List<Vector2Int> GetAvailableTagets()
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        var positions = Board.GetEmptyPositions();
+
+        foreach(var pos in positions){
+            //Debug.Log($"pos {pos}");
+            if(PlayerInfoScene.Instance.playerId == 1)
+            {
+                if (pos.x >= 5)
+                {
+                    result.Add(pos);
+                }
+            }
+            else
+            {
+                if (pos.x <= 2)
+                {
+                    result.Add(pos);
+                }
+            }
+        }
+
+        return result;
     }
 }

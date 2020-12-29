@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Board 
 {
-    public int Width = 6;
-    public int Height = 6;
+    public int Width = 8;
+    public int Height = 8;
 
     public OnBoardDestructible[,] Destructables;
     public OnBoardBuilding[] Buildings;
@@ -19,6 +19,8 @@ public class Board
     protected const int NEST = 4;
     protected const int BARRACK = 5;
     protected const int MAGE_TOWER = 6;
+
+    public GameReferee GameReferee;
 
     public List<OnBoardDragon> GetAllDragons()
     {
@@ -53,8 +55,28 @@ public class Board
         return result;
     }
 
-    public Board()
+    public List<Vector2Int> GetEmptyPositions()
     {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        for (int y = 1; y < Height - 1; y++)
+        {
+            for (int x = 1; x < Width - 1; x++)
+            {
+                if (Destructables[y, x] == null)
+                {
+                    result.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public Board(GameReferee gameReferee)
+    {
+        GameReferee = gameReferee;
+
         PhysicBoard = GameObject.Find("PhysicBoard");
 
         var onBoardOccupied = new OnBoardOccupied(this);

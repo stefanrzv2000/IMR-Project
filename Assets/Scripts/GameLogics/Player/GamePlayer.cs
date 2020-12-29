@@ -28,7 +28,7 @@ public class GamePlayer
         HisTurn = hisTurn;
         CardHolder = new CardHolder(id, cardGen);
 
-        Gold = 0;
+        Gold = 10;
         Food = 2;
         Mana = 1;
         MaxFood = 2;
