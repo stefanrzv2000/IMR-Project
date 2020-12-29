@@ -1,12 +1,17 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameReferee : MonoBehaviour
+public class GameReferee : MonoBehaviourPunCallbacks
 {
+    public static GameReferee Instance;
+    PhotonView PV;
+
     public Board Board;
 
     public GamePlayer[] Players;
+    public int[] chosenElements = {-1, -1};
 
     public int GoldBonus;
     public int MaxManaBonus;
@@ -23,6 +28,24 @@ public class GameReferee : MonoBehaviour
     public GameObject CardPrefab;
     private CardsGenerator physicalCardGenerator;
 
+    public void Awake()
+    {
+        Instance = this;
+    }
+
+    [PunRPC]
+    public void SetPlayerInfo(int playerId, int chosenElement)
+    {
+        Debug.Log("Received setting for player " + playerId);
+        chosenElements[playerId - 1] = chosenElement;
+
+        if(chosenElements[0] != -1 && chosenElements[1] != -1)
+        {
+            StartGame();
+        }
+    }
+
+
     void Start()
     {
         Board = new Board(this);
@@ -35,10 +58,16 @@ public class GameReferee : MonoBehaviour
         MaxFoodBonus = 1;
 
         Players = new GamePlayer[2];
-        Players[0] = new GamePlayer(1, AIR,  Board, true, physicalCardGenerator);
+        Players[0] = new GamePlayer(1, WATER, Board, true, physicalCardGenerator);
         Players[1] = new GamePlayer(2, WATER, Board, false, physicalCardGenerator);
-        Players[PlayerInfoScene.Instance.playerId - 1].Race = PlayerInfoScene.Instance.chosenElement;
+        //Players[PlayerInfoScene.Instance.playerId - 1].Race = PlayerInfoScene.Instance.chosenElement;
         //Debug.Log("Direct mesajul");
+    }
+
+    void StartGame()
+    {
+        Players[0].Race = chosenElements[0];
+        Players[1].Race = chosenElements[1];
 
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
         {

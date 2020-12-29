@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
+    public PhotonView refereeView;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,8 @@ public class GameManager : MonoBehaviour
             playerTransform.position = new Vector3(0, 0, 1.4f);
             playerTransform.Rotate(new Vector3(0, 180, 0));
         }
+
+        refereeView.RPC("SetPlayerInfo", RpcTarget.All, PlayerInfoScene.Instance.playerId, PlayerInfoScene.Instance.chosenElement);
 
 #if UNITY_EDITOR_WIN
         Debug.Log("WINDOWS!!");
