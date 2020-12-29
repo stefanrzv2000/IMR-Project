@@ -11,21 +11,13 @@ public class Launcher : MonoBehaviourPunCallbacks
 {
     public static Launcher Instance; 
 
-    [SerializeField] TMP_InputField roomNameInputField;
-    [SerializeField] TMP_Text errorText;
     [SerializeField] Text roomNameText;
     [SerializeField] Text chosenElementText;
     [SerializeField] Text currentRoomNameText;
-    [SerializeField] Transform roomListContent;
-    [SerializeField] GameObject roomListItemPrefab;
-    [SerializeField] GameObject playerListItemPrefab;
-    [SerializeField] Transform playerListContent;
-    [SerializeField] GameObject startGameButton;
-
-    private int chosenElement;
-    private int playerId;
+                         
     private int currentRoomIndex = 0;
     private List<RoomInfo> availableRooms = new List<RoomInfo>();
+
 
     private readonly string[] elementStrings = { "Fire", "Water", "Earth", "Air" };
 
@@ -42,13 +34,13 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void SetElement(int elementId)
     {
-        chosenElement = elementId;
-        chosenElementText.text = "Your current chosen element is:\n" + elementStrings[chosenElement];
+        PlayerInfoScene.Instance.chosenElement = elementId;
+        chosenElementText.text = "Your current chosen element is:\n" + elementStrings[PlayerInfoScene.Instance.chosenElement];
     }
 
     public void CreateRoom(int chosenElement)
     {
-        this.chosenElement = chosenElement;
+        PlayerInfoScene.Instance.chosenElement = chosenElement;
         CreateRoom();
     }
 
@@ -89,7 +81,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void SetPlayerId(bool isMasterClient)
     {
-        playerId = isMasterClient ? 1 : 2;
+        PlayerInfoScene.Instance.playerId = isMasterClient ? 1 : 2;
     }
 
     public override void OnJoinedRoom()
@@ -145,8 +137,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        errorText.text = "Room Creation Failed: " + message;
-        MenuManager.Instance.OpenMenu("error");
+
     }
 
     public void JoinRoom(RoomInfo info)
