@@ -41,9 +41,9 @@ public abstract class Card
     public bool CanBePlayed()
     {
         int gold, food, mana;
-        gold = Board.GameReferee.Players[Owner].Gold;
-        food = Board.GameReferee.Players[Owner].Food;
-        mana = Board.GameReferee.Players[Owner].Mana;
+        gold = Board.GameReferee.Players[Owner-1].Gold;
+        food = Board.GameReferee.Players[Owner-1].Food;
+        mana = Board.GameReferee.Players[Owner-1].Mana;
         return gold >= GoldCost && food >= FoodCost && mana >= ManaCost;
     }
 

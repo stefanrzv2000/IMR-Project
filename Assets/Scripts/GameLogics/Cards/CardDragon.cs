@@ -100,7 +100,8 @@ public class CardDragon : Card
 
     public override void GoPlay(Vector2Int targetPosition)
     {
-        OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, this); 
+        GameReferee.Instance.photonView.RPC("CreateOnBoardDragon", Photon.Pun.RpcTarget.All, targetPosition, this);
+        //OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, this); 
     }
 
     public override List<Vector2Int> GetAvailableTagets()

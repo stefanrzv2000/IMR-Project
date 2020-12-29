@@ -41,10 +41,16 @@ public class GameReferee : MonoBehaviourPunCallbacks
 
         if(chosenElements[0] != -1 && chosenElements[1] != -1)
         {
+            Debug.Log($"Elements {chosenElements[0]} {chosenElements[1]}");
             StartGame();
         }
     }
 
+    [PunRPC]
+    public void CreateOnBoardDragon(Vector2Int targetPosition, CardDragon cardDragon)
+    {
+        OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, cardDragon);
+    }
 
     void Start()
     {
@@ -62,12 +68,19 @@ public class GameReferee : MonoBehaviourPunCallbacks
         Players[1] = new GamePlayer(2, WATER, Board, false, physicalCardGenerator);
         //Players[PlayerInfoScene.Instance.playerId - 1].Race = PlayerInfoScene.Instance.chosenElement;
         //Debug.Log("Direct mesajul");
+        if(PlayerInfoScene.Instance.PhotonPresent == 0)
+        {
+            StartGame();
+        }
     }
 
     void StartGame()
     {
-        Players[0].Race = chosenElements[0];
-        Players[1].Race = chosenElements[1];
+        if (PlayerInfoScene.Instance.PhotonPresent != 0)
+        {
+            Players[0].Race = chosenElements[0];
+            Players[1].Race = chosenElements[1];
+        }
 
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
         {

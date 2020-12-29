@@ -818,7 +818,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &144507762
 BoxCollider:
@@ -1631,7 +1631,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &212698854
 BoxCollider:
@@ -2552,7 +2552,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &324494238
 BoxCollider:
@@ -3527,7 +3527,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &438164236
 BoxCollider:
@@ -3793,7 +3793,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &466408843
 BoxCollider:
@@ -4408,7 +4408,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &593919024
 BoxCollider:
@@ -4580,6 +4580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenElement: 0
   playerId: 1
+  PhotonPresent: 1
 --- !u!4 &605388034
 Transform:
   m_ObjectHideFlags: 0
@@ -7362,7 +7363,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &965823116
 BoxCollider:
@@ -8227,7 +8228,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1048799399
 BoxCollider:
@@ -8400,7 +8401,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1052061618
 BoxCollider:
@@ -8909,7 +8910,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1147517641
 BoxCollider:
@@ -9300,7 +9301,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1169900532
 BoxCollider:
@@ -10775,7 +10776,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1520909250
 BoxCollider:
@@ -10948,7 +10949,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1547277229
 BoxCollider:
@@ -11199,7 +11200,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1554065955
 BoxCollider:
@@ -11815,6 +11816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d209d740d2996e7458ef6c3fc45a957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  refereeView: {fileID: 0}
 --- !u!4 &1659902046
 Transform:
   m_ObjectHideFlags: 0
@@ -12567,7 +12569,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1805774085
 BoxCollider:
@@ -13811,7 +13813,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &1952365545
 BoxCollider:
@@ -15207,7 +15209,7 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
 --- !u!65 &2106411629
 BoxCollider:
@@ -15816,5 +15818,5 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   objectHighlighter: {fileID: 0}
-  touchHighlightColor: {r: 1, g: 0.989607, b: 0, a: 0}
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0

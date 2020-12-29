@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
-    public PhotonView refereeView;
+    public PhotonView refereeView = null;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,11 @@ public class GameManager : MonoBehaviour
             playerTransform.Rotate(new Vector3(0, 180, 0));
         }
 
-        refereeView.RPC("SetPlayerInfo", RpcTarget.All, PlayerInfoScene.Instance.playerId, PlayerInfoScene.Instance.chosenElement);
+        if (refereeView != null)
+        {
+            refereeView.RPC("SetPlayerInfo", RpcTarget.All, PlayerInfoScene.Instance.playerId, PlayerInfoScene.Instance.chosenElement);
+            Debug.Log($"Called RPC {PlayerInfoScene.Instance.playerId} {PlayerInfoScene.Instance.chosenElement}");
+        }
 
 #if UNITY_EDITOR_WIN
         Debug.Log("WINDOWS!!");

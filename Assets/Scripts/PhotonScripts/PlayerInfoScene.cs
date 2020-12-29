@@ -9,6 +9,8 @@ public class PlayerInfoScene : MonoBehaviour
     public int chosenElement = 0;
     public int playerId = 1;
 
+    public int PhotonPresent = 0;
+
     public void Awake()
     {
         if (Instance)

@@ -27,7 +27,8 @@ public class CardHolder
 
         if(card.CardType == CardType.DRAGON && Owner == PlayerInfoScene.Instance.playerId)
         {
-            GameObject physicalCard = physicalCardGenerator.CreateCard(Cards.Count,((CardDragon)card));
+            float angle = 450 - 180 * Owner;
+            GameObject physicalCard = physicalCardGenerator.CreateCard(Cards.Count,(CardDragon)card, angle:angle);
             card.PhysicInstance = physicalCard;
             physicalCard.GetComponent<PhisicalCardInteractor>().virtualCard = card;
         }

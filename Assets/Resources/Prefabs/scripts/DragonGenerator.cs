@@ -109,7 +109,8 @@ public class DragonGenerator : MonoBehaviour
         var parent = Board.GetChild(pos);
 
         var dragon = CreateDragon(new Vector3(0,0,0), 0.01f, -90 + 180 * owner, element, type, parent:parent);
-        dragon.transform.localPosition = new Vector3(-0.24f, 0.018f, -0.43f);
+        float multiplier = owner == 1 ? -1 : 1;
+        dragon.transform.localPosition = new Vector3(multiplier * 0.24f, 0.018f, multiplier * 0.43f);
 
         return dragon;
     }
