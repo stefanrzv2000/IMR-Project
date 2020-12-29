@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FixedPosition : MonoBehaviour
+public class PlayerPosition : MonoBehaviour
 {
-    public float posx = 0, posy = 1.6f, posz = 0;
+    PlayerInfoScene infos = PlayerInfoScene.Instance;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,6 @@ public class FixedPosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.localPosition = new Vector3(posx, posy, posz);
+        
     }
 }

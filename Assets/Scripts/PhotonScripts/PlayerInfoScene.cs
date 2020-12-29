@@ -6,8 +6,8 @@ public class PlayerInfoScene : MonoBehaviour
 {
     public static PlayerInfoScene Instance;
 
-    public int chosenElement;
-    public int playerId;
+    public int chosenElement = 0;
+    public int playerId = 1;
 
     public void Awake()
     {

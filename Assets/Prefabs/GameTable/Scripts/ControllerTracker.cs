@@ -24,10 +24,10 @@ public class ControllerTracker : MonoBehaviour
         limx = new float[2];
         limz = new float[2];
 
-        limx[0] = transform.position.x - 0.78f / 2;
-        limx[1] = transform.position.x + 0.78f / 2;
-        limz[0] = transform.position.z - 0.78f / 2;
-        limz[1] = transform.position.z + 0.78f / 2;
+        limx[0] = transform.position.x - 1.04f / 2;
+        limx[1] = transform.position.x + 1.04f / 2;
+        limz[0] = transform.position.z - 1.04f / 2;
+        limz[1] = transform.position.z + 1.04f / 2;
         Debug.Log($"limx {limx[0]} {limx[1]}");
         Debug.Log($"limz {limz[0]} {limz[1]}");
     }
@@ -39,10 +39,10 @@ public class ControllerTracker : MonoBehaviour
 
         if (limx[0] < tx && tx < limx[1] && limx[0] < tz && tz < limz[1])
         {
-            int i = (int)(6 * (limx[1] - tx) / (limx[1] - limx[0]));
-            int j = (int)(6 * (limz[1] - tz) / (limz[1] - limz[0]));
+            int j = tableColors.HEIGHT - 1 - (int)(tableColors.HEIGHT * (limx[1] - tx) / (limx[1] - limx[0]));
+            int i = (int)(tableColors.HEIGHT * (limz[1] - tz) / (limz[1] - limz[0]));
 
-            return i * 6 + j;
+            return i * tableColors.HEIGHT + j;
         }
 
         return -1;

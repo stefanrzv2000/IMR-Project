@@ -11,7 +11,8 @@ public class PhisicalCardInteractor : MonoBehaviour
 
     private Vector3 startingPoint;
     private Quaternion startingRotation;
-    private Card virtualCard;
+    public Card virtualCard;
+    private TableColors GameTable;
 
     private bool grabbed = false;
 
@@ -19,6 +20,7 @@ public class PhisicalCardInteractor : MonoBehaviour
     {
         startingPoint = transform.position;
         startingRotation = transform.rotation;
+        GameTable = GameObject.Find("GameTable").GetComponent<TableColors>();
     }
 
     protected virtual void OnEnable()
@@ -39,7 +41,8 @@ public class PhisicalCardInteractor : MonoBehaviour
     {
         grabbed = false;
         var pos = GetBoardPosition();
-        if (IsValidPosition(pos))
+        Debug.Log($"hover pos: {pos}");
+        if (IsValidPosition(pos) && virtualCard.CanBePlayed())
         {
             virtualCard.GoPlay(pos);
         }
@@ -80,14 +83,12 @@ public class PhisicalCardInteractor : MonoBehaviour
 
     Vector2Int GetBoardPosition()
     {
-        //TODO: Implement this
-        return new Vector2Int(0, 0);
+        return GameTable.GetHoverPosition();
     }
 
     bool IsValidPosition(Vector2Int pos)
     {
-        //TODO: Implement this
-        return false;
+        return virtualCard.GetAvailableTagets().Contains(pos);
     }
 
     // Update is called once per frame

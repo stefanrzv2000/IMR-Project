@@ -19,8 +19,13 @@ public class OnBoardDragon : OnBoardDestructible
     public int Type;
     public int Race;
 
+    public GameObject PhysicalDragon;
+    public DragonGenerator DragonGenerator;
+
     public OnBoardDragon(Vector2Int targetPosition, Board board, CardDragon cardDragon)
     {
+        DragonGenerator = GameObject.Find("DragonGenerator").GetComponent<DragonGenerator>();
+
         Board = board;
         DestructibleType = DRAGON;
 
@@ -46,6 +51,9 @@ public class OnBoardDragon : OnBoardDestructible
         Alive = true;
 
         Board.Destructables[BoardY, BoardX] = this;
+
+        PhysicalDragon = DragonGenerator.CreateDragon(BoardX * 8 + BoardY, Race, Type, Owner);
+
     }
 
     public void ResetTurn()

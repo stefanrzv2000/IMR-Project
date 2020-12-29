@@ -6,7 +6,7 @@ public class GameReferee : MonoBehaviour
 {
     public Board Board;
 
-    private GamePlayer[] Players;
+    public GamePlayer[] Players;
 
     public int GoldBonus;
     public int MaxManaBonus;
@@ -25,7 +25,7 @@ public class GameReferee : MonoBehaviour
 
     void Start()
     {
-        Board = new Board();
+        Board = new Board(this);
         //Debug.Log("Direct mesajul");
 
         physicalCardGenerator = new CardsGenerator(CardPrefab);
@@ -35,8 +35,9 @@ public class GameReferee : MonoBehaviour
         MaxFoodBonus = 1;
 
         Players = new GamePlayer[2];
-        Players[0] = new GamePlayer(1, FIRE,  Board, true, physicalCardGenerator);
+        Players[0] = new GamePlayer(1, AIR,  Board, true, physicalCardGenerator);
         Players[1] = new GamePlayer(2, WATER, Board, false, physicalCardGenerator);
+        Players[PlayerInfoScene.Instance.playerId - 1].Race = PlayerInfoScene.Instance.chosenElement;
         //Debug.Log("Direct mesajul");
 
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
@@ -53,6 +54,7 @@ public class GameReferee : MonoBehaviour
             GiveCardSpell(1);
         }
         //Debug.Log("Direct mesajul");
+        Players[0].ResetTurn(GoldBonus, MaxManaBonus, MaxFoodBonus);
     }
 
     void GiveCardDragon(int index)

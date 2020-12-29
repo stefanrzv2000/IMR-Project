@@ -25,10 +25,11 @@ public class CardHolder
         if (Cards.Capacity == MAX_CARDS)
             return false;
 
-        if(card.CardType == CardType.DRAGON && Owner == 1)
+        if(card.CardType == CardType.DRAGON && Owner == PlayerInfoScene.Instance.playerId)
         {
-            GameObject physicalCard = physicalCardGenerator.CreateCard(Cards.Count,((CardDragon)card).Race, ((CardDragon)card).Type);
+            GameObject physicalCard = physicalCardGenerator.CreateCard(Cards.Count,((CardDragon)card));
             card.PhysicInstance = physicalCard;
+            physicalCard.GetComponent<PhisicalCardInteractor>().virtualCard = card;
         }
 
         Cards.Add(card);

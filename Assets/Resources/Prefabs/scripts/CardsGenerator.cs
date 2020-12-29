@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardsGenerator
 {
@@ -72,6 +73,42 @@ public class CardsGenerator
 
 
         done = true;
+    }
+
+    public GameObject CreateCard(int index, CardDragon card, bool flame = false, float scale = 0.1f, float angle = 270)
+    {
+        if (!done)
+        {
+            Debug.Log("Am apelat inainte de done");
+            return null;
+        }
+        var hh = 1;
+        if (index >= 5)
+        {
+            index -= 5;
+            hh = -1;
+        }
+        var pos = new Vector3(0 + (index - 2) * width, hh * height, -0.1f);
+
+        int element = card.Race;
+        int type = card.Type;
+
+        GameObject virtual_card = GameObject.Instantiate(cards) as GameObject;
+        virtual_card.transform.parent = cardHolder;
+        virtual_card.transform.localPosition = pos;
+        virtual_card.transform.localScale = new Vector3(scale, scale, scale);
+        virtual_card.transform.Rotate(Vector3.up, angle);
+
+        virtual_card.transform.GetChild(0).Find("Front").gameObject.GetComponent<Renderer>().material = cards_material[element][type];
+
+        Transform canvas = virtual_card.transform.GetChild(0).Find("Canvas");
+        canvas.Find("HealthText").gameObject.GetComponent<Text>().text = card.MaxHealth.ToString();
+        canvas.Find("AttackText").gameObject.GetComponent<Text>().text = card.Attack.ToString();
+        canvas.Find("CostText")  .gameObject.GetComponent<Text>().text = card.GoldCost.ToString();
+        canvas.Find("RangeText") .gameObject.GetComponent<Text>().text = card.Range.ToString();
+        canvas.Find("SpeedText") .gameObject.GetComponent<Text>().text = card.Speed.ToString();
+
+        return virtual_card;
     }
 
     public GameObject CreateCard(int index, int element, int type, bool flame = false, float scale = 0.1f, float angle = 270)

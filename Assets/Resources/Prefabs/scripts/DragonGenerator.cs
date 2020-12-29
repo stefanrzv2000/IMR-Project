@@ -9,7 +9,8 @@ public class DragonGenerator : MonoBehaviour
     public Transform island;
     
     private Material[][] role_material = new Material[4][];
-    
+    private Transform Board;
+
     // public GameObject horns;
     // private GameObject[] flames=new GameObject[5];
 
@@ -35,6 +36,7 @@ public class DragonGenerator : MonoBehaviour
 
     void Start()
     {
+        Board = GameObject.Find("GameTable").transform;
         // create matrix
         string element = "";
         for (int i = 0; i < 4; i++)
@@ -83,7 +85,7 @@ public class DragonGenerator : MonoBehaviour
         //CreateDragon(new Vector3(0, 1.11f, 0.8f), 0.01f, 90, EARTH, RANGER);
         //CreateDragon(new Vector3(0, 1.11f, 1.1f), 0.01f, 90, AIR, RANGER);
 
-        GenerateAll();
+        //GenerateAll();
         //CreateDragon(new Vector3(0,4,0), 0.1f, 90,AIR,PAWN);
 
     }
@@ -102,7 +104,17 @@ public class DragonGenerator : MonoBehaviour
         }
     }
 
-    GameObject CreateDragon(Vector3 pos, float scale, float angle, int element, int type, bool flame = false, Transform parent = null)
+    public GameObject CreateDragon(int pos, int element, int type, int owner)
+    {
+        var parent = Board.GetChild(pos);
+
+        var dragon = CreateDragon(new Vector3(0,0,0), 0.01f, -90 + 180 * owner, element, type, parent:parent);
+        dragon.transform.localPosition = new Vector3(-0.24f, 0.018f, -0.43f);
+
+        return dragon;
+    }
+
+    public GameObject CreateDragon(Vector3 pos, float scale, float angle, int element, int type, bool flame = false, Transform parent = null)
     {
         var dragon = GameObject.Instantiate(dragonPrefab);
         dragon.transform.position = pos;
