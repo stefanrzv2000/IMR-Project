@@ -4115,6 +4115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 480901762}
   - component: {fileID: 480901761}
+  - component: {fileID: 480901763}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4149,6 +4150,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &480901763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480901760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 439e01852333cc0488e29f92f1cb00a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoardObjectUsed:
+    m_PersistentCalls:
+      m_Calls: []
+  BoardObjectUnused:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &487943214
 GameObject:
   m_ObjectHideFlags: 0
@@ -20197,6 +20216,16 @@ PrefabInstance:
       propertyPath: tile1
       value: 
       objectReference: {fileID: 2100000, guid: a45dfd9a1c072a04392e36057f8962b0, type: 2}
+    - target: {fileID: 1248513219261285519, guid: 3956964ffac8b1045b13a2bfda6d8812,
+        type: 3}
+      propertyPath: availableAttack
+      value: 
+      objectReference: {fileID: 2100000, guid: 651739737c768074cadf7c89b76d7f48, type: 2}
+    - target: {fileID: 1248513219261285519, guid: 3956964ffac8b1045b13a2bfda6d8812,
+        type: 3}
+      propertyPath: availableMove
+      value: 
+      objectReference: {fileID: 2100000, guid: 67fb8aa2af295af4f956a11de89a11a7, type: 2}
     - target: {fileID: 3502454281354505729, guid: 3956964ffac8b1045b13a2bfda6d8812,
         type: 3}
       propertyPath: m_Name

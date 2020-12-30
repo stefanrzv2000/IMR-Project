@@ -45,14 +45,15 @@ public class OnBoardDragon : OnBoardDestructible
         Race      = cardDragon.Race;
         Owner     = cardDragon.Owner;
 
-        SpeedRemained = 0;
+        // has to be reset to 0
+        SpeedRemained = Speed;
         CanAttack = false;
         CanRetaliate = true;
         Alive = true;
 
         Board.Destructables[BoardY, BoardX] = this;
 
-        PhysicalDragon = DragonGenerator.CreateDragon(BoardX * 8 + BoardY, Race, Type, Owner);
+        //PhysicalDragon = DragonGenerator.CreateDragon(BoardX * 8 + BoardY, Race, Type, Owner);
 
     }
 
@@ -85,6 +86,7 @@ public class OnBoardDragon : OnBoardDestructible
         while (queue.Count > 0)
         {
             Vector2Int cur = queue.Peek();
+            queue.Dequeue();
             result.Add(new Tuple<Vector2Int, int>(cur, dist[cur.y, cur.x]));
 
             for (int i = 0; i < 4; i++)
@@ -112,13 +114,17 @@ public class OnBoardDragon : OnBoardDestructible
 
     public List<Vector2Int> GetMovingPositions()
     {
+        Debug.Log("Moving Positions Call 1");
         var possibilities = getPositionsInfoList();
+        Debug.Log("Moving Positions Call 2");
         List<Vector2Int> result = new List<Vector2Int>();
+        Debug.Log("Moving Positions Call 3");
         foreach (var info in possibilities)
         {
             var position = info.Item1;
             result.Add(position);
         }
+        Debug.Log("Moving Positions Call 4");
 
         return result;
     }
@@ -126,7 +132,7 @@ public class OnBoardDragon : OnBoardDestructible
     private int GetMovingCost(Vector2Int targetPosition)
     {
         var possibilities = getPositionsInfoList();
-        List<Vector2Int> result = new List<Vector2Int>();
+        //List<Vector2Int> result = new List<Vector2Int>();
         foreach (var info in possibilities)
         {
             var position = info.Item1;
@@ -147,7 +153,9 @@ public class OnBoardDragon : OnBoardDestructible
             {
                 if (Board.Destructables[y, x] != null &&
                     this.DistanceTo(Board.Destructables[y, x]) <= Range &&
-                    Board.Destructables[y, x].DestructibleType != OCCUPIED)
+                    Board.Destructables[y, x].DestructibleType != OCCUPIED &&
+                    Board.Destructables[y, x].Owner != Owner
+                    )
                 {
                     result.Add(new Vector2Int(x, y));
                 }
@@ -202,5 +210,20 @@ public class OnBoardDragon : OnBoardDestructible
     public int DistanceTo(Vector2Int targetPosition)
     {
         return targetPosition.y - BoardY + targetPosition.x - BoardX;
+    }
+
+    public void UpdateOnBoard()
+    {
+        if(PhysicalDragon == null)
+        {
+            PhysicalDragon = DragonGenerator.CreateDragon(BoardX * 8 + BoardY, Race, Type, Owner);
+        }
+        if(PhysicalDragon != null)
+        {
+            var parent = GameObject.Find("GameTable").transform.GetChild(BoardX * 8 + BoardY);
+            float multiplier = Owner == 1 ? -1 : 1;
+            PhysicalDragon.transform.parent = parent;
+            PhysicalDragon.transform.localPosition = new Vector3(multiplier * 0.24f, 0.018f, multiplier * 0.43f);
+        }
     }
 }

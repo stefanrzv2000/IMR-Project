@@ -63,6 +63,15 @@ public class GameReferee : MonoBehaviourPunCallbacks
     {
         CardDragon card = new CardDragon(type, race, owner);
         OnBoardDragon onBoardDragon = new OnBoardDragon(new Vector2Int(targetPosition[0], targetPosition[1]), Board, card);
+        onBoardDragon.UpdateOnBoard();
+    }
+
+    [PunRPC]
+    public void MoveOnBoardDragon(int[] startPos, int[] destPos)
+    {
+        OnBoardDragon OnBoardDragon = (OnBoardDragon)Board.Destructables[startPos[1], startPos[0]];
+        OnBoardDragon.MoveOn(new Vector2Int(destPos[0], destPos[1]));
+        OnBoardDragon.UpdateOnBoard();
     }
 
     [PunRPC]

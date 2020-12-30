@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
@@ -20,6 +21,11 @@ public class JoystickTrigger : MonoBehaviour
         if(controller == null)
         {
             controller = GameObject.Find("RightHand").transform.GetChild(2).GetComponent<VRTK_ControllerEvents>();
+            if(controller != null)
+            {
+                controller.GripPressed += BoardObjectUsed;
+                controller.GripReleased += BoardObjectUnused;
+            }
         }
         if(controller != null)
         {
@@ -36,5 +42,15 @@ public class JoystickTrigger : MonoBehaviour
             }
 
         }
+    }
+
+    private void BoardObjectUsed(object sender, ControllerInteractionEventArgs e)
+    {
+        UseEventsController.Instance.OnBoardObjectUsed();
+    }
+
+    private void BoardObjectUnused(object sender, ControllerInteractionEventArgs e)
+    {
+        UseEventsController.Instance.OnBoardObjectUnused();
     }
 }

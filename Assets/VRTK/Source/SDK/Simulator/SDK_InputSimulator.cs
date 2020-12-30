@@ -425,7 +425,7 @@
                 KeyCode jk = (KeyCode)(350 + i);
                 if (Input.GetKey(jk))
                 {
-                    Debug.Log("Button " + i);
+                    //Debug.Log("Button " + i);
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static VRHandController;
@@ -13,7 +14,76 @@ public class ControllerTracker : MonoBehaviour
 
     public HandType handType = HandType.RIGHT;
     private string handName;
+
+    private int tileBeingUsed = -1;
+    OnBoardDestructible myDestructible = null;
     // Start is called before the first frame update
+
+    private void OnEnable()
+    {
+        UseEventsController.Instance.BoardObjectUsed.AddListener(OnTileUsed);
+        UseEventsController.Instance.BoardObjectUnused.AddListener(OnTileUnused);
+    }
+
+    private void OnTileUnused()
+    {
+        int currentTile = GetSelectedChild();
+        if (myDestructible != null && myDestructible.DestructibleType == OnBoardDestructible.DRAGON)
+        {
+            int i1 = tileBeingUsed / tableColors.HEIGHT;
+            int j1 = tileBeingUsed % tableColors.HEIGHT;
+
+            int i2 = currentTile / tableColors.HEIGHT;
+            int j2 = currentTile % tableColors.HEIGHT;
+
+            GameReferee.Instance.CallRPCMethod("MoveOnBoardDragon", new int[] { i1, j1 }, new int[] { i2, j2 });
+        }
+
+
+        tileBeingUsed = -1;
+        myDestructible = null;
+        tableColors.ResetAll();
+    }
+
+    private void OnTileUsed()
+    {
+        if (tileBeingUsed != -1) return;
+        tileBeingUsed = GetSelectedChild();
+        Debug.Log($"used {tileBeingUsed}");
+        int i = tileBeingUsed / tableColors.HEIGHT;
+        int j = tileBeingUsed % tableColors.HEIGHT;
+        Debug.Log($"used {i} {j}");
+
+        myDestructible = GameReferee.Instance.Board.Destructables[j, i];
+
+        if (myDestructible != null)
+        {
+            Debug.Log($"There is something here {myDestructible.DestructibleType}");
+        }
+
+        if (myDestructible != null && myDestructible.DestructibleType == OnBoardDestructible.DRAGON)
+        {
+            Debug.Log("I am indeed a dragon");
+            var movePositions = ((OnBoardDragon)myDestructible).GetMovingPositions();
+            Debug.Log($"move positions: {movePositions.Count}");
+            foreach (var pos in movePositions)
+            {
+                int index = pos.x * 8 + pos.y;
+                Debug.Log($"Some position: {pos} index {index}");
+                tableColors.SetCurrentColor(index, TileColor.MOVE);
+            }
+
+            var attackPositions = ((OnBoardDragon)myDestructible).GetAttackingPositions();
+            Debug.Log($"move positions: {attackPositions.Count}");
+            foreach (var pos in attackPositions)
+            {
+                int index = pos.x * 8 + pos.y;
+                Debug.Log($"Some position: {pos} index {index}");
+                tableColors.SetCurrentColor(index, TileColor.ATTACK);
+            }
+        }
+    }
+
     void Start()
     {
         handName = handType == HandType.RIGHT ? "RightHand" : "LeftHand";
