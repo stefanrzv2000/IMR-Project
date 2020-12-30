@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameReferee : MonoBehaviourPunCallbacks
 {
     public static GameReferee Instance;
-    PhotonView PV;
+    public PhotonView PV;
 
     public Board Board;
 
@@ -33,6 +33,18 @@ public class GameReferee : MonoBehaviourPunCallbacks
         Instance = this;
     }
 
+    public void CallRPCMethod(string name, params object[] parameters)
+    {
+        if (PlayerInfoScene.Instance.PhotonPresent != 0)
+        {
+            PV.RPC(name, RpcTarget.All, parameters);
+        }
+        else
+        {
+            typeof(GameReferee).GetMethod(name).Invoke(Instance, parameters);
+        }
+    }
+
     [PunRPC]
     public void SetPlayerInfo(int playerId, int chosenElement)
     {
@@ -45,11 +57,18 @@ public class GameReferee : MonoBehaviourPunCallbacks
             StartGame();
         }
     }
+     
+    [PunRPC]
+    public void CreateOnBoardDragon(int[] targetPosition, int type, int race, int owner)
+    {
+        CardDragon card = new CardDragon(type, race, owner);
+        OnBoardDragon onBoardDragon = new OnBoardDragon(new Vector2Int(targetPosition[0], targetPosition[1]), Board, card);
+    }
 
     [PunRPC]
-    public void CreateOnBoardDragon(Vector2Int targetPosition, CardDragon cardDragon)
+    public void PlaySpell(int[] targetPosition, int spellID)
     {
-        OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, cardDragon);
+
     }
 
     void Start()

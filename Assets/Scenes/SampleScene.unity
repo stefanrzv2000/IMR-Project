@@ -3823,6 +3823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3828407b3a1db6845925f5d6fb2d35cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 440568220}
   chosenElements: ffffffffffffffff
   GoldBonus: 5
   MaxManaBonus: 1
@@ -15911,6 +15912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenElement: 0
   playerId: 1
+  PhotonPresent: 0
 --- !u!4 &1656244412
 Transform:
   m_ObjectHideFlags: 0

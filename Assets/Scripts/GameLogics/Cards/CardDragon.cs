@@ -94,13 +94,23 @@ public class CardDragon : Card
                 ManaCost = 0;
                 break;
         }
-
-        //PhysicInstance = CardsGenerator.CreateCard(1, 0.1f, 270, FIRE, TANK);
+        
     }
 
     public override void GoPlay(Vector2Int targetPosition)
     {
-        GameReferee.Instance.photonView.RPC("CreateOnBoardDragon", Photon.Pun.RpcTarget.All, targetPosition, this);
+        int[] target = { targetPosition.x, targetPosition.y };
+        //if (PlayerInfoScene.Instance.PhotonPresent != 0)
+        //{
+        //    GameReferee.Instance.photonView.RPC("CreateOnBoardDragon", Photon.Pun.RpcTarget.All, target, Type, Race, Owner);
+        //}
+        //else
+        //{
+        //    object[] paramss = { target, Type, Race, Owner};
+        //    typeof(GameReferee).GetMethod("CreateOnBoardDragon").Invoke(GameReferee.Instance, paramss);
+        //}
+
+        GameReferee.Instance.CallRPCMethod("CreateOnBoardDragon", target, Type, Race, Owner);
         //OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, this); 
     }
 
