@@ -19,7 +19,7 @@ public class ControllerTracker : MonoBehaviour
     OnBoardDestructible myDestructible = null;
     // Start is called before the first frame update
 
-    private void OnEnable()
+    private void LinkEvents()
     {
         UseEventsController.Instance.BoardObjectUsed.AddListener(OnTileUsed);
         UseEventsController.Instance.BoardObjectUnused.AddListener(OnTileUnused);
@@ -47,6 +47,7 @@ public class ControllerTracker : MonoBehaviour
 
     private void OnTileUsed()
     {
+        Debug.Log("used used");
         if (tileBeingUsed != -1) return;
         tileBeingUsed = GetSelectedChild();
         Debug.Log($"used {tileBeingUsed}");
@@ -100,6 +101,8 @@ public class ControllerTracker : MonoBehaviour
         limz[1] = transform.position.z + 1.04f / 2;
         Debug.Log($"limx {limx[0]} {limx[1]}");
         Debug.Log($"limz {limz[0]} {limz[1]}");
+
+        LinkEvents();
     }
 
     int GetSelectedChild()

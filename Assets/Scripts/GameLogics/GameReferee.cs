@@ -69,6 +69,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
     [PunRPC]
     public void MoveOnBoardDragon(int[] startPos, int[] destPos)
     {
+        Debug.Log($"Move On Board RPC Called {startPos[0]} {startPos[0]} {startPos[0]} {startPos[0]}");
         OnBoardDragon OnBoardDragon = (OnBoardDragon)Board.Destructables[startPos[1], startPos[0]];
         OnBoardDragon.MoveOn(new Vector2Int(destPos[0], destPos[1]));
         OnBoardDragon.UpdateOnBoard();
