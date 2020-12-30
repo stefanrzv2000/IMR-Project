@@ -204,12 +204,12 @@ public class OnBoardDragon : OnBoardDestructible
 
     public int DistanceTo(OnBoardDestructible destructible)
     {
-        return destructible.BoardY - this.BoardY + destructible.BoardX - this.BoardX;
+        return Math.Abs(destructible.BoardY - this.BoardY) + Math.Abs(destructible.BoardX - this.BoardX);
     }
 
     public int DistanceTo(Vector2Int targetPosition)
     {
-        return targetPosition.y - BoardY + targetPosition.x - BoardX;
+        return Math.Abs(targetPosition.y - BoardY) + Math.Abs(targetPosition.x - BoardX);
     }
 
     public void UpdateOnBoard()

@@ -38,7 +38,7 @@ public class CardDragon : Card
                 MaxHealth = 4;
                 Speed = 2;
                 Attack = 2;
-                Range = 1;
+                Range = 10;
                 Name = "Melee";
 
                 GoldCost = 2;
@@ -50,7 +50,7 @@ public class CardDragon : Card
                 MaxHealth = 4;
                 Speed = 2;
                 Attack = 2;
-                Range = 5;
+                Range = 10;
                 Name = "Ranger";
 
                 GoldCost = 3;
@@ -74,7 +74,7 @@ public class CardDragon : Card
                 MaxHealth = 4;
                 Speed = 2;
                 Attack = 2;
-                Range = 1;
+                Range = 10;
                 Name = "Pawn";
 
                 GoldCost = 4;
@@ -100,16 +100,7 @@ public class CardDragon : Card
     public override void GoPlay(Vector2Int targetPosition)
     {
         int[] target = { targetPosition.x, targetPosition.y };
-        //if (PlayerInfoScene.Instance.PhotonPresent != 0)
-        //{
-        //    GameReferee.Instance.photonView.RPC("CreateOnBoardDragon", Photon.Pun.RpcTarget.All, target, Type, Race, Owner);
-        //}
-        //else
-        //{
-        //    object[] paramss = { target, Type, Race, Owner};
-        //    typeof(GameReferee).GetMethod("CreateOnBoardDragon").Invoke(GameReferee.Instance, paramss);
-        //}
-
+        
         GameReferee.Instance.CallRPCMethod("CreateOnBoardDragon", target, Type, Race, Owner);
         //OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, this); 
     }
