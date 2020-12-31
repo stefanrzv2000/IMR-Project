@@ -41,6 +41,23 @@ public class Board
         return result;
     }
 
+    public List<OnBoardDestructible> GetAllDestructibles()
+    {
+        List<OnBoardDestructible> result = new List<OnBoardDestructible>();
+
+        for (int y = 0; y < Height; y++)
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                if (Destructables[y, x] == null)
+                    continue;
+                result.Add(Destructables[y, x]);
+            }
+        }
+
+        return result;
+    }
+
     public List<OnBoardDragon> GetAllDragonsOfOwner(int owner)
     {
         List<OnBoardDragon> result = new List<OnBoardDragon>();
@@ -50,6 +67,20 @@ public class Board
         {
             if (dragon.Owner == owner)
                 result.Add(dragon);
+        }
+
+        return result;
+    }
+
+    public List<OnBoardDestructible> GetAllDestructiblesOfOwner(int owner)
+    {
+        List<OnBoardDestructible> result = new List<OnBoardDestructible>();
+
+        var allDestructibles = GetAllDestructibles();
+        foreach (var destructible in allDestructibles)
+        {
+            if (destructible.Owner == owner)
+                result.Add(destructible);
         }
 
         return result;
@@ -67,6 +98,21 @@ public class Board
                 {
                     result.Add(new Vector2Int(x, y));
                 }
+            }
+        }
+
+        return result;
+    }
+
+    public List<Vector2Int> GetAllInnerPositions()
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        for (int y = 1; y < Height - 1; y++)
+        {
+            for (int x = 1; x < Width - 1; x++)
+            {
+                result.Add(new Vector2Int(x, y));
             }
         }
 

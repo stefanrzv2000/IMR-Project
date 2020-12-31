@@ -21,4 +21,17 @@ public class CardSpellAirLightning : CardSpell
         OnBoardDestructible attackedDestructible = Board.Destructables[y, x];
         attackedDestructible.ReceiveDamage(DamageDealt);
     }
+
+    public override List<Vector2Int> GetAvailableTargets()
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        var enemyDragons = Board.GetAllDragonsOfOwner(3 - Owner);
+        foreach (var dragon in enemyDragons)
+        {
+            result.Add(new Vector2Int(dragon.BoardX, dragon.BoardY));
+        }
+
+        return result;
+    }
 }

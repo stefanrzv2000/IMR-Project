@@ -29,4 +29,14 @@ public class CardSpellEarthQuake : CardSpell
             }
         }
     }
+
+    public override List<Vector2Int> GetAvailableTargets()
+    {
+        return Board.GetAllInnerPositions();
+    }
+
+    public override List<Vector2Int> GetHoverPositions(Vector2Int position)
+    {
+        return Board.GetAllInnerPositions();
+    }
 }

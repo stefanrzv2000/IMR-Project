@@ -33,4 +33,26 @@ public class CardSpellFireBall : CardSpell
             }
         }
     }
+
+    public override List<Vector2Int> GetAvailableTargets()
+    {
+        return Board.GetAllInnerPositions();
+    }
+
+    public override List<Vector2Int> GetHoverPositions(Vector2Int position)
+    {
+        var result = new List<Vector2Int>();
+        int[] dx = {0, 1, 1, 1, 0, -1 ,-1, -1};
+        int[] dy = {1, 1, 0, -1, -1, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++)
+        {
+            int nx = position.x + dx[i];
+            int ny = position.y + dy[i];
+            result.Add(new Vector2Int(nx, ny));
+        }
+        result.Add(position);
+
+        return result;
+    }
 }

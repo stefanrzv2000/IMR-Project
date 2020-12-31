@@ -47,8 +47,15 @@ public abstract class Card
         return gold >= GoldCost && food >= FoodCost && mana >= ManaCost;
     }
 
-    public virtual List<Vector2Int> GetAvailableTagets()
+    public virtual List<Vector2Int> GetAvailableTargets()
     {
         return new List<Vector2Int>();
+    }
+
+    public virtual List<Vector2Int> GetHoverPositions(Vector2Int position)
+    {
+        var result = new List<Vector2Int>();
+        result.Add(position);
+        return result;
     }
 }

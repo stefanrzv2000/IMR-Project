@@ -105,7 +105,7 @@ public class CardDragon : Card
         //OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, this); 
     }
 
-    public override List<Vector2Int> GetAvailableTagets()
+    public override List<Vector2Int> GetAvailableTargets()
     {
         List<Vector2Int> result = new List<Vector2Int>();
 

@@ -21,4 +21,17 @@ public class CardSpellWaterFrost : CardSpell
         OnBoardDestructible attackedDestructible = Board.Destructables[y, x];
         attackedDestructible.ReceiveDamage(DamageDealt);
     }
+
+    public override List<Vector2Int> GetAvailableTargets()
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        var enemyDistructibles = Board.GetAllDragonsOfOwner(3-Owner);
+        foreach (var distructible in enemyDistructibles)
+        {
+            result.Add(new Vector2Int(distructible.BoardX, distructible.BoardY));
+        }
+
+        return result;
+    }
 }

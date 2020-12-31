@@ -76,9 +76,42 @@ public class GameReferee : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void PlaySpell(int[] targetPosition, int spellID)
+    public void PlaySpell(int[] targetPosition, int spellID, int race, int owner)
     {
+        //Take the references before the code puts the pointer to null if they die
+        var dragons = Board.GetAllDragons();
+        
+        //Deal damage or whatever
+        var cardSpell = CardSpellCreator.GenerateCardSpell(spellID, owner, race);
+        cardSpell.GoPlay(new Vector2Int(targetPosition[0], targetPosition[1]));
+        
+        //In case a dragon died or received damage, update the visuals
+        foreach (var dragon in dragons)
+        {
+            dragon.UpdateOnBoard();
+        }
+    }
 
+    [PunRPC]
+    public void AttackOnBoardDragon(int[] allyPos, int[] attackedPos)
+    {
+        int x = attackedPos[0];
+        int y = attackedPos[1];
+
+        OnBoardDragon chosenDragon = (OnBoardDragon)Board.Destructables[allyPos[1], allyPos[0]];
+        OnBoardDestructible attackedDestructible = Board.Destructables[y, x];
+
+        chosenDragon.AttackOn(new Vector2Int(x, y));
+
+        if (x == 0 || x == Board.Width - 1 || y == 0 || y == Board.Height - 1)
+        {
+            //Attacked a building
+            return;
+        }
+        //Attacked a dragon
+        var attackedDragon = (OnBoardDragon) attackedDestructible;
+        chosenDragon.UpdateOnBoard();
+        attackedDragon.UpdateOnBoard();
     }
 
     void Start()

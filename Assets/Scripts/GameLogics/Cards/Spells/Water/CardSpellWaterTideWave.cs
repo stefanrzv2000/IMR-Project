@@ -43,4 +43,31 @@ public class CardSpellWaterTideWave : CardSpell
             }
         }
     }
+
+    public override List<Vector2Int> GetAvailableTargets()
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+        for (int y = 1; y < Board.Height - 1; y++)
+        {
+            for (int x = 2; x < Board.Width - 2; x++)
+            {
+                result.Add(new Vector2Int(x, y));
+            }
+        }
+
+        return result;
+    }
+
+    public override List<Vector2Int> GetHoverPositions(Vector2Int position)
+    {
+        var result = new List<Vector2Int>();
+        var positions = Board.GetAllInnerPositions();
+        foreach (var pos in positions)
+        {
+            if (Math.Abs(position.x - pos.x) <= 1)
+                result.Add(pos);
+        }
+
+        return result;
+    }
 }

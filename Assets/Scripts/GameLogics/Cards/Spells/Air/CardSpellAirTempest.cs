@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class CardSpellAirTempest : CardSpell
@@ -23,5 +24,20 @@ public class CardSpellAirTempest : CardSpell
             dragon.SpeedRemained += BonusSpeed;
             dragon.Speed += BonusPermanentSpeed;
         }
+    }
+
+    public override List<Vector2Int> GetAvailableTargets()
+    {
+        var allyDragons = Board.GetAllDragonsOfOwner(Owner);
+        if (allyDragons.Count > 0)
+        {
+            return Board.GetAllInnerPositions();
+        }
+        return new List<Vector2Int>();
+    }
+
+    public override List<Vector2Int> GetHoverPositions(Vector2Int position)
+    {
+        return Board.GetAllInnerPositions();
     }
 }

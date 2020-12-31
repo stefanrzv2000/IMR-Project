@@ -22,4 +22,17 @@ public class CardSpellEarthFortify : CardSpell
         buffedDragon.MaxHealth += PermanentHealth;
         buffedDragon.Health    += PermanentHealth;
     }
+
+    public override List<Vector2Int> GetAvailableTargets()
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        var allyDragons = Board.GetAllDragonsOfOwner(Owner);
+        foreach (var dragon in allyDragons)
+        {
+            result.Add(new Vector2Int(dragon.BoardX, dragon.BoardY));
+        }
+
+        return result;
+    }
 }

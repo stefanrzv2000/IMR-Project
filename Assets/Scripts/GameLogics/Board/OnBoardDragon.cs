@@ -214,16 +214,33 @@ public class OnBoardDragon : OnBoardDestructible
 
     public void UpdateOnBoard()
     {
-        if(PhysicalDragon == null)
+        if (Alive)
         {
-            PhysicalDragon = DragonGenerator.CreateDragon(BoardX * 8 + BoardY, Race, Type, Owner);
+            if (PhysicalDragon == null)
+            {
+                PhysicalDragon = DragonGenerator.CreateDragon(BoardX * 8 + BoardY, Race, Type, Owner);
+            }
+
+            else if (PhysicalDragon != null)
+            {
+                var parent = GameObject.Find("GameTable").transform.GetChild(BoardX * 8 + BoardY);
+                float multiplier = Owner == 1 ? -1 : 1;
+                PhysicalDragon.transform.parent = parent;
+                PhysicalDragon.transform.localPosition = new Vector3(multiplier * 0.24f, 0.018f, multiplier * 0.43f);
+            }
         }
-        if(PhysicalDragon != null)
+        else
         {
-            var parent = GameObject.Find("GameTable").transform.GetChild(BoardX * 8 + BoardY);
-            float multiplier = Owner == 1 ? -1 : 1;
-            PhysicalDragon.transform.parent = parent;
-            PhysicalDragon.transform.localPosition = new Vector3(multiplier * 0.24f, 0.018f, multiplier * 0.43f);
+            if (PhysicalDragon == null)
+            {
+                // It was already dead
+            }
+
+            else if (PhysicalDragon != null)
+            {
+                // It just died
+                GameObject.Destroy(PhysicalDragon);
+            }
         }
     }
 }
