@@ -22,7 +22,8 @@ public class CardHolder
 
     public bool ReceiveCard(Card card)
     {
-        if (Cards.Capacity == MAX_CARDS)
+        Debug.Log($"Cards Count {Cards.Count}");
+        if (Cards.Count == MAX_CARDS)
             return false;
 
         if(card.CardType == CardType.DRAGON && Owner == PlayerInfoScene.Instance.playerId)
@@ -30,7 +31,14 @@ public class CardHolder
             float angle = 450 - 180 * Owner;
             GameObject physicalCard = physicalCardGenerator.CreateCard(Cards.Count,(CardDragon)card, angle:angle);
             card.PhysicInstance = physicalCard;
-            physicalCard.GetComponent<PhisicalCardInteractor>().virtualCard = card;
+            physicalCard.GetComponent<PhysicalCardInteractor>().virtualCard = card;
+        }
+        if (card.CardType == CardType.SPELL && Owner == PlayerInfoScene.Instance.playerId)
+        {
+            float angle = 450 - 180 * Owner;
+            GameObject physicalCard = physicalCardGenerator.CreateCard(Cards.Count, (CardSpell)card, angle: angle);
+            card.PhysicInstance = physicalCard;
+            physicalCard.GetComponent<PhysicalCardInteractor>().virtualCard = card;
         }
 
         Cards.Add(card);

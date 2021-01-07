@@ -9,6 +9,7 @@ public class CardSpellEarthQuake : CardSpell
     {
         Name = "Earth Quake";
         Description = $"Deals {DamageDealt} to all enemies and {DamageDealt/2} to all allies";
+        Race = EARTH;
         ID = EARTH_QUAKE;
         Owner = owner;
         ManaCost = 8;

@@ -15,6 +15,7 @@ public class CardSpellFireCurse : CardSpell
         Description = $"Makes {NR_ENEMIES_CURSED + NR_RANDOM_CURSED} random selections: " +
                       $"{NR_ENEMIES_CURSED} on enemy," + $" {NR_RANDOM_CURSED} on anyone, " +
                       $"reducing the Attack of the selected dragons by {DamageReduce}";
+        Race = FIRE;
         ID = FIRE_CURSE;
         Owner = owner;
         ManaCost = 5;

@@ -9,7 +9,8 @@ public class CardSpellWaterMissile : CardSpell
     public CardSpellWaterMissile(int owner)
     {
         Name = "Water Missiles";
-        Description = $"Deals {DamageDealt} to a random dragon. Casts {NR_CASTS} times";
+        Description = $"Deals <b>{DamageDealt} Damage</b> to a random dragon. Casts <b>{NR_CASTS}</b> times.";
+        Race = WATER;
         ID = WATER_MISSILE;
         Owner = owner;
         ManaCost = 1;

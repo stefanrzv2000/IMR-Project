@@ -196,4 +196,17 @@ public class Board
             }
         }
     }
+
+    public void DebugDestructibles()
+    {
+        for(int i = 0; i < Height; i++)
+        {
+            string s = "";
+            for(int j = 0; j < Width; j++)
+            {
+                s += Destructables[i, j].DestructibleType + " ";
+            }
+            Debug.Log($"Board {i} {s}");
+        }
+    }
 }

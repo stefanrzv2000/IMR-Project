@@ -9,6 +9,7 @@ public class CardSpellFireSacrifice : CardSpell
     {
         Name = "Fire Sacrifice";
         Description = $"Sacrifices an ally dragon, giving half of their Attack and Range to all allies";
+        Race = FIRE;
         ID = FIRE_SACRIFICE;
         Owner = owner;
         ManaCost = 8;

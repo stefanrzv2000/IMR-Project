@@ -11,6 +11,7 @@ public class CardSpellAirTempest : CardSpell
     {
         Name = "Air Tempest";
         Description = $"Gives all your dragons {BonusSpeed} bonus move speed";
+        Race = AIR;
         ID = AIR_TEMPEST;
         Owner = owner;
         ManaCost = 6;

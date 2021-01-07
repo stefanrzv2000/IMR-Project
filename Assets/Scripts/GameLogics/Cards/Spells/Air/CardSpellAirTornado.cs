@@ -11,6 +11,7 @@ public class CardSpellAirTornado : CardSpell
     {
         Name = "Air Tornado";
         Description = $"Deals {DamageDealt} damage to all the dragons from selected and adjacent rows";
+        Race = AIR;
         ID = AIR_TORNADO;
         Owner = owner;
         ManaCost = 8;

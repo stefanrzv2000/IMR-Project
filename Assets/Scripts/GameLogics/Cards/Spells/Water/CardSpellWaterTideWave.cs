@@ -13,6 +13,7 @@ public class CardSpellWaterTideWave : CardSpell
         Description = $"Blesses all the ally dragons from selected and adjacent column," +
                       $"and slows permanently all the enemy dragons selected and adjacent column." +
                       $"Can root enemies!";
+        Race = WATER;
         ID = WATER_TIDE_WAVE;
         Owner = owner;
         ManaCost = 8;

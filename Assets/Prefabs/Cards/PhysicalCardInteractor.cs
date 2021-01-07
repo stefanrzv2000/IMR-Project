@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-public class PhisicalCardInteractor : MonoBehaviour
+public class PhysicalCardInteractor : MonoBehaviour
 {
     // Start is called before the first frame update
     public VRTK_InteractableObject linkedObject;
@@ -39,6 +39,8 @@ public class PhisicalCardInteractor : MonoBehaviour
 
     private void InteractableObjectUngrabbed(object sender, InteractableObjectEventArgs e)
     {
+        GameTable.cardGrabbed = null;
+        GameTable.ResetAll();
         grabbed = false;
         var pos = GetBoardPosition();
         Debug.Log($"hover pos: {pos}");
@@ -55,6 +57,8 @@ public class PhisicalCardInteractor : MonoBehaviour
 
     private void InteractableObjectGrabbed(object sender, InteractableObjectEventArgs e)
     {
+        GameTable.cardGrabbed = virtualCard;
+        GameTable.ShowAvailablePlayPositions();
         grabbed = true;
         //startingPoint = transform.position;
         //startingRotation = transform.rotation;

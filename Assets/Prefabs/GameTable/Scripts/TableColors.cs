@@ -21,6 +21,8 @@ public class TableColors : MonoBehaviour
     public Material availableAttack;
     public Material availableMove;
 
+    public Card cardGrabbed;
+
     public float elevation = 0.01f;
 
     private int hoverIndex = -1;
@@ -149,5 +151,21 @@ public class TableColors : MonoBehaviour
             return new Vector2Int(hoverIndex / HEIGHT, hoverIndex % HEIGHT);
         }
         return new Vector2Int(-1, -1);
+    }
+
+    public void ShowAvailablePlayPositions()
+    {
+        if(cardGrabbed == null)
+        {
+            return;
+        }
+
+        var positions = cardGrabbed.GetAvailableTargets();
+
+        foreach(var p in positions)
+        {
+            int index = 8 * p.x + p.y;
+            SetCurrentColor(index, TileColor.MOVE);
+        }
     }
 }

@@ -9,6 +9,7 @@ public class CardSpellWaterFrost : CardSpell
     {
         Name = "Water Frost";
         Description = $"Deals {DamageDealt} damage";
+        Race = WATER;
         ID = WATER_FROST;
         Owner = owner;
         ManaCost = 2;

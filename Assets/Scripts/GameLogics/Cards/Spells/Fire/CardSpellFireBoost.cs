@@ -10,6 +10,7 @@ public class CardSpellFireBoost : CardSpell
     {
         Name = "Fire Boost";
         Description = $"Gives +{BonusAttack} Attack to an ally dragon";
+        Race = FIRE;
         ID = FIRE_BOOST;
         Owner = owner;
         ManaCost = 2;

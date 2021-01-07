@@ -9,6 +9,7 @@ public class CardSpellFireBall : CardSpell
     {
         Name = "Fire Ball";
         Description = $"Deals {DamageDealt} damage in 3x3 Area";
+        Race = FIRE;
         ID = FIRE_BALL;
         Owner = owner;
         ManaCost = 4;

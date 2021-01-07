@@ -9,6 +9,7 @@ public class CardSpellEarthFortify : CardSpell
     {
         Name = "Earth Fortify";
         Description = $"Gives {PermanentHealth} to an ally dragon";
+        Race = EARTH;
         ID = EARTH_FORTIFY;
         Owner = owner;
         ManaCost = 1;

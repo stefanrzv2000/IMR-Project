@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardSpell : Card
 {
     public int ID;
+    public int Race;
 
     protected const int FIRE_BOLT = 0;
     protected const int FIRE_BOOST = 1;

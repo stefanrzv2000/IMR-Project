@@ -10,6 +10,7 @@ public class CardSpellWaterMermaidKiss : CardSpell
     {
         Name = "Water Mermaid Kiss";
         Description = $"Get ownership over {NR_CASTS} random enemy dragons";
+        Race = WATER;
         ID = WATER_MERMAID_KISS;
         Owner = owner;
         ManaCost = 6;

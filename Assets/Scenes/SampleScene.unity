@@ -3828,7 +3828,9 @@ MonoBehaviour:
   GoldBonus: 5
   MaxManaBonus: 1
   MaxFoodBonus: 2
-  CardPrefab: {fileID: 4889031426242343526, guid: 8c4706f00b7e48240aa8ac439f8bc0c7,
+  DragonCardPrefab: {fileID: 4889031426242343526, guid: 8c4706f00b7e48240aa8ac439f8bc0c7,
+    type: 3}
+  SpellCardPrefab: {fileID: 6989407979279895895, guid: 19eb8a940aa666b4fbc330d98b04c36b,
     type: 3}
 --- !u!4 &440568219
 Transform:

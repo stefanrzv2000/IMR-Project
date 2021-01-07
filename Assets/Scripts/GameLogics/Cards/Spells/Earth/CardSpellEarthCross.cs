@@ -10,6 +10,7 @@ public class CardSpellEarthCross : CardSpell
     {
         Name = "Earth Stone Cross";
         Description = $"Deals {DamageDealt} enemies in the selected cross(+) area";
+        Race = EARTH;
         ID = EARTH_CROSS;
         Owner = owner;
         ManaCost = 4;

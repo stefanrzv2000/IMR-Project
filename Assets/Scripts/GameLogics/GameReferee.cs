@@ -23,9 +23,10 @@ public class GameReferee : MonoBehaviourPunCallbacks
     private int AIR = 3;
 
     private const int NR_CARD_DRAGONS_START = 3;
-    private const int NR_CARD_SPELLS_START = 2;
+    private const int NR_CARD_SPELLS_START = 3;
 
-    public GameObject CardPrefab;
+    public GameObject DragonCardPrefab;
+    public GameObject SpellCardPrefab;
     private CardsGenerator physicalCardGenerator;
 
     public void Awake()
@@ -119,7 +120,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
         Board = new Board(this);
         //Debug.Log("Direct mesajul");
 
-        physicalCardGenerator = new CardsGenerator(CardPrefab);
+        physicalCardGenerator = new CardsGenerator(DragonCardPrefab, SpellCardPrefab);
 
         GoldBonus = 5;
         MaxManaBonus = 1;
@@ -154,8 +155,10 @@ public class GameReferee : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < NR_CARD_SPELLS_START; i++)
         {
+            Debug.Log($"Given {i + 1} spell");
             GiveCardSpell(0);
             GiveCardSpell(1);
+            Debug.Log($"Given {i + 1} spell");
         }
         //Debug.Log("Direct mesajul");
         Players[0].ResetTurn(GoldBonus, MaxManaBonus, MaxFoodBonus);
@@ -197,6 +200,11 @@ public class GameReferee : MonoBehaviourPunCallbacks
         else if (Players[1].EndedTurn)
         {
             PassTurnToPlayer(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Board.DebugDestructibles();
         }
     }
 }

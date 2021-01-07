@@ -9,6 +9,7 @@ public class CardSpellAirLightning : CardSpell
     {
         Name = "Air Lightning";
         Description = $"Deals {DamageDealt} damage to a dragon";
+        Race = AIR;
         ID = AIR_LIGHTNING;
         Owner = owner;
         ManaCost = 2;

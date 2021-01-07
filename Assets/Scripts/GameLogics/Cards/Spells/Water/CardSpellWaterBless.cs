@@ -10,6 +10,7 @@ public class CardSpellWaterBless : CardSpell
     {
         Name = "Water Bless";
         Description = $"Gives to random ally dragon +{Bonus} to all stats. Casts {NR_CASTS} times";
+        Race = WATER;
         ID = WATER_BLESS;
         Owner = owner;
         ManaCost = 5;

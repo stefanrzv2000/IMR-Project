@@ -10,6 +10,7 @@ public class CardSpellEarthSlow : CardSpell
     {
         Name = "Earth Slow";
         Description = $"Slows by {PermanentSlow} an enemy dragon. Can root enemies!";
+        Race = EARTH;
         ID = EARTH_SLOW;
         Owner = owner;
         ManaCost = 3;

@@ -8,6 +8,7 @@ public class CardSpellAirRefillAttack : CardSpell
     {
         Name = "Air Refill Attack";
         Description = $"Restores the ability to attack to a dragon";
+        Race = AIR;
         ID = AIR_REFILL_ATTACK;
         Owner = owner;
         ManaCost = 2;

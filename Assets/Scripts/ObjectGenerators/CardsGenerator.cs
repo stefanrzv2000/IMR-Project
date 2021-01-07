@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class CardsGenerator
 {
-    private GameObject cards;
-    public Material[][] cards_material = new Material[4][];
+    private GameObject dragonCard;
+    private GameObject spellCard;
+    public Material[,] card_materials = new Material[4,9];
     public float width = 0.11f;
     public float height = 0.07f;
 
@@ -23,22 +24,26 @@ public class CardsGenerator
     private int QUEEN = 3;
     private int PAWN = 4;
 
+    private int TIER1_SPELL = 5;
+    private int TIER2_SPELL = 6;
+    private int TIER3_SPELL = 7;
+    private int TIER4_SPELL = 8;
+    private int TIER5_SPELL = 9;
+
     private bool done = false;
 
-    public CardsGenerator(GameObject cardPrefab)
+    public CardsGenerator(GameObject dragonCardPrefab, GameObject spellCardPrefab)
     {
-        cards = cardPrefab;
+        dragonCard = dragonCardPrefab;
+        spellCard = spellCardPrefab;
+
         cardHolder = GameObject.Find("CardHolder").transform;
 
         string element = "";
-        for (int i = 0; i < 4; i++)
-        {
-            cards_material[i] = new Material[4];
-        }
         
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 9; j++)
             {
                 if (i == 0)
                     element = "fire";
@@ -57,7 +62,7 @@ public class CardsGenerator
                 var material = Resources.Load(path, typeof(Material)) as Material;
                 //var texture = (Texture2D)material.mainTexture;
 
-                cards_material[i][j] = material;
+                card_materials[i,j] = material;
             }
         }
 
@@ -73,6 +78,39 @@ public class CardsGenerator
 
 
         done = true;
+    }
+
+    public GameObject CreateCard(int index, CardSpell card, bool flame = false, float scale = 0.1f, float angle = 270)
+    {
+        if (!done)
+        {
+            Debug.Log("Am apelat inainte de done");
+            return null;
+        }
+        var hh = 1;
+        if (index >= 5)
+        {
+            index -= 5;
+            hh = -1;
+        }
+        var pos = new Vector3(0 + (index - 2) * width, hh * height, -0.1f);
+
+        int element = card.Race;
+        int type = card.ID + 4;
+
+        GameObject virtual_card = GameObject.Instantiate(spellCard) as GameObject;
+        virtual_card.transform.parent = cardHolder;
+        virtual_card.transform.localPosition = pos;
+        virtual_card.transform.localScale = new Vector3(scale, scale, scale);
+        virtual_card.transform.Rotate(Vector3.up, angle);
+
+        virtual_card.transform.GetChild(0).Find("Front").gameObject.GetComponent<Renderer>().material = card_materials[element, type];
+
+        Transform canvas = virtual_card.transform.GetChild(0).Find("Canvas");
+        canvas.Find("CostText").gameObject.GetComponent<Text>().text = card.ManaCost.ToString();
+        canvas.Find("Description").gameObject.GetComponent<Text>().text = card.Description;
+        
+        return virtual_card;
     }
 
     public GameObject CreateCard(int index, CardDragon card, bool flame = false, float scale = 0.1f, float angle = 270)
@@ -93,13 +131,13 @@ public class CardsGenerator
         int element = card.Race;
         int type = card.Type;
 
-        GameObject virtual_card = GameObject.Instantiate(cards) as GameObject;
+        GameObject virtual_card = GameObject.Instantiate(dragonCard) as GameObject;
         virtual_card.transform.parent = cardHolder;
         virtual_card.transform.localPosition = pos;
         virtual_card.transform.localScale = new Vector3(scale, scale, scale);
         virtual_card.transform.Rotate(Vector3.up, angle);
 
-        virtual_card.transform.GetChild(0).Find("Front").gameObject.GetComponent<Renderer>().material = cards_material[element][type];
+        virtual_card.transform.GetChild(0).Find("Front").gameObject.GetComponent<Renderer>().material = card_materials[element,type];
 
         Transform canvas = virtual_card.transform.GetChild(0).Find("Canvas");
         canvas.Find("HealthText").gameObject.GetComponent<Text>().text = card.MaxHealth.ToString();
@@ -126,13 +164,13 @@ public class CardsGenerator
         }
         var pos = new Vector3(0 + (index - 2) * width, hh * height, -0.1f);
 
-        GameObject virtual_card = GameObject.Instantiate(cards) as GameObject;
+        GameObject virtual_card = GameObject.Instantiate(dragonCard) as GameObject;
         virtual_card.transform.parent = cardHolder;
         virtual_card.transform.localPosition = pos;
         virtual_card.transform.localScale = new Vector3(scale, scale, scale);
         virtual_card.transform.Rotate(Vector3.up, angle);
 
-        virtual_card.transform.GetChild(0).Find("Front").gameObject.GetComponent<Renderer>().material = cards_material[element][type];
+        virtual_card.transform.GetChild(0).Find("Front").gameObject.GetComponent<Renderer>().material = card_materials[element,type];
 
         return virtual_card;
 

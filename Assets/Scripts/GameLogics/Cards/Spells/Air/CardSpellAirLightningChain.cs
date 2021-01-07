@@ -13,6 +13,7 @@ public class CardSpellAirLightningChain : CardSpell
         Description = $"Deals {DamageDealt} to {NR_ATTACKED_DRAGONS} dragons" +
                       $"The first target is selectable, the next targets are the " +
                       $"nearest ones from the previous one";
+        Race = AIR;
         ID = AIR_LIGHTNING_CHAIN;
         Owner = owner;
         ManaCost = 5;

@@ -11,9 +11,10 @@ public class CardSpellEarthSteel : CardSpell
     public CardSpellEarthSteel(int owner)
     {
         Name = "Earth Steel Gear";
-        Description = $"Gives {PermanentHealth} Health and {PermanentAttack} Attack to an ally dragon." +
-                      $"Auto Casts {CastTimes} times";
-        ID = FIRE_BOLT;
+        Description = $"Gives <b>+{PermanentHealth} Health</b> and <b>+{PermanentAttack} Attack</b> to an ally dragon." +
+                      $"Auto Casts <b>{CastTimes}</b> times";
+        Race = EARTH;
+        ID = EARTH_STEEL;
         Owner = owner;
         ManaCost = 5;
     }

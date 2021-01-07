@@ -9,6 +9,7 @@ public class CardSpellFireBolt : CardSpell
     {
         Name = "Fire Bolt";
         Description = $"Deals {DamageDealt} damage to an enemy dragon";
+        Race = FIRE;
         ID = FIRE_BOLT;
         Owner = owner;
         ManaCost = 2;

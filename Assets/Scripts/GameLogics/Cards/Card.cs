@@ -13,7 +13,6 @@ public abstract class Card
 {
     public Board Board;
 
-    public Material ImageMaterial;
     public int GoldCost;
     public int FoodCost;
     public int ManaCost;

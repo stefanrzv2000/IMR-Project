@@ -101,7 +101,7 @@ public class OnBoardDragon : OnBoardDestructible
                     continue;
 
                 dist[ny, nx] = dist[cur.y, cur.x] + 1;
-                if (dist[ny, nx] < SpeedRemained)
+                if (dist[ny, nx] <= SpeedRemained)
                 {
                     Vector2Int toAdd = new Vector2Int(nx, ny);
                     queue.Enqueue(toAdd);
