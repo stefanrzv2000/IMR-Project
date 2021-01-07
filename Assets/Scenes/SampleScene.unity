@@ -20228,6 +20228,11 @@ PrefabInstance:
       propertyPath: availableMove
       value: 
       objectReference: {fileID: 2100000, guid: 67fb8aa2af295af4f956a11de89a11a7, type: 2}
+    - target: {fileID: 1248513219261285519, guid: 3956964ffac8b1045b13a2bfda6d8812,
+        type: 3}
+      propertyPath: spellRange
+      value: 
+      objectReference: {fileID: 2100000, guid: 618447fb6e6958b4aaa230c4148e2d1a, type: 2}
     - target: {fileID: 3502454281354505729, guid: 3956964ffac8b1045b13a2bfda6d8812,
         type: 3}
       propertyPath: m_Name

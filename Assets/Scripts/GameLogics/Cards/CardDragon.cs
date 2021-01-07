@@ -99,7 +99,7 @@ public class CardDragon : Card
 
     public override void GoPlay(Vector2Int targetPosition)
     {
-        int[] target = { targetPosition.x, targetPosition.y };
+        int[] target = { targetPosition.y, targetPosition.x };
         
         GameReferee.Instance.CallRPCMethod("CreateOnBoardDragon", target, Type, Race, Owner);
         //OnBoardDragon onBoardDragon = new OnBoardDragon(targetPosition, Board, this); 
@@ -115,14 +115,14 @@ public class CardDragon : Card
             //Debug.Log($"pos {pos}");
             if(PlayerInfoScene.Instance.playerId == 1)
             {
-                if (pos.x >= 5)
+                if (pos.y >= 5)
                 {
                     result.Add(pos);
                 }
             }
             else
             {
-                if (pos.x <= 2)
+                if (pos.y <= 2)
                 {
                     result.Add(pos);
                 }

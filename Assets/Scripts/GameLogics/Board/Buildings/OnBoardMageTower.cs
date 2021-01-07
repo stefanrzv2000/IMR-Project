@@ -54,7 +54,7 @@ public class OnBoardMageTower : OnBoardBuilding
 
     public CardSpell ResetTurn(int race)
     {
-        int index = Random.Range(0, MaxSpellsIndex[Tier]);
+        int index = Random.Range(0, MaxSpellsIndex[2]); // to be modified from 2 back to Tier
         return CardSpellCreator.GenerateCardSpell(index, Owner, race);
     }
 }

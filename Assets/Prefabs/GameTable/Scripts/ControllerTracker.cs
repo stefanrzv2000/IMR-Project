@@ -50,12 +50,14 @@ public class ControllerTracker : MonoBehaviour
         Debug.Log("used used");
         if (tileBeingUsed != -1) return;
         tileBeingUsed = GetSelectedChild();
+        if (tileBeingUsed == -1) return;
         Debug.Log($"used {tileBeingUsed}");
+
         int i = tileBeingUsed / tableColors.HEIGHT;
         int j = tileBeingUsed % tableColors.HEIGHT;
         Debug.Log($"used {i} {j}");
 
-        myDestructible = GameReferee.Instance.Board.Destructables[j, i];
+        myDestructible = GameReferee.Instance.Board.Destructables[i, j];
 
         if (myDestructible != null)
         {
@@ -69,7 +71,7 @@ public class ControllerTracker : MonoBehaviour
             Debug.Log($"move positions: {movePositions.Count}");
             foreach (var pos in movePositions)
             {
-                int index = pos.x * 8 + pos.y;
+                int index = pos.x + 8 * pos.y;
                 Debug.Log($"Some position: {pos} index {index}");
                 tableColors.SetCurrentColor(index, TileColor.MOVE);
             }
@@ -78,7 +80,7 @@ public class ControllerTracker : MonoBehaviour
             Debug.Log($"move positions: {attackPositions.Count}");
             foreach (var pos in attackPositions)
             {
-                int index = pos.x * 8 + pos.y;
+                int index = pos.x + 8 * pos.y;
                 Debug.Log($"Some position: {pos} index {index}");
                 tableColors.SetCurrentColor(index, TileColor.ATTACK);
             }
@@ -110,7 +112,7 @@ public class ControllerTracker : MonoBehaviour
         float tx = tracked.transform.position.x;
         float tz = tracked.transform.position.z;
 
-        if (limx[0] < tx && tx < limx[1] && limx[0] < tz && tz < limz[1])
+        if (limx[0] < tx && tx < limx[1] && limz[0] < tz && tz < limz[1])
         {
             int j = tableColors.HEIGHT - 1 - (int)(tableColors.HEIGHT * (limx[1] - tx) / (limx[1] - limx[0]));
             int i = (int)(tableColors.HEIGHT * (limz[1] - tz) / (limz[1] - limz[0]));

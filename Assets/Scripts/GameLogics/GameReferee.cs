@@ -22,8 +22,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
     private int EARTH = 2;
     private int AIR = 3;
 
-    private const int NR_CARD_DRAGONS_START = 3;
-    private const int NR_CARD_SPELLS_START = 3;
+    private const int NR_CARD_DRAGONS_START = 1;
+    private const int NR_CARD_SPELLS_START = 8;
 
     public GameObject DragonCardPrefab;
     public GameObject SpellCardPrefab;
@@ -63,16 +63,16 @@ public class GameReferee : MonoBehaviourPunCallbacks
     public void CreateOnBoardDragon(int[] targetPosition, int type, int race, int owner)
     {
         CardDragon card = new CardDragon(type, race, owner);
-        OnBoardDragon onBoardDragon = new OnBoardDragon(new Vector2Int(targetPosition[0], targetPosition[1]), Board, card);
+        OnBoardDragon onBoardDragon = new OnBoardDragon(new Vector2Int(targetPosition[1], targetPosition[0]), Board, card);
         onBoardDragon.UpdateOnBoard();
     }
 
     [PunRPC]
     public void MoveOnBoardDragon(int[] startPos, int[] destPos)
     {
-        Debug.Log($"Move On Board RPC Called {startPos[0]} {startPos[0]} {startPos[0]} {startPos[0]}");
-        OnBoardDragon OnBoardDragon = (OnBoardDragon)Board.Destructables[startPos[1], startPos[0]];
-        OnBoardDragon.MoveOn(new Vector2Int(destPos[0], destPos[1]));
+        Debug.Log($"Move On Board RPC Called {startPos[0]} {startPos[1]} {destPos[0]} {destPos[1]}");
+        OnBoardDragon OnBoardDragon = (OnBoardDragon)Board.Destructables[startPos[0], startPos[1]];
+        OnBoardDragon.MoveOn(new Vector2Int(destPos[1], destPos[0]));
         OnBoardDragon.UpdateOnBoard();
     }
 

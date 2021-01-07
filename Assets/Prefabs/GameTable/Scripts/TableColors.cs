@@ -10,6 +10,7 @@ public enum TileColor
     INVISIBLE,
     ATTACK,
     MOVE,
+    SPELL,
 }
 
 public class TableColors : MonoBehaviour
@@ -20,12 +21,14 @@ public class TableColors : MonoBehaviour
     public Material invisible;
     public Material availableAttack;
     public Material availableMove;
+    public Material spellRange;
 
     public Card cardGrabbed;
 
     public float elevation = 0.01f;
 
     private int hoverIndex = -1;
+    private List<Vector2Int> hoverPositions = null;
     public int HEIGHT = 8;
     public int SIZE = 64;
 
@@ -75,14 +78,49 @@ public class TableColors : MonoBehaviour
 
     public void SetHover(int index)
     {
-        if(0 <= hoverIndex && hoverIndex < SIZE)
+        
+        if (0 <= hoverIndex && hoverIndex < SIZE)
         {
-            SetColor(hoverIndex, currentColors[hoverIndex]);    
+            SetColor(hoverIndex, currentColors[hoverIndex]);
         }
-        if(0 <= index && index < SIZE)
+        if (0 <= index && index < SIZE)
         {
             SetColor(index, TileColor.HOVER1);
             hoverIndex = index;
+        }
+        
+        if (cardGrabbed != null)
+        {
+            if (hoverPositions != null)
+            {
+                foreach (var pos in hoverPositions)
+                {
+                    int curr_index = pos.x + 8 * pos.y;
+                    if (curr_index == hoverIndex || curr_index == -1) continue;
+                    SetColor(curr_index, currentColors[curr_index]);
+                }
+            }
+            hoverPositions = cardGrabbed.GetHoverPositions(new Vector2Int(index % 8, index / 8));
+            foreach(var pos in hoverPositions)
+            {
+                int curr_index = pos.x + 8 * pos.y;
+                if (curr_index == hoverIndex || curr_index == -1) continue;
+                SetColor(curr_index, TileColor.SPELL);
+            }
+        }
+        else
+        {
+            if (hoverPositions != null)
+            {
+                foreach (var pos in hoverPositions)
+                {
+                    int curr_index = pos.x + 8 * pos.y;
+                    if (curr_index == hoverIndex || curr_index == -1) continue;
+                    Debug.Log("Current index " + curr_index);
+                    SetColor(curr_index, currentColors[curr_index]);
+                }
+            }
+            hoverPositions = null;
         }
         //Debug.Log($"Hover: {GetHoverPosition()}");
     }
@@ -135,6 +173,9 @@ public class TableColors : MonoBehaviour
             case TileColor.MOVE:
                 mat = availableMove;
                 break;
+            case TileColor.SPELL:
+                mat = spellRange;
+                break;
             default:
                 break;
         }
@@ -148,7 +189,7 @@ public class TableColors : MonoBehaviour
     {
         if(0 <= hoverIndex && hoverIndex < SIZE)
         {
-            return new Vector2Int(hoverIndex / HEIGHT, hoverIndex % HEIGHT);
+            return new Vector2Int(hoverIndex % HEIGHT, hoverIndex / HEIGHT);
         }
         return new Vector2Int(-1, -1);
     }
@@ -164,7 +205,7 @@ public class TableColors : MonoBehaviour
 
         foreach(var p in positions)
         {
-            int index = 8 * p.x + p.y;
+            int index = p.x + 8 * p.y;
             SetCurrentColor(index, TileColor.MOVE);
         }
     }

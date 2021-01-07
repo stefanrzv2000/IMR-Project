@@ -204,9 +204,16 @@ public class Board
             string s = "";
             for(int j = 0; j < Width; j++)
             {
-                s += Destructables[i, j].DestructibleType + " ";
+                if (Destructables[i, j] == null)
+                {
+                    s += "0 ";
+                }
+                else
+                {
+                    s += Destructables[i, j].DestructibleType + " ";
+                }
             }
-            Debug.Log($"Board {i} {s}");
+            Debug.Log($"Board \t\t\t {s}");
         }
     }
 }
