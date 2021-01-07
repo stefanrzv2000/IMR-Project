@@ -88,7 +88,7 @@ public class PhisicalCardInteractor : MonoBehaviour
 
     bool IsValidPosition(Vector2Int pos)
     {
-        return virtualCard.GetAvailableTagets().Contains(pos);
+        return virtualCard.GetAvailableTargets().Contains(pos);
     }
 
     // Update is called once per frame
