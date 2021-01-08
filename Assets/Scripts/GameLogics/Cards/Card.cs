@@ -11,6 +11,8 @@ public enum CardType
 
 public abstract class Card  
 {
+    public int Index = -1;
+
     public Board Board;
 
     public int GoldCost;

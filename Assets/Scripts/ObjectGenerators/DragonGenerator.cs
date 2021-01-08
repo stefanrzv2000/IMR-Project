@@ -110,7 +110,8 @@ public class DragonGenerator : MonoBehaviour
 
         var dragon = CreateDragon(new Vector3(0,0,0), 0.01f, -90 + 180 * owner, element, type, parent:parent);
         float multiplier = owner == 1 ? -1 : 1;
-        dragon.transform.localPosition = new Vector3(multiplier * 0.24f, 0.018f, multiplier * 0.43f);
+        dragon.transform.localPosition = new Vector3(multiplier * 0.39f, 0.036f, multiplier * 0.66f);
+        dragon.transform.localScale = new Vector3(0.12f, 0.018f, 0.12f);
 
         return dragon;
     }

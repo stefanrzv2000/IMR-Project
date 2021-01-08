@@ -25,7 +25,8 @@ public class CardSpellWaterTideWave : CardSpell
         var allDragons = Board.GetAllDragons();
         foreach (var dragon in allDragons)
         {
-            if (Math.Abs(dragon.BoardY - x) <= 1)
+            Debug.Log("I have a dragon");
+            if (Math.Abs(dragon.BoardX - x) <= 1)
             {
                 if (dragon.Owner == Owner)
                 {
@@ -35,6 +36,7 @@ public class CardSpellWaterTideWave : CardSpell
                     dragon.Range += Bonus;
                     dragon.MaxHealth += Bonus;
                     dragon.Health += Bonus;
+                    dragon.UpdateOnBoard();
                 }
                 else
                 {

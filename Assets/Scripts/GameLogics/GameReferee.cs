@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameReferee : MonoBehaviourPunCallbacks
 {
@@ -22,8 +23,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
     private int EARTH = 2;
     private int AIR = 3;
 
-    private const int NR_CARD_DRAGONS_START = 1;
-    private const int NR_CARD_SPELLS_START = 8;
+    private const int NR_CARD_DRAGONS_START = 4;
+    private const int NR_CARD_SPELLS_START = 4;
 
     public GameObject DragonCardPrefab;
     public GameObject SpellCardPrefab;
@@ -84,6 +85,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
         
         //Deal damage or whatever
         var cardSpell = CardSpellCreator.GenerateCardSpell(spellID, owner, race);
+        cardSpell.Board = Board;
         cardSpell.GoPlay(new Vector2Int(targetPosition[0], targetPosition[1]));
         
         //In case a dragon died or received damage, update the visuals
@@ -113,6 +115,12 @@ public class GameReferee : MonoBehaviourPunCallbacks
         var attackedDragon = (OnBoardDragon) attackedDestructible;
         chosenDragon.UpdateOnBoard();
         attackedDragon.UpdateOnBoard();
+    }
+
+    [PunRPC]
+    public void SwitchTurns(int index)
+    {
+        PassTurnToPlayer(1 - index);
     }
 
     void Start()
@@ -162,6 +170,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
         }
         //Debug.Log("Direct mesajul");
         Players[0].ResetTurn(GoldBonus, MaxManaBonus, MaxFoodBonus);
+        UpdateResources();
     }
 
     void GiveCardDragon(int index)
@@ -189,22 +198,30 @@ public class GameReferee : MonoBehaviourPunCallbacks
         GiveCardDragon(index);
         GiveCardSpell(index);
         Board.ResetTurn(Players[index].ID);
+        UpdateResources();
     }
     // Update is called once per frame
     void Update()
     {
-        if (Players[0].EndedTurn)
-        {
-            PassTurnToPlayer(1);
-        }
-        else if (Players[1].EndedTurn)
-        {
-            PassTurnToPlayer(0);
-        }
+        //if (Players[0].EndedTurn)
+        //{
+        //    PassTurnToPlayer(1);
+        //}
+        //else if (Players[1].EndedTurn)
+        //{
+        //    PassTurnToPlayer(0);
+        //}
 
         if (Input.GetKeyDown(KeyCode.Y))
         {
             Board.DebugDestructibles();
         }
+    }
+
+    public void UpdateResources()
+    {
+        GamePlayer player = Players[PlayerInfoScene.Instance.playerId - 1];
+        GameObject.Find("ManaIndicator").transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = player.Mana.ToString();
+        GameObject.Find("GoldIndicator").transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = player.Gold.ToString();
     }
 }

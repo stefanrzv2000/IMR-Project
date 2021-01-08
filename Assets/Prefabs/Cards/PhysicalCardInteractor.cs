@@ -44,9 +44,30 @@ public class PhysicalCardInteractor : MonoBehaviour
         grabbed = false;
         var pos = GetBoardPosition();
         Debug.Log($"hover pos: {pos}");
+        
+        Debug.Log($"mana {virtualCard.ManaCost} / {GameReferee.Instance.Players[virtualCard.Owner - 1].Mana}");
+        Debug.Log($"gold {virtualCard.GoldCost} / {GameReferee.Instance.Players[virtualCard.Owner - 1].Gold}");
+        Debug.Log($"food {virtualCard.FoodCost} / {GameReferee.Instance.Players[virtualCard.Owner - 1].Food}");
+
         if (IsValidPosition(pos) && virtualCard.CanBePlayed())
         {
-            virtualCard.GoPlay(pos);
+            Debug.Log("Played the card");
+            if (virtualCard.CardType == CardType.DRAGON)
+            {
+                virtualCard.GoPlay(pos);
+            }
+            if (virtualCard.CardType == CardType.SPELL)
+            {
+                ((CardSpell)virtualCard).PlaySpell(pos);
+            }
+            Debug.Log("Played the card2");
+
+            // Reduce player resources
+
+            GameReferee.Instance.Players[virtualCard.Owner - 1].UseCard(virtualCard.Index, pos);
+            GameReferee.Instance.UpdateResources();
+            //Rearrange cards
+
         }
         else
         {

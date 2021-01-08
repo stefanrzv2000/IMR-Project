@@ -41,13 +41,33 @@ public class CardHolder
             physicalCard.GetComponent<PhysicalCardInteractor>().virtualCard = card;
         }
 
+        card.Index = Cards.Count;
         Cards.Add(card);
         return true;
     }
 
     public void UseCard(int index, Vector2Int target)
     {
-        Cards[index].GoPlay(target);
+        //Cards[index].GoPlay(target);
         Cards.RemoveAt(index);
+        UpdateCardPositions();
+    }
+
+    public void UpdateCardPositions()
+    {
+        float width = 0.11f;
+        float height = 0.07f;
+        for (int index = 0; index < Cards.Count; index++)
+        {
+            var hh = 1;
+            if (index >= 5)
+            {
+                index -= 5;
+                hh = -1;
+            }
+            var pos = new Vector3(0 + (index - 2) * width, hh * height, -0.1f);
+
+            Cards[index].PhysicInstance.transform.localPosition = pos;
+        }
     }
 }

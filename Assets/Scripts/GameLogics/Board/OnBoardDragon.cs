@@ -22,6 +22,9 @@ public class OnBoardDragon : OnBoardDestructible
     public GameObject PhysicalDragon;
     public DragonGenerator DragonGenerator;
 
+    private DragonStatus DragonHealth;
+    private DragonStatus DragonAttack;
+
     public OnBoardDragon(Vector2Int targetPosition, Board board, CardDragon cardDragon)
     {
         DragonGenerator = GameObject.Find("DragonGenerator").GetComponent<DragonGenerator>();
@@ -219,6 +222,8 @@ public class OnBoardDragon : OnBoardDestructible
             if (PhysicalDragon == null)
             {
                 PhysicalDragon = DragonGenerator.CreateDragon(BoardX + 8 * BoardY, Race, Type, Owner);
+                PhysicalDragon.transform.Find("HealthStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Health);
+                PhysicalDragon.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
             }
 
             else if (PhysicalDragon != null)
@@ -226,7 +231,10 @@ public class OnBoardDragon : OnBoardDestructible
                 var parent = GameObject.Find("GameTable").transform.GetChild(BoardX + 8 * BoardY);
                 float multiplier = Owner == 1 ? -1 : 1;
                 PhysicalDragon.transform.parent = parent;
-                PhysicalDragon.transform.localPosition = new Vector3(multiplier * 0.24f, 0.018f, multiplier * 0.43f);
+                PhysicalDragon.transform.localPosition = new Vector3(multiplier * 0.39f, 0.036f, multiplier * 0.66f);
+
+                PhysicalDragon.transform.Find("HealthStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Health);
+                PhysicalDragon.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
             }
         }
         else

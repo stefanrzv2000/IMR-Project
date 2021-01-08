@@ -116,7 +116,6 @@ public class TableColors : MonoBehaviour
                 {
                     int curr_index = pos.x + 8 * pos.y;
                     if (curr_index == hoverIndex || curr_index == -1) continue;
-                    Debug.Log("Current index " + curr_index);
                     SetColor(curr_index, currentColors[curr_index]);
                 }
             }

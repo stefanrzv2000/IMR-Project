@@ -30,15 +30,17 @@ public class GamePlayer
 
         Gold = 10;
         Food = 2;
-        Mana = 1;
-        MaxFood = 2;
-        MaxMana = 1;
+        Mana = 10;
+        MaxFood = 1;
+        MaxMana = 10;
         EndedTurn = false;
     }
 
     public void UseCard(int index, Vector2Int target)
     {
-        CardHolder.UseCard(index, target);
+        Gold -= CardHolder.Cards[index].GoldCost;
+        Mana -= CardHolder.Cards[index].ManaCost;
+        //CardHolder.UseCard(index, target);
     }
 
     public void ReceiveCard(Card card)
