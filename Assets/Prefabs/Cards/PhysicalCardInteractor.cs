@@ -61,13 +61,10 @@ public class PhysicalCardInteractor : MonoBehaviour
                 ((CardSpell)virtualCard).PlaySpell(pos);
             }
             Debug.Log("Played the card2");
-
-            // Reduce player resources
-
+            
             GameReferee.Instance.Players[virtualCard.Owner - 1].UseCard(virtualCard.Index, pos);
             GameReferee.Instance.UpdateResources();
-            //Rearrange cards
-
+            GameObject.Destroy(this.gameObject);
         }
         else
         {
@@ -124,5 +121,10 @@ public class PhysicalCardInteractor : MonoBehaviour
             transform.position = startingPoint;
             transform.rotation = startingRotation;
         }
+    }
+
+    public void ResetPosition()
+    {
+        startingPoint = transform.position;
     }
 }

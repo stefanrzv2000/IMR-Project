@@ -40,7 +40,7 @@ public class GamePlayer
     {
         Gold -= CardHolder.Cards[index].GoldCost;
         Mana -= CardHolder.Cards[index].ManaCost;
-        //CardHolder.UseCard(index, target);
+        CardHolder.UseCard(index, target);
     }
 
     public void ReceiveCard(Card card)

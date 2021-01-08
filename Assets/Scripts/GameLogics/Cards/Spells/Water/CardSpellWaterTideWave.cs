@@ -36,7 +36,6 @@ public class CardSpellWaterTideWave : CardSpell
                     dragon.Range += Bonus;
                     dragon.MaxHealth += Bonus;
                     dragon.Health += Bonus;
-                    dragon.UpdateOnBoard();
                 }
                 else
                 {

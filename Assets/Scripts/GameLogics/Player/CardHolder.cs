@@ -49,7 +49,9 @@ public class CardHolder
     public void UseCard(int index, Vector2Int target)
     {
         //Cards[index].GoPlay(target);
+        Cards[index].PhysicInstance = null;
         Cards.RemoveAt(index);
+        Debug.Log($"Removed card at {index}");
         UpdateCardPositions();
     }
 
@@ -57,17 +59,22 @@ public class CardHolder
     {
         float width = 0.11f;
         float height = 0.07f;
+        Debug.Log($"There are {Cards.Count} cards");
         for (int index = 0; index < Cards.Count; index++)
         {
             var hh = 1;
-            if (index >= 5)
+            int ind = index;
+            if (ind >= 5)
             {
-                index -= 5;
+                ind -= 5;
                 hh = -1;
             }
-            var pos = new Vector3(0 + (index - 2) * width, hh * height, -0.1f);
+            
+            var pos = new Vector3(0 + (ind - 2) * width, hh * height, -0.1f);
 
+            Cards[index].Index = index;
             Cards[index].PhysicInstance.transform.localPosition = pos;
+            Cards[index].PhysicInstance.GetComponent<PhysicalCardInteractor>().ResetPosition();
         }
     }
 }

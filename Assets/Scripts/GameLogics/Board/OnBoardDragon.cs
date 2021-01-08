@@ -215,6 +215,13 @@ public class OnBoardDragon : OnBoardDestructible
         return Math.Abs(targetPosition.y - BoardY) + Math.Abs(targetPosition.x - BoardX);
     }
 
+    public void ChangeOwner()
+    {
+        Owner = 3 - Owner;
+        PhysicalDragon.transform.Rotate(Vector3.up, 180);
+        UpdateOnBoard();
+    }
+
     public void UpdateOnBoard()
     {
         if (Alive)

@@ -9,7 +9,7 @@ public class CardSpellEarthCross : CardSpell
     public CardSpellEarthCross(int owner)
     {
         Name = "Earth Stone Cross";
-        Description = $"Deals {DamageDealt} enemies in the selected cross(+) area";
+        Description = $"Deals {DamageDealt} Damage to enemies in the selected cross(+) area";
         Race = EARTH;
         ID = EARTH_CROSS;
         Owner = owner;
@@ -21,7 +21,7 @@ public class CardSpellEarthCross : CardSpell
         var allDragons = Board.GetAllDragons();
         foreach (var dragon in allDragons)
         {
-            if (dragon.DistanceTo(targetPosition) < 1)
+            if (dragon.DistanceTo(targetPosition) <= 1)
                 dragon.ReceiveDamage(DamageDealt);
         }
     }
@@ -35,7 +35,7 @@ public class CardSpellEarthCross : CardSpell
     {
         var result = new List<Vector2Int>();
         int[] dx = {-1, 0, 1, 0};
-        int[] dy = {-1, 0, 1, 0};
+        int[] dy = {0, 1, 0, -1};
 
         for (int i = 0; i < 4; i++)
         {

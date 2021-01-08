@@ -17,10 +17,32 @@ public class DragonStatus : MonoBehaviour
     {
         if(text1 == null)
         {
-            text1 = transform.GetChild(1).Find("Text").gameObject.GetComponent<Text>();
-            text2 = transform.GetChild(2).Find("Text").gameObject.GetComponent<Text>();
+            text1 = transform.Find("Canvas1").GetChild(0).gameObject.GetComponent<Text>();
+            text2 = transform.Find("Canvas2").GetChild(0).gameObject.GetComponent<Text>();
         }
         text1.text = stat.ToString();
         text2.text = stat.ToString();
+    }
+
+    public void UpdateStatus(string stat)
+    {
+        if (text1 == null)
+        {
+            text1 = transform.Find("Canvas1").GetChild(0).gameObject.GetComponent<Text>();
+            text2 = transform.Find("Canvas2").GetChild(0).gameObject.GetComponent<Text>();
+        }
+        text1.text = stat;
+        text2.text = stat;
+    }
+
+    public void UpdateStatus(Color color)
+    {
+        if (text1 == null)
+        {
+            text1 = transform.Find("Canvas1").GetChild(0).gameObject.GetComponent<Text>();
+            text2 = transform.Find("Canvas2").GetChild(0).gameObject.GetComponent<Text>();
+        }
+        text1.color = color;
+        text2.color = color;
     }
 }

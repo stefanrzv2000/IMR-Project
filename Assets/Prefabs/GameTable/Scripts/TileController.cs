@@ -71,7 +71,10 @@ public class TileController : MonoBehaviour
             Debug.Log($"There is something here {myDestructible.DestructibleType}");
         }
 
-        if(myDestructible != null && myDestructible.DestructibleType == OnBoardDestructible.DRAGON)
+        if(myDestructible != null && 
+            myDestructible.DestructibleType == OnBoardDestructible.DRAGON && 
+            myDestructible.Owner == PlayerInfoScene.Instance.playerId
+            )
         {
             Debug.Log("I am indeed a dragon");
             var movePositions = ((OnBoardDragon)myDestructible).GetMovingPositions();
