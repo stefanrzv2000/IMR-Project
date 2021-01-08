@@ -30,16 +30,28 @@ public class ControllerTracker : MonoBehaviour
         int currentTile = GetSelectedChild();
         if (myDestructible != null && myDestructible.DestructibleType == OnBoardDestructible.DRAGON)
         {
+            var myDragon = (OnBoardDragon)myDestructible;
             int i1 = tileBeingUsed / tableColors.HEIGHT;
             int j1 = tileBeingUsed % tableColors.HEIGHT;
 
             int i2 = currentTile / tableColors.HEIGHT;
             int j2 = currentTile % tableColors.HEIGHT;
 
-            GameReferee.Instance.CallRPCMethod("MoveOnBoardDragon", new int[] { i1, j1 }, new int[] { i2, j2 });
+            var OtherDestructible = GameReferee.Instance.Board.Destructables[i2, j2];
+
+            if (OtherDestructible == null && myDragon.GetMovingPositions().Contains(new Vector2Int(j2, i2)))
+            {
+                GameReferee.Instance.CallRPCMethod("MoveOnBoardDragon", new int[] { i1, j1 }, new int[] { i2, j2 });
+            }
+            else
+            {
+                if(OtherDestructible != null && myDragon.GetAttackingPositions().Contains(new Vector2Int(j2, i2)))
+                {
+                    GameReferee.Instance.CallRPCMethod("AttackOnBoardDragon", new int[] { j1, i1 }, new int[] { j2, i2 });
+                }
+            }
         }
-
-
+        
         tileBeingUsed = -1;
         myDestructible = null;
         tableColors.ResetAll();
