@@ -19,7 +19,6 @@ public class OnBoardDragon : OnBoardDestructible
     public int Type;
     public int Race;
 
-    public GameObject PhysicalDragon;
     public DragonGenerator DragonGenerator;
 
     private DragonStatus DragonHealth;
@@ -48,9 +47,10 @@ public class OnBoardDragon : OnBoardDestructible
         Race      = cardDragon.Race;
         Owner     = cardDragon.Owner;
 
-        // has to be reset to 0
+        //TODO: to be reset to 0
         SpeedRemained = Speed;
-        CanAttack = false;
+        //TODO: to be reset to false
+        CanAttack = true;
         CanRetaliate = true;
         Alive = true;
 
@@ -150,6 +150,8 @@ public class OnBoardDragon : OnBoardDestructible
     {
         var result = new List<Vector2Int>();
 
+        if (!CanAttack) return result;
+
         for (int y = 0; y < Board.Height; y++)
         {
             for (int x = 0; x < Board.Width; x++)
@@ -184,12 +186,15 @@ public class OnBoardDragon : OnBoardDestructible
 
     public void AttackOn(Vector2Int targetPosition)
     {
+        if (!CanAttack) return;
         int y = targetPosition.y;
         int x = targetPosition.x;
         
         OnBoardDestructible attackedDestructible = Board.Destructables[y, x];
 
+        Debug.Log("first attack");
         attackedDestructible.ReceiveDamage(Attack);
+        Debug.Log("first attack");
         CanAttack = false;
 
         if (x == 0 || x == Board.Width-1 || y == 0 || y == Board.Height-1)
@@ -200,6 +205,7 @@ public class OnBoardDragon : OnBoardDestructible
         if (attackedDragon.Alive && attackedDragon.Range >= attackedDragon.DistanceTo(this)
                                  && attackedDragon.CanRetaliate)
         {
+            Debug.Log("second attack");
             this.ReceiveDamage(attackedDragon.Attack);
             attackedDragon.CanRetaliate = false;
         }
@@ -218,7 +224,7 @@ public class OnBoardDragon : OnBoardDestructible
     public void ChangeOwner()
     {
         Owner = 3 - Owner;
-        PhysicalDragon.transform.Rotate(Vector3.up, 180);
+        PhysicInstance.transform.Rotate(Vector3.up, 180);
         UpdateOnBoard();
     }
 
@@ -226,36 +232,45 @@ public class OnBoardDragon : OnBoardDestructible
     {
         if (Alive)
         {
-            if (PhysicalDragon == null)
+            if (PhysicInstance == null)
             {
-                PhysicalDragon = DragonGenerator.CreateDragon(BoardX + 8 * BoardY, Race, Type, Owner);
-                PhysicalDragon.transform.Find("HealthStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Health);
-                PhysicalDragon.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
+                PhysicInstance = DragonGenerator.CreateDragon(BoardX + 8 * BoardY, Race, Type, Owner);
+                PhysicInstance.transform.Find("HealthStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Health);
+                PhysicInstance.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
             }
 
-            else if (PhysicalDragon != null)
+            else if (PhysicInstance != null)
             {
                 var parent = GameObject.Find("GameTable").transform.GetChild(BoardX + 8 * BoardY);
                 float multiplier = Owner == 1 ? -1 : 1;
-                PhysicalDragon.transform.parent = parent;
-                PhysicalDragon.transform.localPosition = new Vector3(multiplier * 0.39f, 0.036f, multiplier * 0.66f);
+                PhysicInstance.transform.parent = parent;
+                PhysicInstance.transform.localPosition = new Vector3(multiplier * 0.39f, 0.036f, multiplier * 0.66f);
 
-                PhysicalDragon.transform.Find("HealthStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Health);
-                PhysicalDragon.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
+                PhysicInstance.transform.Find("HealthStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Health);
+                PhysicInstance.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
             }
         }
         else
         {
-            if (PhysicalDragon == null)
+            if (PhysicInstance == null)
             {
                 // It was already dead
             }
 
-            else if (PhysicalDragon != null)
+            else if (PhysicInstance != null)
             {
                 // It just died
-                GameObject.Destroy(PhysicalDragon);
+                GameObject.Destroy(PhysicInstance);
             }
+        }
+    }
+
+    public override void UpdateStatus()
+    {
+        if (PhysicInstance != null)
+        {
+            PhysicInstance.transform.Find("HealthStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Health);
+            PhysicInstance.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
         }
     }
 }

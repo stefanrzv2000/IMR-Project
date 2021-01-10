@@ -8,6 +8,7 @@ public class OnBoardNest : OnBoardBuilding
     private const int MAX_HP = 100;
     public OnBoardNest(int owner, Board board)
     {
+        Tier = -1;
         Board = board;
         DestructibleType = NEST;
 
@@ -25,12 +26,8 @@ public class OnBoardNest : OnBoardBuilding
         {
             ProjectY = -0.5f;
         }
-        if (owner==1)
-            PhysicInstance = GameObject.Find("AllyNest");
-        else
-            PhysicInstance = GameObject.Find("EnemyNest");
 
-
+        PhysicInstance = GameObject.Find($"NestPlayer{owner}");
 
     }
 }

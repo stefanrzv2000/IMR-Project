@@ -66,6 +66,10 @@ public class GameReferee : MonoBehaviourPunCallbacks
         CardDragon card = new CardDragon(type, race, owner);
         OnBoardDragon onBoardDragon = new OnBoardDragon(new Vector2Int(targetPosition[1], targetPosition[0]), Board, card);
         onBoardDragon.UpdateOnBoard();
+        if (IsMe(owner))
+        {
+            physicalCardGenerator.UpdateLastCard(race, type);
+        }
     }
 
     [PunRPC]
@@ -93,6 +97,12 @@ public class GameReferee : MonoBehaviourPunCallbacks
         {
             dragon.UpdateOnBoard();
         }
+
+        if (IsMe(owner))
+        {
+            physicalCardGenerator.UpdateLastCard(race, spellID + 4);
+        }
+        
     }
 
     [PunRPC]
@@ -109,6 +119,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
         if (x == 0 || x == Board.Width - 1 || y == 0 || y == Board.Height - 1)
         {
             //Attacked a building
+            var attackedBuilding = (OnBoardBuilding)attackedDestructible;
+            attackedBuilding.UpdateStatus();
             return;
         }
         //Attacked a dragon
@@ -171,6 +183,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
         //Debug.Log("Direct mesajul");
         Players[0].ResetTurn(GoldBonus, MaxManaBonus, MaxFoodBonus);
         UpdateResources();
+        UpdateAllStats();
     }
 
     void GiveCardDragon(int index)
@@ -223,5 +236,18 @@ public class GameReferee : MonoBehaviourPunCallbacks
         GamePlayer player = Players[PlayerInfoScene.Instance.playerId - 1];
         GameObject.Find("ManaIndicator").transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = player.Mana.ToString();
         GameObject.Find("GoldIndicator").transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = player.Gold.ToString();
+    }
+
+    public bool IsMe(int owner)
+    {
+        return PlayerInfoScene.Instance.playerId == owner;
+    }
+
+    public void UpdateAllStats()
+    {
+        foreach(var x in Board.GetAllDestructibles())
+        {
+            x.UpdateStatus();
+        }
     }
 }

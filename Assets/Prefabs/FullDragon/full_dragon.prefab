@@ -2952,10 +2952,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5088905726014233338}
     m_Modifications:
+    - target: {fileID: 235546023976842908, guid: 755b660b06e01e24c8777adbedf8fb28,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 444876142319092851, guid: 755b660b06e01e24c8777adbedf8fb28,
         type: 3}
       propertyPath: m_Name
       value: StatusUpdate
+      objectReference: {fileID: 0}
+    - target: {fileID: 444876142319092851, guid: 755b660b06e01e24c8777adbedf8fb28,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 484597915036736331, guid: 755b660b06e01e24c8777adbedf8fb28,
         type: 3}

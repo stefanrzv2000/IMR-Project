@@ -33,7 +33,7 @@ public class ActionStats : MonoBehaviour
             toMove = transform.GetChild(0);
         }
 
-        ShowUpdate(StatusUpdateType.STAR, "+2", Color.green);
+        //ShowUpdate(StatusUpdateType.STAR, "+2", Color.green);
     }
 
     // Update is called once per frame
@@ -50,11 +50,7 @@ public class ActionStats : MonoBehaviour
             {
                 toMove.gameObject.SetActive(false);
                 time = -1;
-                if (firstTime)
-                {
-                    firstTime = false;
-                    ShowUpdate(StatusUpdateType.ATTACK, "-2", Color.red);
-                }
+                
             }
         }
     }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OnBoardBarrack : OnBoardBuilding
 {
-    public int Tier;
     public const int MAX_UPGRADES = 1;
 
     public const int MAX_HP = 50;
@@ -32,12 +31,9 @@ public class OnBoardBarrack : OnBoardBuilding
             ProjectY = +1.5f;
             ProjectX = Board.Width - 1 + 0.5f;
         }
-        if (owner == 1)
-            PhysicInstance = GameObject.Find("AllyBarrack");
-        else
-            PhysicInstance = GameObject.Find("EnemyBarrack");
-    
-        
+
+        PhysicInstance = GameObject.Find($"BarrackPlayer{owner}");
+
     }
     public void Upgrade()
     {

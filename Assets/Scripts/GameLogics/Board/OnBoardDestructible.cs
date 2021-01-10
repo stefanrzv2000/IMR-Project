@@ -36,17 +36,31 @@ public class OnBoardDestructible
     public void ReceiveDamage(int attack)
     {
         Health -= attack;
+
+        PhysicInstance.transform.Find("ActionStats").gameObject.GetComponent<ActionStats>().ShowUpdate(StatusUpdateType.HEALTH, $"-{attack}", Color.red);
+        UpdateStatus();
+
         if (Health > 0)
             return;
 
         Board.Destructables[BoardY, BoardX] = null;
         Alive = false;
-        GameObject.Destroy(PhysicInstance);
+        if (DestructibleType == DRAGON) GameObject.Destroy(PhysicInstance);
+        else PhysicInstance.SetActive(false);
         //Destroy(this);
     }
 
     public Vector2 GetProjection2D()
     {
         return new Vector2(ProjectX, ProjectY);
+    }
+
+    public virtual void UpdateStatus() { }
+
+    IEnumerator DieCoroutine()
+    {
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+        
     }
 }

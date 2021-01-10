@@ -7,6 +7,7 @@ public class CardsGenerator
 {
     private GameObject dragonCard;
     private GameObject spellCard;
+    private GameObject LastPlayedCard;
     public Material[,] card_materials = new Material[4,9];
     public float width = 0.11f;
     public float height = 0.07f;
@@ -174,5 +175,45 @@ public class CardsGenerator
 
         return virtual_card;
 
+    }
+
+    public void UpdateLastCard(int element, int type)
+    {
+        if(LastPlayedCard == null)
+        {
+            LastPlayedCard = GameObject.Find("LastPlayedCard");
+            LastPlayedCard.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        if(LastPlayedCard != null)
+        {
+            LastPlayedCard.transform.GetChild(0).Find("Front").gameObject.GetComponent<MeshRenderer>().material = card_materials[element, type];
+            if(type < 4) // it's a dragon card
+            {
+                CardDragon card = new CardDragon(type, element, 1);
+                Transform canvas = LastPlayedCard.transform.GetChild(0).Find("Canvas");
+                canvas.Find("HealthText").gameObject.GetComponent<Text>().text = card.MaxHealth.ToString();
+                canvas.Find("HealthText").gameObject.SetActive(true);
+                canvas.Find("AttackText").gameObject.GetComponent<Text>().text = card.Attack.ToString();
+                canvas.Find("AttackText").gameObject.SetActive(true);
+                canvas.Find("RangeText").gameObject.GetComponent<Text>().text = card.Range.ToString();
+                canvas.Find("RangeText").gameObject.SetActive(true);
+                canvas.Find("SpeedText").gameObject.GetComponent<Text>().text = card.Speed.ToString();
+                canvas.Find("SpeedText").gameObject.SetActive(true);
+                canvas.Find("CostText").gameObject.GetComponent<Text>().text = card.GoldCost.ToString();
+                canvas.Find("Description").gameObject.SetActive(false);
+            }
+            else // it's a spell
+            {
+                CardSpell card = CardSpellCreator.GenerateCardSpell(type - 4, 1, element);
+                Transform canvas = LastPlayedCard.transform.GetChild(0).Find("Canvas");
+                canvas.Find("HealthText").gameObject.SetActive(false);
+                canvas.Find("AttackText").gameObject.SetActive(false);
+                canvas.Find("RangeText").gameObject.SetActive(false);
+                canvas.Find("SpeedText").gameObject.SetActive(false);
+                canvas.Find("Description").gameObject.SetActive(true);
+                canvas.Find("CostText").gameObject.GetComponent<Text>().text = card.ManaCost.ToString();
+                canvas.Find("Description").gameObject.GetComponent<Text>().text = card.Description;
+            }
+        }
     }
 }

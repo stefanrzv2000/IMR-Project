@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OnBoardMageTower : OnBoardBuilding
 {
-    public int Tier;
     public int []MaxSpellsIndex;
     public const int MAX_UPGRADES = 2;
 
@@ -38,11 +37,8 @@ public class OnBoardMageTower : OnBoardBuilding
             ProjectY = +1.5f;
             ProjectX = -0.5f;
         }
-    
-        if (owner==1)
-            PhysicInstance = GameObject.Find("AllyMageTower");
-        else
-            PhysicInstance = GameObject.Find("EnemyMageTower");
+
+        PhysicInstance = GameObject.Find($"MagePlayer{owner}");
 
     }
 
