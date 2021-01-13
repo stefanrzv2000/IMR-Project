@@ -29,8 +29,9 @@ public class CardSpellFireSacrifice : CardSpell
         var allyDragons = Board.GetAllDragonsOfOwner(Owner);
         foreach (var dragon in allyDragons)
         {
-            dragon.Attack += bonusAttack;
-            dragon.Range += bonusRange;
+            dragon.ReceiveBuff(0, bonusAttack, bonusRange, 0, false, $"+{bonusAttack}");
+            //dragon.Attack += bonusAttack;
+            //dragon.Range += bonusRange;
         }
     }
 

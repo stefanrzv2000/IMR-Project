@@ -37,6 +37,7 @@ public class EndTurn : MonoBehaviour
 
     private void InteractableObjectUsed(object sender, InteractableObjectEventArgs e)
     {
+        if (!GameReferee.Instance.IsMyTurn()) return;
         Debug.Log("END TURN");
         int this_player = PlayerInfoScene.Instance.playerId - 1;
         if (GameReferee.Instance.Players[this_player].HisTurn)

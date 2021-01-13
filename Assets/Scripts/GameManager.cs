@@ -6,6 +6,7 @@ using Photon.Pun;
 public class GameManager : MonoBehaviour
 {
     public PhotonView refereeView = null;
+    public Transform SelfTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +33,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("WINDOWS!!");
         player.SetActive(false);
         neck.SetActive(true);
+        SelfTransform = GameObject.Find("[VRSimulator_CameraRig]").transform;
 #else
         Debug.Log("ANDROID!!");
         player.SetActive(true);
         neck.SetActive(false);
+        SelfTransform = player.transform.GetChild(0).transform;
 #endif
         
     }
@@ -43,6 +46,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GameReferee.Instance.CallRPCMethod("UpdateOtherPlayerQueen",SelfTransform.rotation.eulerAngles.y,PlayerInfoScene.Instance.playerId);
     }
 }

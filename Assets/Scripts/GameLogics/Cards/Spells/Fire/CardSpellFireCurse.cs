@@ -48,7 +48,8 @@ public class CardSpellFireCurse : CardSpell
 
         foreach (var dragon in selectedDragons)
         {
-            dragon.Attack = Math.Max(0, dragon.Attack - DamageReduce);
+            dragon.ReceiveBuff(0, -DamageReduce, 0, 0, false, $"-{DamageReduce}");
+            //dragon.Attack = Math.Max(0, dragon.Attack - DamageReduce);
         }
     }
 

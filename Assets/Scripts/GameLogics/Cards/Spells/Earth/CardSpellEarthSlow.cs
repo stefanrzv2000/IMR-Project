@@ -22,8 +22,9 @@ public class CardSpellEarthSlow : CardSpell
         int x = targetPosition.x;
         var selectedDragon = (OnBoardDragon)Board.Destructables[y, x];
 
-        selectedDragon.Speed = Math.Max(0, selectedDragon.Speed - PermanentSlow);
-        selectedDragon.SpeedRemained = Math.Max(0, selectedDragon.SpeedRemained - PermanentSlow);
+        selectedDragon.ReceiveBuff(0, 0, 0, -PermanentSlow, true, $"-{PermanentSlow}");
+        // selectedDragon.Speed = Math.Max(0, selectedDragon.Speed - PermanentSlow);
+        // selectedDragon.SpeedRemained = Math.Max(0, selectedDragon.SpeedRemained - PermanentSlow);
     }
 
     public override List<Vector2Int> GetAvailableTargets()

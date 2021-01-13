@@ -22,8 +22,9 @@ public class CardSpellAirTempest : CardSpell
         var allyDragons = Board.GetAllDragonsOfOwner(Owner);
         foreach (var dragon in allyDragons)
         {
-            dragon.SpeedRemained += BonusSpeed;
-            dragon.Speed += BonusPermanentSpeed;
+            dragon.ReceiveBuff(0, 0, 0, BonusPermanentSpeed, true, $"+{BonusPermanentSpeed}");
+            //dragon.SpeedRemained += BonusSpeed;
+            //dragon.Speed += BonusPermanentSpeed;
         }
     }
 

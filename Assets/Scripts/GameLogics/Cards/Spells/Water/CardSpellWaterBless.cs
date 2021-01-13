@@ -25,12 +25,13 @@ public class CardSpellWaterBless : CardSpell
             if (allyDragons.Count > 0)
             {
                 int index = Random.Range(0, allyDragons.Count);
-                allyDragons[index].Attack += Bonus;
-                allyDragons[index].Speed += Bonus;
-                allyDragons[index].SpeedRemained += Bonus;
-                allyDragons[index].Range += Bonus;
-                allyDragons[index].MaxHealth += Bonus;
-                allyDragons[index].Health += Bonus;
+                allyDragons[index].ReceiveBuff(Bonus, Bonus, Bonus, Bonus, star: true, textUpdate: $"+{Bonus}");
+                //allyDragons[index].Attack += Bonus;
+                //allyDragons[index].Speed += Bonus;
+                //allyDragons[index].SpeedRemained += Bonus;
+                //allyDragons[index].Range += Bonus;
+                //allyDragons[index].MaxHealth += Bonus;
+                //allyDragons[index].Health += Bonus;
             }
         }
     }

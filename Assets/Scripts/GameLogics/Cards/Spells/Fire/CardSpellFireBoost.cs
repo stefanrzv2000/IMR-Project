@@ -21,7 +21,8 @@ public class CardSpellFireBoost : CardSpell
         int y = targetPosition.y;
         int x = targetPosition.x;
         var selectedDragon = (OnBoardDragon)Board.Destructables[y, x];
-        selectedDragon.Attack += BonusAttack;
+        selectedDragon.ReceiveBuff(0, BonusAttack, 0, 0, false, $"+{BonusAttack}");
+        //selectedDragon.Attack += BonusAttack;
     }
 
     public override List<Vector2Int> GetAvailableTargets()

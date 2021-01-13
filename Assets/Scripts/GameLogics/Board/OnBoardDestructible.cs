@@ -44,10 +44,7 @@ public class OnBoardDestructible
             return;
 
         Board.Destructables[BoardY, BoardX] = null;
-        Alive = false;
-        if (DestructibleType == DRAGON) GameObject.Destroy(PhysicInstance);
-        else PhysicInstance.SetActive(false);
-        //Destroy(this);
+        Alive = false;  
     }
 
     public Vector2 GetProjection2D()
@@ -59,8 +56,16 @@ public class OnBoardDestructible
 
     IEnumerator DieCoroutine()
     {
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
-        
+        //yield on a new YieldInstruction that waits for 3 seconds.
+        yield return new WaitForSeconds(3);
+        if (DestructibleType == DRAGON) GameObject.Destroy(PhysicInstance);
+        else PhysicInstance.SetActive(false);
+        //Destroy(this);
+
+        if (GameReferee.Instance.IsMyTurn() && typeof(OnBoardNest).IsInstanceOfType(this))
+        {
+            GameReferee.Instance.CallRPCMethod("GameOver", 3 - PlayerInfoScene.Instance.playerId, false);
+        }
+        yield return null;
     }
 }

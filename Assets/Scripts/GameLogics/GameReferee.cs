@@ -23,8 +23,10 @@ public class GameReferee : MonoBehaviourPunCallbacks
     private int EARTH = 2;
     private int AIR = 3;
 
-    private const int NR_CARD_DRAGONS_START = 4;
-    private const int NR_CARD_SPELLS_START = 4;
+    private int turn = 0;
+
+    private const int NR_CARD_DRAGONS_START = 2;
+    private const int NR_CARD_SPELLS_START = 8;
 
     public GameObject DragonCardPrefab;
     public GameObject SpellCardPrefab;
@@ -66,7 +68,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
         CardDragon card = new CardDragon(type, race, owner);
         OnBoardDragon onBoardDragon = new OnBoardDragon(new Vector2Int(targetPosition[1], targetPosition[0]), Board, card);
         onBoardDragon.UpdateOnBoard();
-        if (IsMe(owner))
+        if (!IsMe(owner))
         {
             physicalCardGenerator.UpdateLastCard(race, type);
         }
@@ -98,7 +100,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
             dragon.UpdateOnBoard();
         }
 
-        if (IsMe(owner))
+        if (!IsMe(owner))
         {
             physicalCardGenerator.UpdateLastCard(race, spellID + 4);
         }
@@ -132,7 +134,41 @@ public class GameReferee : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SwitchTurns(int index)
     {
+        Debug.Log("END turn summoned by " + index);
         PassTurnToPlayer(1 - index);
+        
+    }
+
+    [PunRPC]
+    public void UpdateOtherPlayerQueen(float rotation, int playerID)
+    {
+        if (IsMe(playerID)) return;
+
+        GameObject otherQueen = GameObject.Find("OpponentCenter");
+
+        otherQueen.transform.localRotation = Quaternion.Euler(new Vector3(0, rotation, 0));
+
+    }
+
+    [PunRPC]
+    public void GameOver(int winner, bool surrender=false)
+    {
+        string info = "";
+        if (IsMe(winner))
+        {
+            info = "You WON!";
+            if (surrender)
+            {
+                info += " Your enemy GAVE UP";
+            }
+        }
+        else
+        {
+            info = "You LOST the GAME!";
+        }
+        GameObject.Find("TurnInfoText").GetComponent<Text>().text = info;
+
+        StartCoroutine("EndGame");
     }
 
     void Start()
@@ -165,6 +201,13 @@ public class GameReferee : MonoBehaviourPunCallbacks
             Players[1].Race = chosenElements[1];
         }
 
+        int other = 3 - PlayerInfoScene.Instance.playerId;
+        int otherRace = Players[other - 1].Race;
+
+        DragonGenerator dragonGenerator = GameObject.Find("DragonGenerator").GetComponent<DragonGenerator>();
+        GameObject otherQueen = GameObject.Find("Opponent");
+        dragonGenerator.ApplyRaceToQueen(otherQueen, otherRace);
+
         for (int i = 0; i < NR_CARD_DRAGONS_START; i++) 
         {
             GiveCardDragon(0);
@@ -182,6 +225,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
         }
         //Debug.Log("Direct mesajul");
         Players[0].ResetTurn(GoldBonus, MaxManaBonus, MaxFoodBonus);
+        turn = 1;
+        UpdateTurnText(0);
         UpdateResources();
         UpdateAllStats();
     }
@@ -204,7 +249,10 @@ public class GameReferee : MonoBehaviourPunCallbacks
 
     void PassTurnToPlayer(int index)
     {
+        if (index == 0) turn += 1;
         Players[1-index].EndedTurn = false;
+        Players[1-index].HisTurn = false;
+        
         Players[index].HisTurn = true;
         Players[index].ResetTurn(GoldBonus, MaxManaBonus, MaxFoodBonus);
 
@@ -212,6 +260,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
         GiveCardSpell(index);
         Board.ResetTurn(Players[index].ID);
         UpdateResources();
+
+        UpdateTurnText(index);
     }
     // Update is called once per frame
     void Update()
@@ -243,11 +293,39 @@ public class GameReferee : MonoBehaviourPunCallbacks
         return PlayerInfoScene.Instance.playerId == owner;
     }
 
+    public bool IsMyTurn()
+    {
+        return Players[PlayerInfoScene.Instance.playerId - 1].HisTurn;
+    }
+
     public void UpdateAllStats()
     {
         foreach(var x in Board.GetAllDestructibles())
         {
             x.UpdateStatus();
+        }
+    }
+
+    public IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(5);
+        //TODO: leave room in PhotonView!!
+        if(PlayerInfoScene.Instance.PhotonPresent > 0)PhotonNetwork.LoadLevel(0);
+        Debug.Log("END GAMEEEE");
+        yield return null;
+    }
+
+    public void UpdateTurnText(int index)
+    {
+        if (IsMe(1 + index))
+        {
+            GameObject.Find("TurnInfoText").GetComponent<Text>().text = $"Turn {turn}: It is your turn!";
+            GameObject.Find("LastPlayedCard").transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else
+        {
+            GameObject.Find("TurnInfoText").GetComponent<Text>().text = $"Turn {turn}: Your Opponent played";
+            GameObject.Find("LastPlayedCard").transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 }

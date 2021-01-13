@@ -30,9 +30,9 @@ public class GamePlayer
 
         Gold = 10;
         Food = 2;
-        Mana = 10;
+        Mana = 100;
         MaxFood = 1;
-        MaxMana = 10;
+        MaxMana = 100;
         EndedTurn = false;
     }
 

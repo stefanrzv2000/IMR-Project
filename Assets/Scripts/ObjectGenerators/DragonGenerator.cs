@@ -116,6 +116,56 @@ public class DragonGenerator : MonoBehaviour
         return dragon;
     }
 
+    public void ApplyRaceToQueen(GameObject dragon, int element)
+    {   
+        var body = dragon.transform.GetChild(DRAGON_BODY).gameObject;
+        var tail = dragon.transform.GetChild(DRAGON_TAIL).gameObject;
+        var wing1 = dragon.transform.GetChild(DRAGON_WING1).GetChild(0).gameObject;
+        var wing2 = dragon.transform.GetChild(DRAGON_WING2).GetChild(0).gameObject;
+        var crown = dragon.transform.GetChild(DRAGON_CROWN).gameObject;
+        var horn1 = dragon.transform.GetChild(DRAGON_HORN1).gameObject;
+        var horn2 = dragon.transform.GetChild(DRAGON_HORN2).gameObject;
+
+        var identity = (element, QUEEN);
+
+        var texture = role_material[identity.Item1][identity.Item2];
+        var tail_wings_texture = role_material[identity.Item1][5];
+        var horns_texture = role_material[identity.Item1][6];
+
+        for (int i = 0; i < body.transform.childCount; i++)
+        {
+            body.transform.GetChild(i).gameObject.GetComponent<Renderer>().material = texture;
+        }
+        //body.GetComponent<Renderer>().material = texture;
+
+
+        wing1.GetComponent<Renderer>().material = tail_wings_texture;
+
+
+        wing2.GetComponent<Renderer>().material = tail_wings_texture;
+
+
+        tail.GetComponent<Renderer>().material = tail_wings_texture;
+        
+
+        horn1.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = horns_texture;
+        horn2.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = horns_texture;
+
+        if ((identity.Item2 == 0) || (identity.Item2 == 4))
+        {
+            wing1.GetComponent<Renderer>().enabled = false;
+            wing2.GetComponent<Renderer>().enabled = false;
+        }
+
+
+        crown.SetActive(false);
+        if (identity.Item2 == 3)
+        {
+            crown.SetActive(true);
+        }
+        
+    }
+
     public GameObject CreateDragon(Vector3 pos, float scale, float angle, int element, int type, bool flame = false, Transform parent = null)
     {
         var dragon = GameObject.Instantiate(dragonPrefab);
@@ -128,10 +178,7 @@ public class DragonGenerator : MonoBehaviour
         var crown = dragon.transform.GetChild(DRAGON_CROWN).gameObject;
         var horn1 = dragon.transform.GetChild(DRAGON_HORN1).gameObject;
         var horn2 = dragon.transform.GetChild(DRAGON_HORN2).gameObject;
-
-
-        // TODO: add textures
-
+        
         var identity = (element, type);
 
         var texture = role_material[identity.Item1][identity.Item2];

@@ -30,17 +30,19 @@ public class CardSpellWaterTideWave : CardSpell
             {
                 if (dragon.Owner == Owner)
                 {
-                    dragon.Attack += Bonus;
-                    dragon.Speed += Bonus;
-                    dragon.SpeedRemained += Bonus;
-                    dragon.Range += Bonus;
-                    dragon.MaxHealth += Bonus;
-                    dragon.Health += Bonus;
+                    dragon.ReceiveBuff(Bonus, Bonus, Bonus, Bonus, star: true, textUpdate: $"+{Bonus}");
+                    //dragon.Attack += Bonus;
+                    //dragon.Speed += Bonus;
+                    //dragon.SpeedRemained += Bonus;
+                    //dragon.Range += Bonus;
+                    //dragon.MaxHealth += Bonus;
+                    //dragon.Health += Bonus;
                 }
                 else
                 {
-                    dragon.Speed = Math.Max(0, dragon.Speed - 1);
-                    dragon.SpeedRemained = Math.Max(0, dragon.SpeedRemained - 1);
+                    dragon.ReceiveBuff(0, 0, 0, -1, true, "-1");
+                    //dragon.Speed = Math.Max(0, dragon.Speed - 1);
+                    //dragon.SpeedRemained = Math.Max(0, dragon.SpeedRemained - 1);
                 }
             }
         }

@@ -27,8 +27,13 @@ public class ControllerTracker : MonoBehaviour
 
     private void OnTileUnused()
     {
+        if (!GameReferee.Instance.IsMyTurn()) return;
+
         int currentTile = GetSelectedChild();
-        if (myDestructible != null && myDestructible.DestructibleType == OnBoardDestructible.DRAGON)
+        if (myDestructible != null && 
+            myDestructible.DestructibleType == OnBoardDestructible.DRAGON &&
+            myDestructible.Owner == PlayerInfoScene.Instance.playerId
+            )
         {
             var myDragon = (OnBoardDragon)myDestructible;
             int i1 = tileBeingUsed / tableColors.HEIGHT;
@@ -59,6 +64,7 @@ public class ControllerTracker : MonoBehaviour
 
     private void OnTileUsed()
     {
+        if (!GameReferee.Instance.IsMyTurn()) return;
         Debug.Log("used used");
         if (tileBeingUsed != -1) return;
         tileBeingUsed = GetSelectedChild();
@@ -76,7 +82,10 @@ public class ControllerTracker : MonoBehaviour
             Debug.Log($"There is something here {myDestructible.DestructibleType}");
         }
 
-        if (myDestructible != null && myDestructible.DestructibleType == OnBoardDestructible.DRAGON)
+        if (myDestructible != null &&
+            myDestructible.DestructibleType == OnBoardDestructible.DRAGON &&
+            myDestructible.Owner == PlayerInfoScene.Instance.playerId
+            )
         {
             Debug.Log("I am indeed a dragon");
             var movePositions = ((OnBoardDragon)myDestructible).GetMovingPositions();

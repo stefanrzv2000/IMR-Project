@@ -28,9 +28,11 @@ public class CardSpellEarthSteel : CardSpell
             {
                 int index = Random.Range(0, allyDragons.Count);
                 var selectedDragon = allyDragons[index];
-                selectedDragon.Attack += PermanentAttack;
-                selectedDragon.MaxHealth += PermanentHealth;
-                selectedDragon.Health += PermanentHealth;
+                selectedDragon.ReceiveBuff(PermanentHealth, PermanentAttack, 0, 0, star: true, textUpdate: $"+{PermanentAttack}");
+
+                //selectedDragon.Attack += PermanentAttack;
+                //selectedDragon.MaxHealth += PermanentHealth;
+                //selectedDragon.Health += PermanentHealth;
             }
         }
     }

@@ -38,6 +38,7 @@ public class Surrender : MonoBehaviour
     private void InteractableObjectUsed(object sender, InteractableObjectEventArgs e)
     {
         Debug.Log("SURRENDER");
+        GameReferee.Instance.CallRPCMethod("GameOver",3 - PlayerInfoScene.Instance.playerId,true);
     }
 
     private void InteractableObjectUntouched(object sender, InteractableObjectEventArgs e)

@@ -19,9 +19,10 @@ public class CardSpellEarthFortify : CardSpell
     {
         int y = targetPosition.y;
         int x = targetPosition.x;
-        OnBoardDestructible buffedDragon = Board.Destructables[y, x];
-        buffedDragon.MaxHealth += PermanentHealth;
-        buffedDragon.Health    += PermanentHealth;
+        OnBoardDragon buffedDragon = (OnBoardDragon)Board.Destructables[y, x];
+        buffedDragon.ReceiveBuff(PermanentHealth, 0, 0, 0, false, $"+{PermanentHealth}");
+        //buffedDragon.MaxHealth += PermanentHealth;
+        //buffedDragon.Health    += PermanentHealth;
     }
 
     public override List<Vector2Int> GetAvailableTargets()

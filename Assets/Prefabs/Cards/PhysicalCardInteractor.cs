@@ -42,6 +42,7 @@ public class PhysicalCardInteractor : MonoBehaviour
         GameTable.cardGrabbed = null;
         GameTable.ResetAll();
         grabbed = false;
+        if (!GameReferee.Instance.IsMyTurn()) return;
         var pos = GetBoardPosition();
         Debug.Log($"hover pos: {pos}");
         

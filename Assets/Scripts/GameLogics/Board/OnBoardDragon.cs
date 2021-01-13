@@ -273,4 +273,41 @@ public class OnBoardDragon : OnBoardDestructible
             PhysicInstance.transform.Find("AttackStatus").gameObject.GetComponent<DragonStatus>().UpdateStatus(Attack);
         }
     }
+
+    public int MinZero(int x)
+    {
+        return x < 0 ? 0 : x;
+    }
+
+    public void ReceiveBuff(int health, int attack, int range, int speed, bool star, string textUpdate)
+    {
+        bool negative = health + attack + range + speed < 0;
+        
+        MaxHealth += health;
+        Health += health;
+        Attack += attack;
+        Range += range;
+        Speed += speed;
+        SpeedRemained += speed;
+
+        Attack = MinZero(Attack);
+        Range = MinZero(Range);
+        Speed = MinZero(Speed);
+        SpeedRemained = MinZero(SpeedRemained);
+
+        StatusUpdateType status = StatusUpdateType.HEALTH;
+        if (star)
+        {
+            status = StatusUpdateType.STAR;
+        }
+        else if(attack != 0)
+        {
+            status = StatusUpdateType.ATTACK;
+        }
+
+        Color color = negative ? Color.red : Color.green;
+
+        PhysicInstance.transform.Find("ActionStats").gameObject.GetComponent<ActionStats>().ShowUpdate(status, textUpdate, color);
+        UpdateStatus();
+    }
 }
