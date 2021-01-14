@@ -7,16 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public PhotonView refereeView = null;
     public Transform SelfTransform;
+    public bool OnMenuScene = false;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
 
         GameObject neck = GameObject.Find("Neck");
         GameObject player = GameObject.Find("Player");
 
         PlayerInfoScene infos = PlayerInfoScene.Instance;
-        if(infos.playerId == 2)
+        if(infos.playerId == 2 && !OnMenuScene)
         {
             Transform playerTransform = GameObject.Find("PlayerObject").transform;
             playerTransform.position = new Vector3(0, 0, 1.4f);
@@ -46,6 +47,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameReferee.Instance.CallRPCMethod("UpdateOtherPlayerQueen",SelfTransform.rotation.eulerAngles.y,PlayerInfoScene.Instance.playerId);
+        GameReferee.Instance?.CallRPCMethod("UpdateOtherPlayerQueen",SelfTransform.rotation.eulerAngles.y,PlayerInfoScene.Instance.playerId);
     }
 }
