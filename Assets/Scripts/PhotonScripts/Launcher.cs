@@ -47,9 +47,17 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Connecting to master");
-        PhotonNetwork.ConnectUsingSettings();
-        PhotonNetwork.AutomaticallySyncScene = true;
+        if (!PhotonNetwork.IsConnected)
+        {
+            Debug.Log("Connecting to master");
+            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }
+        else
+        {
+            MenuManager.Instance.OpenMenu("StartMenu");
+        }
+        
     }
 
     public override void OnConnectedToMaster()

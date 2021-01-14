@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameReferee : MonoBehaviourPunCallbacks
 {
@@ -310,9 +311,18 @@ public class GameReferee : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(5);
         //TODO: leave room in PhotonView!!
-        if(PlayerInfoScene.Instance.PhotonPresent > 0)PhotonNetwork.LoadLevel(0);
+        if (PlayerInfoScene.Instance.PhotonPresent > 0) 
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+        
         Debug.Log("END GAMEEEE");
         yield return null;
+    }
+
+    public override void OnLeftRoom() 
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void UpdateTurnText(int index)
