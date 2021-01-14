@@ -20,7 +20,7 @@ public class CardSpellWaterMermaidKiss : CardSpell
     {
         for (int i = 0; i < NR_CASTS; i++)
         {
-            var enemyDragons = Board.GetAllDragonsOfOwner(Owner);
+            var enemyDragons = Board.GetAllDragonsOfOwner(3 - Owner);
             if (enemyDragons.Count > 0)
             {
                 int index = Random.Range(0, enemyDragons.Count);

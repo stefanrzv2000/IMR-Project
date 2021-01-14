@@ -24,44 +24,44 @@ public class CardDragon : Card
         {
             case TANK:
                 MaxHealth = 4;
-                Speed = 2;
-                Attack = 2;
+                Speed = 1;
+                Attack = 1;
                 Range = 1;
                 Name = "Tank";
-
-                GoldCost = 1;
-                FoodCost = 1;
-                ManaCost = 0;
-                break;
-
-            case MELEE:
-                MaxHealth = 4;
-                Speed = 2;
-                Attack = 2;
-                Range = 10;
-                Name = "Melee";
-
-                GoldCost = 2;
-                FoodCost = 1;
-                ManaCost = 0;
-                break;
-
-            case RANGER:
-                MaxHealth = 4;
-                Speed = 2;
-                Attack = 2;
-                Range = 10;
-                Name = "Ranger";
 
                 GoldCost = 3;
                 FoodCost = 1;
                 ManaCost = 0;
                 break;
 
-            case QUEEN:
-                MaxHealth = 4;
+            case MELEE:
+                MaxHealth = 3;
+                Speed = 1;
+                Attack = 2;
+                Range = 1;
+                Name = "Melee";
+
+                GoldCost = 4;
+                FoodCost = 1;
+                ManaCost = 0;
+                break;
+
+            case RANGER:
+                MaxHealth = 2;
                 Speed = 2;
                 Attack = 2;
+                Range = 3;
+                Name = "Ranger";
+
+                GoldCost = 4;
+                FoodCost = 1;
+                ManaCost = 0;
+                break;
+
+            case QUEEN:
+                MaxHealth = 3;
+                Speed = 2;
+                Attack = 1;
                 Range = 1;
                 Name = "Queen";
 
@@ -71,13 +71,13 @@ public class CardDragon : Card
                 break;
 
             case PAWN:
-                MaxHealth = 4;
-                Speed = 2;
-                Attack = 2;
-                Range = 10;
+                MaxHealth = 2;
+                Speed = 1;
+                Attack = 1;
+                Range = 1;
                 Name = "Pawn";
 
-                GoldCost = 4;
+                GoldCost = 1;
                 FoodCost = 1;
                 ManaCost = 0;
                 break;
@@ -94,7 +94,6 @@ public class CardDragon : Card
                 ManaCost = 0;
                 break;
         }
-        
     }
 
     public override void GoPlay(Vector2Int targetPosition)

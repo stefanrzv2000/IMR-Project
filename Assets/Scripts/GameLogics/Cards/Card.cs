@@ -30,11 +30,11 @@ public abstract class Card
     public const int EARTH = 2;
     public const int AIR = 3;
 
-    public const int PAWN = 0;
-    public const int TANK = 1;
-    public const int MELEE = 2;
-    public const int RANGER = 3;
-    public const int QUEEN = 4;
+    public const int PAWN = 0;      // tier 0
+    public const int TANK = 1;      // tier 0
+    public const int MELEE = 2;     // tier 1
+    public const int RANGER = 3;    // tier 2
+    public const int QUEEN = 4;     // deprecated
 
     public GameObject PhysicInstance;
     public abstract void GoPlay(Vector2Int targetPosition);

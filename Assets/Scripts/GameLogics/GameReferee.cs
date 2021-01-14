@@ -26,8 +26,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
 
     private int turn = 0;
 
-    private const int NR_CARD_DRAGONS_START = 2;
-    private const int NR_CARD_SPELLS_START = 8;
+    private const int NR_CARD_DRAGONS_START = 3;
+    private const int NR_CARD_SPELLS_START = 2;
 
     public GameObject DragonCardPrefab;
     public GameObject SpellCardPrefab;
@@ -137,7 +137,10 @@ public class GameReferee : MonoBehaviourPunCallbacks
     {
         Debug.Log("END turn summoned by " + index);
         PassTurnToPlayer(1 - index);
-        
+        if(index == 0 && (turn == 3 || turn == 5))
+        {
+            UpgradeBuildings();
+        }
     }
 
     [PunRPC]
@@ -179,13 +182,13 @@ public class GameReferee : MonoBehaviourPunCallbacks
 
         physicalCardGenerator = new CardsGenerator(DragonCardPrefab, SpellCardPrefab);
 
-        GoldBonus = 5;
+        GoldBonus = 2;
         MaxManaBonus = 1;
         MaxFoodBonus = 1;
 
         Players = new GamePlayer[2];
-        Players[0] = new GamePlayer(1, WATER, Board, true, physicalCardGenerator);
-        Players[1] = new GamePlayer(2, WATER, Board, false, physicalCardGenerator);
+        Players[0] = new GamePlayer(1, AIR, Board, true, physicalCardGenerator);
+        Players[1] = new GamePlayer(2, AIR, Board, false, physicalCardGenerator);
         //Players[PlayerInfoScene.Instance.playerId - 1].Race = PlayerInfoScene.Instance.chosenElement;
         //Debug.Log("Direct mesajul");
         if(PlayerInfoScene.Instance.PhotonPresent == 0)
@@ -232,10 +235,21 @@ public class GameReferee : MonoBehaviourPunCallbacks
         UpdateAllStats();
     }
 
+    void UpgradeBuildings()
+    {
+        for(int index = 0; index < 2; index++)
+        {
+            var barrack = (OnBoardBarrack)Board.Buildings[3 * index + 1];
+            barrack.Upgrade();
+            var mageTower = (OnBoardMageTower)Board.Buildings[3 * index + 2];
+        }
+    }
+
     void GiveCardDragon(int index)
     {
         var barrack = (OnBoardBarrack)Board.Buildings[3 * index + 1];
         Card card = barrack.ResetTurn(Players[index].Race);
+        if (card == null) return;
         card.Board = Board;
         Players[index].ReceiveCard(card);
     }
@@ -244,13 +258,19 @@ public class GameReferee : MonoBehaviourPunCallbacks
     {
         var mageTower = (OnBoardMageTower)Board.Buildings[3 * index + 2];
         Card card = mageTower.ResetTurn(Players[index].Race);
+        if (card == null) return;
         card.Board = Board;
         Players[index].ReceiveCard(card);
     }
 
     void PassTurnToPlayer(int index)
     {
-        if (index == 0) turn += 1;
+        if (index == 0)
+        {
+            turn += 1;
+            if(turn % 3 == 0) { GoldBonus += 1; }
+        }
+
         Players[1-index].EndedTurn = false;
         Players[1-index].HisTurn = false;
         
@@ -259,6 +279,13 @@ public class GameReferee : MonoBehaviourPunCallbacks
 
         GiveCardDragon(index);
         GiveCardSpell(index);
+
+        if(turn >= 5)
+        {
+            GiveCardDragon(index);
+            GiveCardSpell(index);
+        }
+
         Board.ResetTurn(Players[index].ID);
         UpdateResources();
 

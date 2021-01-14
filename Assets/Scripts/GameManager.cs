@@ -6,11 +6,11 @@ using Photon.Pun;
 public class GameManager : MonoBehaviour
 {
     public PhotonView refereeView = null;
-    public Transform SelfTransform;
+    public Transform SelfTransform = null;
     public bool OnMenuScene = false;
-
+    
     // Start is called before the first frame update
-    void OnEnable()
+    void Start()
     {
 
         GameObject neck = GameObject.Find("Neck");
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("ANDROID!!");
         player.SetActive(true);
         neck.SetActive(false);
-        SelfTransform = player.transform.GetChild(0).transform;
+        SelfTransform = player.transform.GetChild(0);
 #endif
         
     }
@@ -47,6 +47,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameReferee.Instance?.CallRPCMethod("UpdateOtherPlayerQueen",SelfTransform.rotation.eulerAngles.y,PlayerInfoScene.Instance.playerId);
+        GameReferee.Instance?.CallRPCMethod("UpdateOtherPlayerQueen",SelfTransform.localRotation.eulerAngles.y,PlayerInfoScene.Instance.playerId);
     }
 }

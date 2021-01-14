@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CardSpellAirLightningChain : CardSpell
@@ -10,7 +8,7 @@ public class CardSpellAirLightningChain : CardSpell
     public CardSpellAirLightningChain(int owner)
     {
         Name = "Air Lightning Chain";
-        Description = $"Deals {DamageDealt} to {NR_ATTACKED_DRAGONS} dragons" +
+        Description = $"Deals {DamageDealt} Damage to {NR_ATTACKED_DRAGONS} dragons" +
                       $"The first target is selectable, the next targets are the " +
                       $"nearest ones from the previous one";
         Race = AIR;
@@ -34,6 +32,11 @@ public class CardSpellAirLightningChain : CardSpell
 
             var distance = dragon.DistanceTo(current);
             if (minDistance > distance)
+            {
+                minDistance = distance;
+                minDistanceIndex = i;
+            }
+            else if(minDistance == distance && Random.Range(0.0f, 1.0f) < 0.5f)
             {
                 minDistance = distance;
                 minDistanceIndex = i;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class GamePlayer
     public int Mana;
     public int MaxFood;
     public int MaxMana;
+    private int MAX_MAX_MANA = 10;
 
     public GamePlayer(int id, int race, Board board, bool hisTurn, CardsGenerator cardGen)
     {
@@ -28,11 +30,11 @@ public class GamePlayer
         HisTurn = hisTurn;
         CardHolder = new CardHolder(id, cardGen);
 
-        Gold = 10;
+        Gold = 1;
         Food = 2;
-        Mana = 100;
+        Mana = 1;
         MaxFood = 1;
-        MaxMana = 100;
+        MaxMana = 1;
         EndedTurn = false;
     }
 
@@ -53,6 +55,7 @@ public class GamePlayer
         Gold += goldBonus;
 
         MaxMana += maxManaBonus;
+        MaxMana = Math.Min(MaxMana,MAX_MAX_MANA);
         Mana = MaxMana;
 
         MaxFood += maxFoodBonus;

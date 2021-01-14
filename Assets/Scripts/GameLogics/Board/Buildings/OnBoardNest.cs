@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class OnBoardNest : OnBoardBuilding
 {
-    private const int MAX_HP = 100;
+    private const int MAX_HP = 50;
     public OnBoardNest(int owner, Board board)
     {
         Tier = -1;

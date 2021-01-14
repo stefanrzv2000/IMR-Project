@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class OnBoardMageTower : OnBoardBuilding
 {
-    public int []MaxSpellsIndex;
+    public int[] MaxSpellsIndex;
     public const int MAX_UPGRADES = 2;
 
-    public const int MAX_HP = 50;
+    public const int MAX_HP = 25;
 
     public OnBoardMageTower(int owner, Board board)
     {
@@ -44,13 +44,17 @@ public class OnBoardMageTower : OnBoardBuilding
 
     public void Upgrade()
     {
-        if (Tier < MAX_UPGRADES)
+        if (Tier < MAX_UPGRADES && Alive)
+        {
             Tier += 1;
+            UpdateStatus();
+        }
     }
 
     public CardSpell ResetTurn(int race)
     {
-        int index = Random.Range(0, MaxSpellsIndex[2]); // to be modified from 2 back to Tier
+        if (!Alive) return null;
+        int index = Random.Range(0, MaxSpellsIndex[Tier]);
         return CardSpellCreator.GenerateCardSpell(index, Owner, race);
     }
 }

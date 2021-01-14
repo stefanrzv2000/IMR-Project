@@ -11817,6 +11817,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refereeView: {fileID: 0}
+  SelfTransform: {fileID: 0}
+  OnMenuScene: 1
 --- !u!4 &1659902046
 Transform:
   m_ObjectHideFlags: 0

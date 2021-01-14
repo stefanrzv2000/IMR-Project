@@ -47,17 +47,13 @@ public class OnBoardDragon : OnBoardDestructible
         Race      = cardDragon.Race;
         Owner     = cardDragon.Owner;
 
-        //TODO: to be reset to 0
-        SpeedRemained = Speed;
-        //TODO: to be reset to false
-        CanAttack = true;
+        SpeedRemained = 0;
+        CanAttack = false;
         CanRetaliate = true;
         Alive = true;
 
         Board.Destructables[BoardY, BoardX] = this;
-
-        //PhysicalDragon = DragonGenerator.CreateDragon(BoardX * 8 + BoardY, Race, Type, Owner);
-
+        
     }
 
     public void ResetTurn()

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class OnBoardBarrack : OnBoardBuilding
 {
-    public const int MAX_UPGRADES = 1;
+    public const int MAX_UPGRADES = 2;
 
-    public const int MAX_HP = 50;
+    public const int MAX_HP = 25;
 
     public OnBoardBarrack(int owner, Board board)
     {
@@ -37,11 +37,15 @@ public class OnBoardBarrack : OnBoardBuilding
     }
     public void Upgrade()
     {
-        if (Tier < MAX_UPGRADES)
+        if (Tier < MAX_UPGRADES && Alive)
+        {
             Tier += 1;
+            UpdateStatus();
+        }
     }
     public CardDragon ResetTurn(int race)
     {
+        if (!Alive) return null;
         int type = Random.Range(0, 2+Tier);
         return new CardDragon(type, race, Owner);
     }

@@ -13,6 +13,7 @@ public class PlayerInfoScene : MonoBehaviour
 
     public void Awake()
     {
+        Debug.Log("PIS awaken");
         if (Instance)
         {
             Destroy(gameObject);
