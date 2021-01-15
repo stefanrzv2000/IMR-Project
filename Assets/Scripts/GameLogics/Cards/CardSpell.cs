@@ -51,6 +51,7 @@ public class CardSpell : Card
 
     public void PlaySpell(Vector2Int position)
     {
-        GameReferee.Instance.CallRPCMethod("PlaySpell", new int[] { position.x, position.y }, ID, Race, Owner);
+        int randomSeed = Time.frameCount;
+        GameReferee.Instance.CallRPCMethod("PlaySpell", new int[] { position.x, position.y }, ID, Race, Owner, randomSeed);
     }
 }

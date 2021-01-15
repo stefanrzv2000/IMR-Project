@@ -86,9 +86,9 @@ public class GameReferee : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void PlaySpell(int[] targetPosition, int spellID, int race, int owner)
+    public void PlaySpell(int[] targetPosition, int spellID, int race, int owner, int randomSeed)
     {
-        Random.InitState(12345);
+        Random.InitState(randomSeed);
         //Take the references before the code puts the pointer to null if they die
         var dragons = Board.GetAllDragons();
         
