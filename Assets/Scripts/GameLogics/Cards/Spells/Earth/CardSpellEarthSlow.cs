@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CardSpellEarthSlow : CardSpell
 {
-    private const int PermanentSlow = 2;
+    private const int PermanentSlow = 1;
     public CardSpellEarthSlow(int owner)
     {
         Name = "Earth Slow";
@@ -13,7 +11,7 @@ public class CardSpellEarthSlow : CardSpell
         Race = EARTH;
         ID = EARTH_SLOW;
         Owner = owner;
-        ManaCost = 3;
+        ManaCost = 2;
     }
 
     public override void GoPlay(Vector2Int targetPosition)
@@ -31,7 +29,7 @@ public class CardSpellEarthSlow : CardSpell
     {
         List<Vector2Int> result = new List<Vector2Int>();
 
-        var allyDragons = Board.GetAllDragonsOfOwner(Owner);
+        var allyDragons = Board.GetAllDragonsOfOwner(3 - Owner);
         foreach (var dragon in allyDragons)
         {
             result.Add(new Vector2Int(dragon.BoardX, dragon.BoardY));

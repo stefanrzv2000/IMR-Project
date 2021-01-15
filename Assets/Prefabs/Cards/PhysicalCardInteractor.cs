@@ -62,7 +62,8 @@ public class PhysicalCardInteractor : MonoBehaviour
                 ((CardSpell)virtualCard).PlaySpell(pos);
             }
             Debug.Log("Played the card2");
-            
+
+
             GameReferee.Instance.Players[virtualCard.Owner - 1].UseCard(virtualCard.Index, pos);
             GameReferee.Instance.UpdateResources();
             GameObject.Destroy(this.gameObject);

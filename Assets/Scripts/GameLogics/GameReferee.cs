@@ -33,6 +33,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
     public GameObject SpellCardPrefab;
     private CardsGenerator physicalCardGenerator;
 
+    private bool LastPlayedCardExists = false;
+
     public void Awake()
     {
         Instance = this;
@@ -73,6 +75,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
         if (!IsMe(owner))
         {
             physicalCardGenerator.UpdateLastCard(race, type);
+            LastPlayedCardExists = true;
         }
     }
 
@@ -365,8 +368,8 @@ public class GameReferee : MonoBehaviourPunCallbacks
         }
         else
         {
-            GameObject.Find("TurnInfoText").GetComponent<Text>().text = $"Turn {turn}: Your Opponent played";
-            GameObject.Find("LastPlayedCard").transform.GetChild(0).gameObject.SetActive(true);
+            GameObject.Find("TurnInfoText").GetComponent<Text>().text = $"Turn {turn}: Your Opponent played:";
+            if(LastPlayedCardExists) GameObject.Find("LastPlayedCard").transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
