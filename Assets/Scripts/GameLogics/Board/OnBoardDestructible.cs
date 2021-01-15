@@ -43,8 +43,20 @@ public class OnBoardDestructible
         if (Health > 0)
             return;
 
+        for(int i = 0; i < Board.Height; i++)
+        {
+            for(int j = 0; j < Board.Width; j++)
+            {
+                if(Board.Destructables[i,j] == this)
+                {
+                    Board.Destructables[i, j] = null;
+                }
+            }
+        }
+
         Board.Destructables[BoardY, BoardX] = null;
-        Alive = false;  
+        Alive = false;
+        GameReferee.Instance.CallDeath(this);
     }
 
     public Vector2 GetProjection2D()
@@ -54,18 +66,4 @@ public class OnBoardDestructible
 
     public virtual void UpdateStatus() { }
 
-    IEnumerator DieCoroutine()
-    {
-        //yield on a new YieldInstruction that waits for 3 seconds.
-        yield return new WaitForSeconds(3);
-        if (DestructibleType == DRAGON) GameObject.Destroy(PhysicInstance);
-        else PhysicInstance.SetActive(false);
-        //Destroy(this);
-
-        if (GameReferee.Instance.IsMyTurn() && typeof(OnBoardNest).IsInstanceOfType(this))
-        {
-            GameReferee.Instance.CallRPCMethod("GameOver", 3 - PlayerInfoScene.Instance.playerId, false);
-        }
-        yield return null;
-    }
 }

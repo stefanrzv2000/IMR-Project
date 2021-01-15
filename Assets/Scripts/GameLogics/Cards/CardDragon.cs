@@ -23,9 +23,9 @@ public class CardDragon : Card
         switch (type)
         {
             case TANK:
-                MaxHealth = 4;
+                MaxHealth = 10;
                 Speed = 1;
-                Attack = 1;
+                Attack = 2;
                 Range = 1;
                 Name = "Tank";
 
@@ -35,9 +35,9 @@ public class CardDragon : Card
                 break;
 
             case MELEE:
-                MaxHealth = 3;
-                Speed = 1;
-                Attack = 2;
+                MaxHealth = 6;
+                Speed = 3;
+                Attack = 3;
                 Range = 1;
                 Name = "Melee";
 
@@ -47,7 +47,7 @@ public class CardDragon : Card
                 break;
 
             case RANGER:
-                MaxHealth = 2;
+                MaxHealth = 4;
                 Speed = 2;
                 Attack = 2;
                 Range = 3;
@@ -71,8 +71,8 @@ public class CardDragon : Card
                 break;
 
             case PAWN:
-                MaxHealth = 2;
-                Speed = 1;
+                MaxHealth = 4;
+                Speed = 2;
                 Attack = 1;
                 Range = 1;
                 Name = "Pawn";

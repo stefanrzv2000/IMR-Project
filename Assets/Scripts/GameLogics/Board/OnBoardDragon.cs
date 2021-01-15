@@ -153,7 +153,7 @@ public class OnBoardDragon : OnBoardDestructible
             for (int x = 0; x < Board.Width; x++)
             {
                 if (Board.Destructables[y, x] != null &&
-                    this.DistanceTo(Board.Destructables[y, x]) <= Range &&
+                    this.DistanceTo(new Vector2Int(x, y)) <= Range &&
                     Board.Destructables[y, x].DestructibleType != OCCUPIED &&
                     Board.Destructables[y, x].Owner != Owner
                     )
@@ -256,7 +256,7 @@ public class OnBoardDragon : OnBoardDestructible
             else if (PhysicInstance != null)
             {
                 // It just died
-                GameObject.Destroy(PhysicInstance);
+                //GameObject.Destroy(PhysicInstance);
             }
         }
     }

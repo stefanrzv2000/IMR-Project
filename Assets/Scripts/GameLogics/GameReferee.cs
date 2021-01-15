@@ -60,6 +60,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
         {
             Debug.Log($"Elements {chosenElements[0]} {chosenElements[1]}");
             StartGame();
+            Debug.Log("StartGame called from SetPlayerInfo()");
         }
     }
      
@@ -87,6 +88,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
     [PunRPC]
     public void PlaySpell(int[] targetPosition, int spellID, int race, int owner)
     {
+        Random.InitState(12345);
         //Take the references before the code puts the pointer to null if they die
         var dragons = Board.GetAllDragons();
         
@@ -187,13 +189,14 @@ public class GameReferee : MonoBehaviourPunCallbacks
         MaxFoodBonus = 1;
 
         Players = new GamePlayer[2];
-        Players[0] = new GamePlayer(1, AIR, Board, true, physicalCardGenerator);
-        Players[1] = new GamePlayer(2, AIR, Board, false, physicalCardGenerator);
+        Players[0] = new GamePlayer(1, WATER, Board, true, physicalCardGenerator);
+        Players[1] = new GamePlayer(2, WATER, Board, false, physicalCardGenerator);
         //Players[PlayerInfoScene.Instance.playerId - 1].Race = PlayerInfoScene.Instance.chosenElement;
         //Debug.Log("Direct mesajul");
         if(PlayerInfoScene.Instance.PhotonPresent == 0)
         {
             StartGame();
+            Debug.Log("StartGame called from Start()");
         }
     }
 
@@ -242,6 +245,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
             var barrack = (OnBoardBarrack)Board.Buildings[3 * index + 1];
             barrack.Upgrade();
             var mageTower = (OnBoardMageTower)Board.Buildings[3 * index + 2];
+            mageTower.Upgrade();
         }
     }
 
@@ -364,5 +368,25 @@ public class GameReferee : MonoBehaviourPunCallbacks
             GameObject.Find("TurnInfoText").GetComponent<Text>().text = $"Turn {turn}: Your Opponent played";
             GameObject.Find("LastPlayedCard").transform.GetChild(0).gameObject.SetActive(true);
         }
+    }
+
+    public void CallDeath(OnBoardDestructible toDie)
+    {
+        StartCoroutine(DieCoroutine(toDie));
+    }
+
+    IEnumerator DieCoroutine(OnBoardDestructible toDie)
+    {
+        //yield on a new YieldInstruction that waits for 3 seconds.
+        yield return new WaitForSeconds(3);
+        if (toDie.DestructibleType == OnBoardDestructible.DRAGON) GameObject.Destroy(toDie.PhysicInstance);
+        else toDie.PhysicInstance.SetActive(false);
+        //Destroy(this);
+
+        if (IsMyTurn() && typeof(OnBoardNest).IsInstanceOfType(toDie))
+        {
+            CallRPCMethod("GameOver", 3 - toDie.Owner, false);
+        }
+        yield return null;
     }
 }
