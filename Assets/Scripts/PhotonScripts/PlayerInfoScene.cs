@@ -8,6 +8,7 @@ public class PlayerInfoScene : MonoBehaviour
 
     public int chosenElement = 0;
     public int playerId = 1;
+    public bool PlayMusic = true;
 
     public int PhotonPresent = 0;
 

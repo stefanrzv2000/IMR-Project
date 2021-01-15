@@ -9,6 +9,7 @@ public class GameReferee : MonoBehaviourPunCallbacks
 {
     public static GameReferee Instance;
     public PhotonView PV;
+    public bool PlayMusic = true;
 
     public Board Board;
 
@@ -239,6 +240,11 @@ public class GameReferee : MonoBehaviourPunCallbacks
         UpdateTurnText(0);
         UpdateResources();
         UpdateAllStats();
+
+        if(PlayMusic && PlayerInfoScene.Instance.PlayMusic)
+        {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     void UpgradeBuildings()
